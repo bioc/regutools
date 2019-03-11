@@ -2,10 +2,10 @@
 #' @description Lists all attributes and their descriptions of a dataset from RegulonDB. The result of this function may
 #' be used as parameter values in \code{GetAttr} function.
 #' @author
-#' Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+#' Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez
 #' @keywords data retrieval, attributes,
-#' @param
-#' dataset Dataset of interest.
+#' @param dataset Dataset of interest
+#' @param coments If TRUE displays description of each attribute
 #' @return A data frame with two columns:
 #' \itemize{
 #' \item \code{attribute}. Name of the attribute
@@ -27,9 +27,9 @@ ListAttributes <- function(dataset, comments=FALSE){
 
   # Query REGULONDB_OBJECTS table
   if (comments){
-  query <- paste0("SELECT column_name, comments FROM REGULONDB_OBJECTS WHERE table_name = '", dataset, "';")
+  query <- paste0("SELECT attribute, description FROM REGULONDB_OBJECTS WHERE table_name = '", dataset, "'")
   }else{
-    query <- paste0("SELECT column_name FROM REGULONDB_OBJECTS WHERE table_name = '", dataset, "';")
+    query <- paste0("SELECT attribute FROM REGULONDB_OBJECTS WHERE table_name = '", dataset, "'")
   }
   # Connect to database
   regulon <- dbConnect(SQLite(),
@@ -38,9 +38,6 @@ ListAttributes <- function(dataset, comments=FALSE){
   # Retrieve data
   result <- dbGetQuery(regulon, query)
   dbDisconnect(regulon)
-
-  # Temporary solution for attributes
-  result$column_name <- tolower(result$column_name)
 
   return(result)
 }
