@@ -7,7 +7,9 @@
 ListAttributes(dataset, comments = FALSE)
 }
 \arguments{
-\item{dataset}{Dataset of interest.}
+\item{dataset}{Dataset of interest}
+
+\item{coments}{(default: FALSE) If TRUE: displays description of each attribute}
 }
 \value{
 A data frame with two columns:
@@ -25,7 +27,7 @@ ListAttributes("TF")
 ListAttributes("OPERON")
 }
 \author{
-Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez
 }
 \keyword{attributes,}
 \keyword{data}

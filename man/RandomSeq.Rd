@@ -5,8 +5,8 @@
 \title{Generate random sequences}
 \usage{
 RandomSeq(n, len, format = NULL, type = NULL, seed = NULL,
-  alphabet = NULL, expfreq = NULL, bg.model = NULL, organism = NULL,
-  oligo.length = NULL, length.file = NULL)
+  alphabet = NULL, expfreq = NULL, bg.model = NULL,
+  organism = NULL, oligo.length = NULL, length.file = NULL)
 }
 \arguments{
 \item{n}{Number of sequences to generate}

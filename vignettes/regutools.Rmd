@@ -1,10 +1,10 @@
 ---
-title: "Regutools: an R package for data extraction from RegulonDB"
-author: "Jose Alquicira Hernandez, Carmina Barberena Jonas, Jesus Emiliano Sotelo Fonseca "
+title: "regutools: an R package for data extraction from RegulonDB"
+author: "Jose Alquicira Hernandez, Joselyn Chavez, Carmina Barberena Jonas, Jesus Emiliano Sotelo Fonseca "
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{regutools: an R package for data extraction from RegulonDB}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -113,8 +113,8 @@ head(GetNetwork())
 head(GetNetwork(type = "TF-TF"))
 ```
 
-## Preguntas
-¿El gen "celA" existe?
+## Formulating biologial questions
+¿Does the gene "celA" exists?
 ```{r echo = TRUE, error = TRUE}
 head(GetAttr(attributes=c("name"),
              filters=list("name"="celA"),

@@ -1,10 +1,10 @@
 Package: regutools
-Title: Extracts and processes data from RegulonDB
-Version: 0.0.0.9000
+Title: regutools: an R package for data extraction from RegulonDB
+Version: 1.0.0.0
 Authors@R: c(person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut", "cre")), 
               person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = "aut"))
 Description: Extracts and processes data from RegulonDB
-Depends: R (>= 3.0.0), RSQLite, httr, XML, DBI
+Depends: R (>= 3.5.0), RSQLite, httr, XML, DBI
 License: GNU GENERAL PUBLIC LICENSE
 Encoding: UTF-8
 Imports:
@@ -15,5 +15,8 @@ Imports:
     XML,
     DBI
 LazyData: true
-RoxygenNote: 6.0.1.9000
-Suggests: testthat
+RoxygenNote: 6.1.1
+Suggests: testthat, knitr, rmarkdown
+Maintainer: Jose Alquicira and Joselyn Chavez <joselynchavezf@gmail.com>
+BugReports: https://github.com/ComunidadBioInfo/regutools.git/issues
+

@@ -5,9 +5,9 @@
 \title{Retrieve sequences from RSAT}
 \usage{
 RetrieveSeq(organism, genes = NULL, all = FALSE, noorf = FALSE,
-  from = NULL, to = NULL, feattype = NULL, type = NULL, format = NULL,
-  lw = NULL, label = NULL, label.sep = NULL, nocom = FALSE,
-  repeat.mask = FALSE, imp.pos = FALSE)
+  from = NULL, to = NULL, feattype = NULL, type = NULL,
+  format = NULL, lw = NULL, label = NULL, label.sep = NULL,
+  nocom = FALSE, repeat.mask = FALSE, imp.pos = FALSE)
 }
 \arguments{
 \item{organism}{Organism. Words need to be underscore separated (example: Escherichia_coli_K12).}

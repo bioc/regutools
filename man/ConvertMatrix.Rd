@@ -4,10 +4,11 @@
 \alias{ConvertMatrix}
 \title{Convert matrices}
 \usage{
-ConvertMatrix(matrix, from = NULL, to = NULL, background.format = NULL,
-  background.pseudo = NULL, return = NULL, sort = NULL, top = NULL,
-  pseudo = NULL, equi.pseudo = NULL, base = NULL, decimals = NULL,
-  perm = NULL, max.profile = NULL, rc = FALSE)
+ConvertMatrix(matrix, from = NULL, to = NULL,
+  background.format = NULL, background.pseudo = NULL, return = NULL,
+  sort = NULL, top = NULL, pseudo = NULL, equi.pseudo = NULL,
+  base = NULL, decimals = NULL, perm = NULL, max.profile = NULL,
+  rc = FALSE)
 }
 \arguments{
 \item{matrix}{Matrix (or assembly or features) you want to convert.}
