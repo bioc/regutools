@@ -1,7 +1,8 @@
 Package: regutools
 Title: Extracts and processes data from RegulonDB
 Version: 0.0.0.9000
-Authors@R: person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut", "cre"))
+Authors@R: c(person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut", "cre")), 
+              person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = "aut"))
 Description: Extracts and processes data from RegulonDB
 Depends: R (>= 3.0.0), RSQLite, httr, XML, DBI
 License: GNU GENERAL PUBLIC LICENSE
