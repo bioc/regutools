@@ -1,18 +1,13 @@
-#' GetNetwork
-#'
-#' Return complete regulatory network.
-#' @param type TF-GENE, TF-TF, GENE-GENE
-#' @keywords regulation retrieval, tf, networks,
-#' @export
-#' @author
-#' Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+#' @title Return complete regulatory network.
+#' @description This function retrieves all the regulation networks in regulonDB between TF-TF, GENE-GENE or TF-GENE depending on the parameter 'type'
+#' @param type "TF-GENE", "TF-TF", "GENE-GENE"
+#' @keywords regulation retrieval, TF, networks,
+#' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández.
 #' @examples
-#' # Retrieve regulation of araC
+#' # Retrieve regulation of 'araC'
 #'
 #' GetNetwork(type="TF-GENE")
-#'
-#'
-#'
+#' @export
 
 GetNetwork<-function(type="TF-GENE"){
   #Check type parameter
