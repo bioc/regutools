@@ -1,79 +1,75 @@
 #' @title Extract data from RegulonDB
-#' @description This function retrieves data from RegulonDB. Data can be filtered using the filter parameter.
-#' @param attributes A list or vector of attributes to be retrieved
-#' @param filters A list of filters to be used. The name of the elements should correspond to the attribute used as
-#' filter and the elements as the values. See details in the section of examples
-#' @param dataset Dataset of interest. See ListDataset function to choose a dataset and ListAttributes() to see all
-#' attributes and their descriptions available in each dataset
-#' @param operator Logical operator for the filters: AND / OR.  Defaults to AND. See details in the section of examples
+#' @description This function retrieves data from RegulonDB. Attributes from datasets can be selected and filtered.
+#' @param dataset Dataset of interest.
+#' @param attributes Vector of attributes to be retrieved
+#' @param filters List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.
+#' @param and Logical argument. If FALSE, filters will be considered under the "OR" operator
+#' @param partialmatch name of the condition(s) with a string pattern for full or partial match in the query
+#' @param interval the filters whose values will be considered as interval
 #' @keywords data retrieval, attributes, filters,
-#' @author
-#' Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+#' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 #' @examples
-#' # From "GENE" data set get all the information
-#' Genedf<-(GetAttr(dataset="GENE"))
-#' dim(Genedf)
-#' head(Genedf))
-#' # From  "GENE" data set get the posright and name
-#' head(GetAttr(attributes=c("posright","name"),
-#' dataset="GENE")
-#' # From "GENE" dataset, get the gene name, strand, posright, product name and id of all genes regulated
-#'   with name  like "ara", strand as "forward" and with a position rigth bewten 2000 and 4000
+#' # Obtain all the information from the "GENE" dataset
+#' GetAttr(dataset="GENE")
 #'
-#' GetAttr(attributes = c("name", "strand", "posright", "product_name", "id"),
-#' dataset = "GENE",
-#' filters = list(name=c("ara"),
-#'               strand=c("forward"),
-#'               posright=c("2000","4000000")
-#' ),
-#' and=TRUE,
-#' partialmatch = "name",
-#' interv="posright")
-
+#' # Get the attributes posright and name from the "GENE" dataset
+#' GetAttr(dataset="GENE", attributes=c("posright","name") )
+#'
+#' # From "GENE" dataset, get the gene name, strand, posright, product name and id of all genes regulated
+#'   with name like "ara", strand as "forward" with a position rigth between 2000 and 40000
+#'
+#' GetAttr(dataset = "GENE",
+#'         attributes = c("name", "strand", "posright", "product_name", "id"),
+#'         filters = list(name=c("ara"),
+#'                        strand=c("forward"),
+#'                        posright=c("2000","40000")),
+#'         and=TRUE,
+#'         partialmatch = "name",
+#'         interval= "posright")
 #' @export
 
-GetAttr <- function(attributes = NULL, filters = NULL, dataset = NULL, and = TRUE, interv=NULL, partialmatch=NULL){
-#synonimos Partial mach (que lo busque automatoicamente)
-  # Validate if attributes is a list or vector
-  if(!is.null(attributes) & (!is.vector(attributes))){
-    if(is.list(attributes) & is.data.frame(attributes))
-      stop('Parameter "attributes" should be a list or vector', call.= FALSE)
-  }
+GetAttr <- function(dataset = NULL, attributes = NULL, filters = NULL, and = TRUE, interval=NULL, partialmatch=NULL){
 
-  # Validate if filters is a list
-  if(!is.null(filters) & !is.list(filters)){
-    stop('Parameter "filters" should be a list', call.= FALSE)
+  # Validate if attributes is a vector
+  if(!is.null(attributes) & (!is.vector(attributes))){
+      stop("Parameter 'attributes' must be a vector", call.= FALSE)
   }
 
   # Validate dataset
+  if(is.null(dataset)) {stop("Non dataset provided", call.= FALSE)}
   if(!all(dataset %in% ListDatasets())){
-    stop("Non-existing dataset used. Please check ListDatasets() function.", call.= FALSE)
+    stop("Invalid dataset. See valid datasets in ListDatasets()", call.= FALSE)
   }
 
   # Validate attributes
-  if(!all(attributes %in% ListAttributes(dataset)[["column_name"]])){
-    non.existing.attrs.index <- attributes %in% ListAttributes(dataset)[["column_name"]]
+  if(!all(attributes %in% ListAttributes(dataset)[["attribute"]])){
+    non.existing.attrs.index <- attributes %in% ListAttributes(dataset)[["attribute"]]
     non.existing.attrs <- attributes[!non.existing.attrs.index]
-    stop("Provided attribute(s) ", paste0('"',paste(non.existing.attrs, collapse = ", "), '"'),
-         " do not exist. Please check ListAttributes() function.", call.= FALSE)
+    stop("Attribute(s) ", paste0('"',paste(non.existing.attrs, collapse = ", "), '"'),
+         " do not exist. See valid attributes in ListAttributes()", call.= FALSE)
+  }
+
+  # Validate partialmatch
+  if(!all(partialmatch %in% ListAttributes(dataset)[["attribute"]])) {
+    non.existing.attrs.index <- partialmatch %in% ListAttributes(dataset)[["attribute"]]
+    non.existing.attrs <- partialmatch[!non.existing.attrs.index]
+    stop("Partialmatch ", paste0('"',paste(non.existing.attrs, collapse = ", "), '"'),
+         " do not exist.", call.= FALSE)
   }
 
   # Sets logical operator
-  if(and){
-    operator <- "AND"
-  }else{
-    operator <- "OR"
-  }
+  if(and){ operator <- "AND"
+  }else{operator <- "OR"}
 
   if(is.null(filters) & is.null(attributes)){
     query <- paste0("SELECT * FROM ", dataset, ";")
   }else if (is.null(attributes) & !is.null(filters) ) {
-    cond <- BuildCondition(filters, dataset, operator, interv, partialmatch)
+    cond <- BuildCondition(dataset, filters, operator, interval, partialmatch)
     query <- paste0("SELECT * FROM ", dataset, " WHERE ", cond, ";")
   }else if (!is.null(attributes) & is.null(filters)){
     query <- paste0("SELECT ", paste(attributes, collapse=" , ")," FROM ", dataset, ";")
   } else {
-    cond <- BuildCondition(filters, dataset, operator, interv, partialmatch)
+    cond <- BuildCondition(dataset, filters, operator, interval, partialmatch)
     query <- paste("SELECT ", paste(attributes, collapse = " , "), "FROM ", dataset, " WHERE ", cond , ";") #Construct query
   }
   # Connect to database
@@ -85,7 +81,7 @@ GetAttr <- function(attributes = NULL, filters = NULL, dataset = NULL, and = TRU
 
   #Check if results exist
   if(!nrow(result)){
-    stop("Your query produced no results. Try changing values, filters or attributes.", call.= FALSE)
-  }
+    stop("Your query returned no results.", call.= FALSE)
+    }
   return(result)
 }
