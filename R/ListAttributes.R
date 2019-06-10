@@ -1,11 +1,10 @@
-#' @title List attributes from dataset
-#' @description Lists all attributes and their descriptions of a dataset from RegulonDB. The result of this function may
-#' be used as parameter values in \code{GetAttr} function.
-#' @author
-#' Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez
+#' @title List attributes from a dataset
+#' @description List all attributes and their description of a dataset from RegulonDB. The result of this function may
+#' be used as parameter 'values' in \code{\link{GetAttr}} function.
+#' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez
 #' @keywords data retrieval, attributes,
 #' @param dataset Dataset of interest
-#' @param coments If TRUE displays description of each attribute
+#' @param coments Default FALSE. If TRUE, displays the description of each attribute
 #' @return A data frame with two columns:
 #' \itemize{
 #' \item \code{attribute}. Name of the attribute
@@ -13,15 +12,15 @@
 #' }
 #' @examples
 #' ListAttributes("TF")
-#' ListAttributes("OPERON")
+#' ListAttributes("OPERON", comments = TRUE)
 #' @export
 
 ListAttributes <- function(dataset, comments=FALSE){
 
   # Validate mart
   if(!all(dataset %in% ListDatasets())){
-    cat("Dataset is invalid. These are all available datasets:\n")
-    cat(paste(ListDatasets(), collapse = "\n"))
+    cat("Invalid Dataset. Available datasets:\n")
+    cat(paste0(ListDatasets(), "\n"))
     stop("Please check ListDatasets() function.")
   }
 
