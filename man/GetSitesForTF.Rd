@@ -2,15 +2,16 @@
 % Please edit documentation in R/GetSitesForTF.R
 \name{GetSitesForTF}
 \alias{GetSitesForTF}
-\title{Get binding sites for a Transcription Factor (TF)}
+\title{Get the binding sites for a Transcription Factor (TF)}
 \usage{
-GetSitesForTF(tf)
+GetSitesForTF(TF, evidence = NULL)
 }
 \arguments{
-\item{tf}{name of the transcription factor of interest}
+\item{TF}{name of the transcription factor of interest}
 }
 \value{
-a dataframe with the following columns:
+A dataframe with the following columns corresponding to the TFBSs associated with the TF.
+If the transcription factor does not exist, returns NA.
 \itemize{
 \item ID (identifier)
 \item left position
@@ -18,16 +19,15 @@ a dataframe with the following columns:
 \item strand
 \item sequence
 }
-corresponding to the TFBSs associated with the TF.
-If the transcription factor does not exist, returns a NA.
 }
 \description{
 Retrieve the binding sites and genome location for a given transcription factor.
 }
 \examples{
-## Extract the binding sites for AraC
-tfbs <- GetSitesForTF(tf = "AraC")
+## Get the binding sites for AraC
+
+tfbs <- GetSitesForTF(TF = "AraC")
 }
 \author{
-José Alquicira Hernández & Jacques van Helden
+José Alquicira Hernández, Jacques van Helden, Joselyn Chávez
 }

@@ -4,46 +4,46 @@
 \alias{GetAttr}
 \title{Extract data from RegulonDB}
 \usage{
-GetAttr(attributes = NULL, filters = NULL, dataset = NULL,
-  and = TRUE, interv = NULL, partialmatch = NULL)
+GetAttr(dataset = NULL, attributes = NULL, filters = NULL,
+  and = TRUE, interval = NULL, partialmatch = NULL)
 }
 \arguments{
-\item{attributes}{A list or vector of attributes to be retrieved}
+\item{dataset}{Dataset of interest.}
 
-\item{filters}{A list of filters to be used. The name of the elements should correspond to the attribute used as
-filter and the elements as the values. See details in the section of examples}
+\item{attributes}{Vector of attributes to be retrieved}
 
-\item{dataset}{Dataset of interest. See ListDataset function to choose a dataset and ListAttributes() to see all
-attributes and their descriptions available in each dataset}
+\item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
 
-\item{operator}{Logical operator for the filters: AND / OR.  Defaults to AND. See details in the section of examples}
+\item{and}{Logical argument. If FALSE, filters will be considered under the "OR" operator}
+
+\item{interval}{the filters whose values will be considered as interval}
+
+\item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
 }
 \description{
-This function retrieves data from RegulonDB. Data can be filtered using the filter parameter.
+This function retrieves data from RegulonDB. Attributes from datasets can be selected and filtered.
 }
 \examples{
-# From "GENE" data set get all the information
-Genedf<-(GetAttr(dataset="GENE"))
-dim(Genedf)
-head(Genedf))
-# From  "GENE" data set get the posright and name
-head(GetAttr(attributes=c("posright","name"),
-dataset="GENE")
-# From "GENE" dataset, get the gene name, strand, posright, product name and id of all genes regulated
-  with name  like "ara", strand as "forward" and with a position rigth bewten 2000 and 4000
+# Obtain all the information from the "GENE" dataset
+GetAttr(dataset="GENE")
 
-GetAttr(attributes = c("name", "strand", "posright", "product_name", "id"),
-dataset = "GENE",
-filters = list(name=c("ara"),
-              strand=c("forward"),
-              posright=c("2000","4000000")
-),
-and=TRUE,
-partialmatch = "name",
-interv="posright")
+# Get the attributes posright and name from the "GENE" dataset
+GetAttr(dataset="GENE", attributes=c("posright","name") )
+
+# From "GENE" dataset, get the gene name, strand, posright, product name and id of all genes regulated
+  with name like "ara", strand as "forward" with a position rigth between 2000 and 40000
+
+GetAttr(dataset = "GENE",
+        attributes = c("name", "strand", "posright", "product_name", "id"),
+        filters = list(name=c("ara"),
+                       strand=c("forward"),
+                       posright=c("2000","40000")),
+        and=TRUE,
+        partialmatch = "name",
+        interval= "posright")
 }
 \author{
-Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 }
 \keyword{attributes,}
 \keyword{data}

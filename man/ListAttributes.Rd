@@ -2,14 +2,14 @@
 % Please edit documentation in R/ListAttributes.R
 \name{ListAttributes}
 \alias{ListAttributes}
-\title{List attributes from dataset}
+\title{List attributes from a dataset}
 \usage{
 ListAttributes(dataset, comments = FALSE)
 }
 \arguments{
 \item{dataset}{Dataset of interest}
 
-\item{coments}{(default: FALSE) If TRUE: displays description of each attribute}
+\item{coments}{Default FALSE. If TRUE, displays the description of each attribute}
 }
 \value{
 A data frame with two columns:
@@ -19,12 +19,12 @@ A data frame with two columns:
 }
 }
 \description{
-Lists all attributes and their descriptions of a dataset from RegulonDB. The result of this function may
-be used as parameter values in \code{GetAttr} function.
+List all attributes and their description of a dataset from RegulonDB. The result of this function may
+be used as parameter 'values' in \code{\link{GetAttr}} function.
 }
 \examples{
 ListAttributes("TF")
-ListAttributes("OPERON")
+ListAttributes("OPERON", comments = TRUE)
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez

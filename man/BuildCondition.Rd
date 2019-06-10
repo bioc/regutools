@@ -2,29 +2,37 @@
 % Please edit documentation in R/BuildCondition.R
 \name{BuildCondition}
 \alias{BuildCondition}
-\title{Constructs logical condition to query database}
+\title{Construct logical condition to query database}
 \usage{
-BuildCondition(filters, dataset, operator, interv, partialmatch)
+BuildCondition(dataset, filters, operator, interval, partialmatch)
 }
 \arguments{
-\item{filters}{A list with values to restrict the query. The names of all elements in this list correspond to the attributes to bre retrieved.}
+\item{dataset}{dataset of interest}
 
-\item{dataset}{A string containing the name of the dataset of interest}
+\item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
 
-\item{operator}{A string indicading if all conditions -\code{filters}- (AND) or some of them (OR) should be met}
+\item{operator}{A string indicating if all the filters (AND) or some of them (OR) should be met}
+
+\item{interval}{the filters with values considered as interval}
+
+\item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
 }
 \value{
 A string with a sql logical condition to query the dataset
 }
 \description{
-Given a list of filters, this function builds a logical condition to query database
+Given a list of filters, this function builds a logical condition to query database.
+The output is used in \code{\link{GetAttr}}.
 }
 \examples{
-BuildCondition(filters = list(network_type = "TF-GENE",
-                         regulator_name = "AraC"),
-                          dataset = "NETWORK",
-                          operator = "AND")
+BuildCondition(dataset = "GENE",
+        filters = list(name=c("ara"),
+                       strand=c("forward"),
+                       posright=c("2000","40000")),
+        operator= "AND",
+        interval= "posright",
+        partialmatch = "name")
 }
 \author{
-Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 }

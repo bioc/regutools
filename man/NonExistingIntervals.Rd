@@ -2,28 +2,29 @@
 % Please edit documentation in R/NonExistingIntervals.R
 \name{NonExistingIntervals}
 \alias{NonExistingIntervals}
-\title{Constructs a particular logical condition to query database}
+\title{Constructs a logical condition to query database}
 \usage{
-NonExistingIntervals(filters, interv, operator, partialmatch)
+NonExistingIntervals(filters, interval, operator, partialmatch)
 }
 \arguments{
-\item{filters}{A list with values to restrict the query. The names of all elements in this list correspond to the attributes to bre retrieved.}
+\item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
 
-\item{interv}{the filters that are going to be in a intervale}
+\item{interval}{the filters whose values will be considered as interval}
 
-\item{operator}{A string indicading if all conditions -\code{filters}- (AND) or some of them (OR) should be met}
+\item{operator}{A string indicating if all the filters (AND) or some of them (OR) should be met}
 }
 \value{
 A string with a sql logical condition to query the dataset
 }
 \description{
-Given a list of filters, this function builds a logical condition to query database using intervals
+Given a list of filters, this function builds a logical condition to query database using intervals.
+The output is used in \code{\link{BuildCondition}}.
 }
 \examples{
-BuildCondition(filters = list(network_type = "TF-GENE",
-                         regulator_name = "AraC"),
-                          dataset = "NETWORK",
-                          operator = "AND")
+NonExistingIntervals(filters = list(name="ara",strand = "for"),
+                     interval = NULL,
+                     operator = "AND",
+                     partialmatch = c("name", "strand"))
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández

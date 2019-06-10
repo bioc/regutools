@@ -2,31 +2,32 @@
 % Please edit documentation in R/GetGeneRegulation.R
 \name{GetGeneRegulation}
 \alias{GetGeneRegulation}
-\title{Get regulation}
+\title{Get TFs or genes that regulate the genes of interest}
 \usage{
 GetGeneRegulation(genes, format = "multirow", output.type = "TF")
 }
 \arguments{
-\item{genes}{List of genes or GIs.}
+\item{genes}{Vector of genes (name, bnumber or GI).}
 
-\item{format}{Output format of data: multirow, onerow, table}
+\item{format}{Output format: multirow, onerow, table}
 
-\item{output.type}{Should regulators be represented as TF of GENE?}
+\item{output.type}{How regulators will be represented: "TF"/"GENE"}
 }
 \description{
-Given a list of genes (names, bnumbers or GIs), get all transcription factors that regulate them.
+Given a list of genes (name, bnumber or GI),
+get all transcription factors or genes that regulate them.
+The effect of regulators over the gene of interest can be positive (+), negative (-) or dual (+/-)
 }
 \examples{
-# Retrieve regulation of araC
-
-GetGeneRegulation(genes = c("araC"),
-format = "multirow",
-)
+# Get Transcription factors that regulate araC in one row
+GetGeneRegulation(genes = c("araC"),output.type = "TF",format = "onerow")
+# Get genes that regulate araC in table format
+GetGeneRegulation(genes = c("araC"),output.type = "GENE",format = "table")
 }
 \author{
-Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 }
+\keyword{TFs,}
 \keyword{networks,}
 \keyword{regulation}
 \keyword{retrieval,}
-\keyword{tf,}

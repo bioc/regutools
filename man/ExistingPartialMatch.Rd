@@ -2,28 +2,30 @@
 % Please edit documentation in R/ExistingPartialMatch.R
 \name{ExistingPartialMatch}
 \alias{ExistingPartialMatch}
-\title{Constructs a particular logical condition to query database to add google search}
+\title{Constructs a logical condition to query database}
 \usage{
 ExistingPartialMatch(filters, partialmatch, operator)
 }
 \arguments{
-\item{filters}{A list with values to restrict the query. The names of all elements in this list correspond to the attributes to bre retrieved.}
+\item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
 
-\item{operator}{A string indicading if all conditions -\code{filters}- (AND) or some of them (OR) should be met}
+\item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
 
-\item{interv}{the filters that are going to be in a intervale}
+\item{operator}{A string indicating if all the filters (AND) or some of them (OR) should be met}
 }
 \value{
-A string with a sql logical condition to query the dataset
+A sql logical condition to query the dataset
 }
 \description{
-Given a list of filters, this function builds a logical condition to query database using intervals
+Given a list of filters, this function builds a logical condition to query database using intervals.
+The output is used in \code{\link{ExistingIntervals}} and \code{\link{NonExistingIntervals}}.
 }
 \examples{
-BuildCondition(filters = list(network_type = "TF-GENE",
-                         regulator_partialmatch = "AraC"),
-                          dataset = "NETWORK",
-                          operator = "AND")
+ExistingPartialMatch(filters = list(name=c("ara"),
+                                    strand=c("forward"),
+                                    posright=c("2000","40000")),
+                     partialmatch = "name",
+                     operator = "AND")
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández

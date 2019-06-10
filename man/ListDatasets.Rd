@@ -10,7 +10,7 @@ ListDatasets()
 This function returns a vector of all available datasets. No parameters are provided.
 }
 \examples{
-listDatasets()
+ListDatasets()
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, Josá Alquicira Hernández

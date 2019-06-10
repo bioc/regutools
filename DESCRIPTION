@@ -4,7 +4,7 @@ Version: 1.0.0.0
 Authors@R: c(person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut", "cre")), 
               person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = "aut"))
 Description: Extracts and processes data from RegulonDB
-Depends: R (>= 3.5.0), RSQLite, httr, XML, DBI
+Depends: R (>= 3.6.0), RSQLite, httr, XML, DBI, data.table
 License: GNU GENERAL PUBLIC LICENSE
 Encoding: UTF-8
 Imports:
@@ -13,7 +13,8 @@ Imports:
     devtools,
     httr,
     XML,
-    DBI
+    DBI,
+    data.table
 LazyData: true
 RoxygenNote: 6.1.1
 Suggests: testthat, knitr, rmarkdown

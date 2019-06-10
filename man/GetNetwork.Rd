@@ -2,28 +2,25 @@
 % Please edit documentation in R/GetNetwork.R
 \name{GetNetwork}
 \alias{GetNetwork}
-\title{GetNetwork}
+\title{Return complete regulatory network.}
 \usage{
 GetNetwork(type = "TF-GENE")
 }
 \arguments{
-\item{type}{TF-GENE, TF-TF, GENE-GENE}
+\item{type}{"TF-GENE", "TF-TF", "GENE-GENE"}
 }
 \description{
-Return complete regulatory network.
+This function retrieves all the regulation networks in regulonDB between TF-TF, GENE-GENE or TF-GENE depending on the parameter 'type'
 }
 \examples{
-# Retrieve regulation of araC
+# Retrieve regulation of 'araC'
 
 GetNetwork(type="TF-GENE")
-
-
-
 }
 \author{
-Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 }
+\keyword{TF,}
 \keyword{networks,}
 \keyword{regulation}
 \keyword{retrieval,}
-\keyword{tf,}

@@ -7,19 +7,19 @@
 GetSiteSequences(tfbs, seq.format = "fasta")
 }
 \arguments{
-\item{tfbs}{A collection of sites previously retrieved from RegulonDB with the function \code{GetSitesForTF()}}
+\item{tfbs}{A collection of sites previously retrieved from RegulonDB with the function \code{\link{GetSitesForTF}}}
 
 \item{seq.format}{Default: \code{fasta} output format. Supported: \code{fasta}, \code{wconsensus}.}
 }
 \value{
-a string with the sequences
+A string with the TFBS sequences
 }
 \description{
-Returns the sequences for a set of binding sites.
+Returns the sequences for a set of Transcription Factor Binding Sites.
 }
 \examples{
 ## Get the binding sites for AraC and extract their sequence in fasta format
-tfbs <- GetSitesForTF(tf = "AraC")
+tfbs <- GetSitesForTF(TF = "AraC")
 tfbs.seq <- GetSiteSequences(tfbs) # This returns a single string with "\\n" breakline character
 cat(tfbs.seq)
 }
