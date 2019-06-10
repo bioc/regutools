@@ -1,33 +1,36 @@
 #' @title Constructs a particular logical condition to query database
-#' @description Given a list of filters, this function builds a logical condition to query database using intervals
-#' @author
-#' Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
-#' @param filters A list with values to restrict the query. The names of all elements in this list correspond to the attributes to bre retrieved.
-#' @param interv the filters that are going to be in a intervale
-#' @param operator A string indicading if all conditions -\code{filters}- (AND) or some of them (OR) should be met
+#' @description Given a list of filters, this function builds a logical condition to query database using intervals.
+#' The output is used in \code{\link{BuildCondition}}.
+#' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+#' @param filters List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.
+#' @param interval the filters with values considered as interval
+#' @param partialmatch name of the condition(s) with a string pattern for full or partial match in the query
+#' @param operator A string indicading if all the filters (AND) or some of them (OR) should be met
 #' @return A string with a sql logical condition to query the dataset
 #' @examples
-#' BuildCondition(filters = list(network_type = "TF-GENE",
-#'                          regulator_name = "AraC"),
-#'                           dataset = "NETWORK",
-#'                           operator = "AND")
+#' ExistingIntervals(filters = list(name="ara",
+#'                                  strand = "for",
+#'                                  posright=c("2000","40000")),
+#'                   interval = c("posright"),
+#'                   operator = "AND",
+#'                   partialmatch = c("name", "strand"))
 #' @export
 
 
-ExistingIntervals<-function(filters, interv, operator,partialmatch) {
+ExistingIntervals<-function(filters, interval, operator,partialmatch) {
 
-  existing.interv.index <-  names(filters) %in% interv
+  existing.interv.index <-  names(filters) %in% interval
   existing.interv <-filters[existing.interv.index]
 
-  #Check that interv filter's value is a pair
-  #If it's more than two, then drop the remaining
+  #Check that interval's value is a pair
+  #If they are more than two, then drop the remaining
   existing.interv <- lapply(existing.interv,function(x){
     if(length(x)>2){
-      warning("If values of the interval filter are more than 2, only the first two are considered.",call.=FALSE)
+      warning("Only the first two values of interval will be considered.",call.=FALSE)
       x[1:2]
 
     } else if (length(x)==1) {
-      stop("When filtering by intervals, the values of the interval filter must be exactly 2. ",call.=FALSE)
+      stop("Two values in the interval filter are required. ",call.=FALSE)
     } else {
       x
     }
