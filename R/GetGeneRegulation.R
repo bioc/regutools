@@ -1,20 +1,18 @@
-#' Get regulation
-#'
-#' Given a list of genes (names, bnumbers or GIs), get all transcription factors that regulate them.
-#' @param genes List of genes or GIs.
-#' @param format   Output format of data: multirow, onerow, table
-#' @param output.type Should regulators be represented as TF of GENE?
-#' @keywords regulation retrieval, tf, networks,
-#' @export
-#' @author
-#' Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+#' @title Get TFs or genes that regulate the genes of interest
+#' @description Given a list of genes (name, bnumber or GI),
+#' get all transcription factors or genes that regulate them.
+#' The effect of regulators over the gene of interest can be positive (+), negative (-) or dual (+/-)
+#' @param genes Vector of genes (name, bnumber or GI).
+#' @param format Output format: multirow, onerow, table
+#' @param output.type How regulators will be represented: "TF"/"GENE"
+#' @keywords regulation retrieval, TFs, networks,
+#' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 #' @examples
-#' # Retrieve regulation of araC
-#'
-#' GetGeneRegulation(genes = c("araC"),
-#' format = "multirow",
-#' )
-
+#' # Get Transcription factors that regulate araC in one row
+#' GetGeneRegulation(genes = c("araC"),output.type = "TF",format = "onerow")
+#' # Get genes that regulate araC in table format
+#' GetGeneRegulation(genes = c("araC"),output.type = "GENE",format = "table")
+#' @export
 
 GetGeneRegulation<-function(genes,format="multirow",output.type="TF"){
   #Check genes parameter class
@@ -31,13 +29,15 @@ GetGeneRegulation<-function(genes,format="multirow",output.type="TF"){
   }
 
   #Convert GIs to gene names
-  equivalence_table<- GetAttr(attributes=c("id","name"),dataset="GENE")
+  equivalence_table<- GetAttr(dataset="GENE", attributes=c("id","name","bnumber","gi"))
   genes<-lapply(as.list(genes),function(gene){
     if(grepl("ECK12",gene)){
       return(equivalence_table[equivalence_table[,"id"]==gene,"name"])
-    } else {
-      return(gene)
     }
+    if(grepl("^b[0-9]", gene)){
+      return(equivalence_table[equivalence_table[,"bnumber"] %in% as.character(gene) , "name"])
+      }
+    ifelse(grepl("[a-z]",gene), return(gene), return(equivalence_table[equivalence_table[,"gi"] %in% as.character(gene) , "name"]))
   })
 
   #Checks for type of network
