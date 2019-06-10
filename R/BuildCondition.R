@@ -1,49 +1,52 @@
-#' @title Constructs logical condition to query database
-#' @description Given a list of filters, this function builds a logical condition to query database
-#' @author
-#' Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
-#' @param filters A list with values to restrict the query. The names of all elements in this list correspond to the attributes to bre retrieved.
-#' @param dataset A string containing the name of the dataset of interest
-#' @param operator A string indicading if all conditions -\code{filters}- (AND) or some of them (OR) should be met
+#' @title Construct logical condition to query database
+#' @description Given a list of filters, this function builds a logical condition to query database.
+#' The output is used in \code{\link{GetAttr}}.
+#' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+#' @param dataset dataset of interest
+#' @param filters List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.
+#' @param operator A string indicating if all the filters (AND) or some of them (OR) should be met
+#' @param interval the filters with values considered as interval
+#' @param partialmatch name of the condition(s) with a string pattern for full or partial match in the query
 #' @return A string with a sql logical condition to query the dataset
 #' @examples
-#' BuildCondition(filters = list(network_type = "TF-GENE",
-#'                          regulator_name = "AraC"),
-#'                           dataset = "NETWORK",
-#'                           operator = "AND")
+#' BuildCondition(dataset = "GENE",
+#'         filters = list(name=c("ara"),
+#'                        strand=c("forward"),
+#'                        posright=c("2000","40000")),
+#'         operator= "AND",
+#'         interval= "posright",
+#'         partialmatch = "name")
 #' @export
 
-#Agregar que solo sea 2, o que ignore lo que le sigue. Se puede ver lengh
-#Poner el like por que en operon que tiene varios nombre de genes entre los dos %% va a servir
-
-BuildCondition <- function(filters, dataset, operator, interv, partialmatch){
-  if(class(filters) == "list"){
-    if(!all(names(filters) %in% ListAttributes(dataset)[["column_name"]])){
-      non.existing.attrs.index <- names(filters) %in% ListAttributes(dataset)[["column_name"]]
+BuildCondition <- function(dataset, filters, operator, interval, partialmatch){
+  if(class(filters) == "list")
+  {
+    if(!all(names(filters) %in% ListAttributes(dataset)[["attribute"]])){
+      non.existing.attrs.index <- names(filters) %in% ListAttributes(dataset)[["attribute"]]
       non.existing.attrs <- names(filters)[!non.existing.attrs.index]
-      stop("Provided filter(s) in the list ", non.existing.attrs ,
-           " do not exist. Please check ListAttributes() function.", call.= FALSE)
+      stop("Attribute(s) ", non.existing.attrs , " do not exist.", call.= FALSE)
     }
-     if (!is.null(interv)){
-      if (!all(interv%in%names(filters))){
-        non.existing.interv.index <- !(interv %in% names(filters))
-        non.existing.interv <-(interv[non.existing.interv.index])
-        stop("Provided filter(s) to use  as intervales", non.existing.interv ,
-             " do not exist in the filters you provide", call.= FALSE)
+     if (!is.null(interval)){
+      if (!all(interval %in% names(filters))){
+        non.existing.interv.index <- !(interval %in% names(filters))
+        non.existing.interv <-(interval[non.existing.interv.index])
+        stop("Intervals ", paste0('"',paste(non.existing.interv, collapse = ", "), '"'),
+             " do not exist in the filters you provided", call.= FALSE)
       }
-     condition_intervals<-ExistingIntervals(filters, interv, operator, partialmatch)
-     if((length(filters)==length(interv))){
-         return(condition_intervals)
-         }else{
-          conditions_nonintervals<-NonExistingIntervals(filters, interv, operator, partialmatch)
+
+     if((length(filters)==length(interval))){
+       condition_intervals<-ExistingIntervals(filters, interval, operator, partialmatch)
+        return(condition_intervals)
+         }else{ # non-equal case
+          conditions_nonintervals<-NonExistingIntervals(filters, interval, operator, partialmatch)
           conditionall<-paste(condition_intervals, conditions_nonintervals, sep = " AND ")
           return( conditionall)
-         }#Se cierra el que no sean iguales
-         }else { #Se cierra que no sean nulos osea que si son
-          conditions_nonintervals<-NonExistingIntervals(filters, interv, operator, partialmatch)
-          return(conditions_nonintervals)
-          }
+         }
+      }else { #NULL case
+        conditions_nonintervals<-NonExistingIntervals(filters, interval, operator, partialmatch)
+        return(conditions_nonintervals)
+      }
     }
-    stop("Provided filters are no not in a list format", call.= FALSE)
+    stop("The argument filters is not a list", call.= FALSE)
   }
 
