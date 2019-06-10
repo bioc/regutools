@@ -4,7 +4,7 @@
 #' @author
 #' Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, Josá Alquicira Hernández
 #' @examples
-#' listDatasets()
+#' ListDatasets()
 #' @export
 
 ListDatasets <- function(){
