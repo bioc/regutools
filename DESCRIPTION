@@ -18,6 +18,6 @@ Imports:
 LazyData: true
 RoxygenNote: 6.1.1
 Suggests: testthat, knitr, rmarkdown
-Maintainer: Jose Alquicira and Joselyn Chavez <joselynchavezf@gmail.com>
+Maintainer: Joselyn Chavez <joselynchavezf@gmail.com>
 BugReports: https://github.com/ComunidadBioInfo/regutools.git/issues
 
