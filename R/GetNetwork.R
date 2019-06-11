@@ -7,7 +7,7 @@
 #' @examples
 #' # Retrieve regulation of 'araC'
 #'
-#' GetNetwork(regulator = "AraC", "type="TF-GENE")
+#' GetNetwork(regulator = "AraC", type="TF-GENE")
 #'
 #' # Retrieve all GENE-GENE networks
 #'
