@@ -20,7 +20,8 @@
 #'
 #' # Get the fasta binding sites sequences for AraC
 #'
-#' GetBindingSites(TF = "AraC", seq.format = "fasta")
+#' fasta.seq <- GetBindingSites(TF = "AraC", seq.format = "fasta")
+#' cat(fasta.seq)
 #' @export
 
 GetBindingSites <- function(TF, seq.format = "table", evidence = NULL) {
@@ -58,7 +59,7 @@ GetBindingSites <- function(TF, seq.format = "table", evidence = NULL) {
     if (seq.format == "table") {return(tfbs.table)}
     if (seq.format == "fasta") {
       header <- paste0(">", tfbs.table$ID, "_", tfbs.table$left, ":", tfbs.table$right, ":", tfbs.table$strand)
-      seq.string <- paste0(header,"\n",as.vector(tfbs$sequence))
+      seq.string <- paste0(header,"\n",as.vector(tfbs$sequence), "\n")
       return(seq.string)
     } else { stop("seq.format must be 'table' or 'fasta' ", call. = FALSE)}
 
