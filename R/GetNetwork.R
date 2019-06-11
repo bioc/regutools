@@ -13,6 +13,10 @@
 #' # Retrieve all GENE-GENE networks
 #'
 #' GetNetwork(type = "GENE-GENE")
+#'
+#' # Retrieve TF-GENE network of AraC and display in Cytoscape
+#'
+#' GetNetwork(regulator = "AraC", type = "TF-GENE", cytograph = TRUE)
 #' @export
 
 GetNetwork<-function(regulator = NULL, type="TF-GENE", cytograph = FALSE){
