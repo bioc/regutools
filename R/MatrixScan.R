@@ -1,5 +1,7 @@
 #' @title Matrix scan.
-#' @description Scan sequences with one or several position-specific scoring matrices (PSSM) to identify instances of the corresponding motifs (putative sites). This function supports a variety of background models (Bernoulli, Markov chains of any order).
+#' @description Scan sequences with one or several position-specific scoring matrices (PSSM)
+#' to identify instances of the corresponding motifs (putative sites).
+#' This function supports a variety of background models (Bernoulli, Markov chains of any order).
 #' @author José Alquicira Hernández
 #' @param sequence Sequence(s) to scan - all the formats supported in RSAT can be used as input (default: \code{fasta})
 #' @param matrix Matrix/ces to scan with. The matrix format is specified with the option \code{matrix.format} (see below) Default format: \code{tab}.
@@ -12,7 +14,7 @@
 #' }
 #' @param matrix.format Supported fields:
 #' \itemize{
-#' \item \code{tab}
+#' \item \code{tab} (default)
 #' \item \code{cb}
 #' \item \code{consensus}
 #' \item \code{gibbs}
@@ -27,7 +29,7 @@
 #' }
 #' @param consensus.name Use the motif (degenerate) consensus as matrix name.
 #' @param pseudo Pseudo-count for the matrix (default: 1). The pseudo-count reflects the possibility that residues that were not (yet) observed in the model might however be valid for future observations. The pseudo-count is used to compute the corrected residue frequencies.
-#' @param equi.pseudo If this option is called,  the pseudo-weight is distributed in an equiprobable way between residues. By default,  the pseudo-weight is distributed proportionally to residue priors,  except for the -window option where equipseudo is default.
+#' @param equi.pseudo If this option is called,  the pseudo-weight is distributed in an equiprobable way between residues. By default, the pseudo-weight is distributed proportionally to residue priors, except for the -window option where equipseudo is default.
 #' @param top.matrices Only scan with the top # matrices per matrix file. This option is valid for some file formats containing multiple matrices where top matrices are generally more informative.
 #' @param background.model Background model is a tab-delimited specification of oligonucleotide frequencies.
 #' @param organism To use a precalculated background model from RSAT, choose the organism corresponding to the background model. Works with background and markov options.
@@ -61,7 +63,7 @@
 #' \item \code{weight_matrix}
 #' \item \code{distrib}
 #' }
-#' @param sort.distrib Sort score distribution by decreasing value of significance,  if value TRUE. By default,  the score distributions are sorted by score (weight).
+#' @param sort.distrib Sort score distribution by decreasing value of significance, if value TRUE. By default, the score distributions are sorted by score (weight).
 #' @param lth Lower threshold on some parameter. Format=list of 'parameter value'.
 #' Supported fields:
 #' \itemize{
