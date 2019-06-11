@@ -33,7 +33,8 @@ GetBindingSites(TF = "AraC")
 
 # Get the fasta binding sites sequences for AraC
 
-GetBindingSites(TF = "AraC", seq.format = "fasta")
+fasta.seq <- GetBindingSites(TF = "AraC", seq.format = "fasta")
+cat(fasta.seq)
 }
 \author{
 José Alquicira Hernández, Jacques van Helden, Joselyn Chávez
