@@ -4,9 +4,11 @@
 \alias{GetNetwork}
 \title{Return complete regulatory network.}
 \usage{
-GetNetwork(type = "TF-GENE")
+GetNetwork(regulator = NULL, type = "TF-GENE")
 }
 \arguments{
+\item{regulator}{Name of TF or gene that acts as regulator. If NULL, the function retrieves all existent networks in the regulonDB.}
+
 \item{type}{"TF-GENE", "TF-TF", "GENE-GENE"}
 }
 \description{
@@ -15,7 +17,11 @@ This function retrieves all the regulation networks in regulonDB between TF-TF, 
 \examples{
 # Retrieve regulation of 'araC'
 
-GetNetwork(type="TF-GENE")
+GetNetwork(regulator = "AraC", type="TF-GENE")
+
+# Retrieve all GENE-GENE networks
+
+GetNetwork(type = "GENE-GENE")
 }
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez

@@ -4,7 +4,7 @@
 \name{regutools}
 \alias{regutools}
 \alias{regutools-package}
-\title{regutools}
+\title{regutools package}
 \description{
 regutools extracts and processes data from RegulonDB
 }

@@ -12,7 +12,7 @@ BuildXml(method, parameters = NULL)
 \item{parameters}{List of parameters provided to method}
 }
 \value{
-an XML schema
+An XML schema
 }
 \description{
 This function creates an XML schema to be used by `POST` function.
@@ -20,7 +20,8 @@ This function creates an XML schema to be used by `POST` function.
 \examples{
 request <- BuildXml("supported_organisms",
                      parameters = list(return = "name,source",
-                     source = "ensembl"))
+                                       source = "ensembl")
+                   )
 }
 \author{
 José Alquicira Hernández

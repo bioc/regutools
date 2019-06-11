@@ -28,7 +28,7 @@ MatrixScan(sequence, matrix, sequence.format = "fasta",
 
 \item{matrix.format}{Supported fields:
 \itemize{
-\item \code{tab}
+\item \code{tab} (default)
 \item \code{cb}
 \item \code{consensus}
 \item \code{gibbs}
@@ -46,7 +46,7 @@ MatrixScan(sequence, matrix, sequence.format = "fasta",
 
 \item{pseudo}{Pseudo-count for the matrix (default: 1). The pseudo-count reflects the possibility that residues that were not (yet) observed in the model might however be valid for future observations. The pseudo-count is used to compute the corrected residue frequencies.}
 
-\item{equi.pseudo}{If this option is called,  the pseudo-weight is distributed in an equiprobable way between residues. By default,  the pseudo-weight is distributed proportionally to residue priors,  except for the -window option where equipseudo is default.}
+\item{equi.pseudo}{If this option is called,  the pseudo-weight is distributed in an equiprobable way between residues. By default, the pseudo-weight is distributed proportionally to residue priors, except for the -window option where equipseudo is default.}
 
 \item{top.matrices}{Only scan with the top # matrices per matrix file. This option is valid for some file formats containing multiple matrices where top matrices are generally more informative.}
 
@@ -88,7 +88,7 @@ Supported fields:
 \item \code{distrib}
 }}
 
-\item{sort.distrib}{Sort score distribution by decreasing value of significance,  if value TRUE. By default,  the score distributions are sorted by score (weight).}
+\item{sort.distrib}{Sort score distribution by decreasing value of significance, if value TRUE. By default, the score distributions are sorted by score (weight).}
 
 \item{lth}{Lower threshold on some parameter. Format=list of 'parameter value'.
 Supported fields:
@@ -133,7 +133,9 @@ The matching positions are then negative values, providing the distance between 
 an R object with results retrieved from RSAT
 }
 \description{
-Scan sequences with one or several position-specific scoring matrices (PSSM) to identify instances of the corresponding motifs (putative sites). This function supports a variety of background models (Bernoulli, Markov chains of any order).
+Scan sequences with one or several position-specific scoring matrices (PSSM)
+to identify instances of the corresponding motifs (putative sites).
+This function supports a variety of background models (Bernoulli, Markov chains of any order).
 }
 \examples{
 
