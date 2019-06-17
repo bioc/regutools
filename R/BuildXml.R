@@ -1,6 +1,6 @@
 #' @title Construct XML schema to commuticate to RSAT.
 #' @description This function creates an XML schema to be used by `POST` function.
-#' @author José Alquicira Hernández
+#' @author José Alquicira Hernández & Joselyn Chávez
 #' @param method Name of the method to be used from RSAT
 #' @param parameters List of parameters provided to method
 #' @return An XML schema
@@ -21,20 +21,20 @@ BuildXml <- function(method, parameters = NULL){
 
     }, names(parameters), parameters)
 
-    parameters<- paste("\n",parameters.format, collapse = "\n")
+  parameters<- paste("\n",parameters.format,collapse = "\n")
   }
 
 
-  xml.body <- paste0('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:RSATWS">
+  xml.body <- paste0("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:RSATWS\">
                  <soapenv:Header/>
                  <soapenv:Body>
-                 <urn:', method,'>
-                 <request>',
+                 <urn:", method,">
+                 <request>",
                  parameters,
-                 '\n                 </request>
-                 </urn:', method, '>
+                 "\n</request>
+                 </urn:", method, ">
                  </soapenv:Body>
-                 </soapenv:Envelope>')
+                 </soapenv:Envelope>")
 
   return(xml.body)
 }
