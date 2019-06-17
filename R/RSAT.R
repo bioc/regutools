@@ -1,7 +1,7 @@
 #' @title Call RSAT.
 #' @description This function access RSAT via SOAP.
-#' @author José Alquicira Hernández
-#' @param method Name of the method to be used from RSAT
+#' @author José Alquicira Hernández & Joselyn Chávez
+#' @param method Name of the method to be used from RSAT. See \code{\link{RetrieveSeq}}, \code{\link{RandomSeq}}
 #' @param parameters List of parameters provided to method
 #' @return an R object with results retrieved from RSAT
 #' @examples
@@ -28,7 +28,7 @@ RSAT <- function(method, parameters = NULL){
 
   out <- tryCatch({
     # Communicates to RSAT
-    res <- POST("http://embnet.ccg.unam.mx/rsa-tools//web_services/RSATWS.cgi",
+    res <- POST("http://embnet.ccg.unam.mx/rsat/web_services/RSATWS.cgi",
                 body = request,
                 content_type("text/xml; charset=utf-8"))
     stop_for_status(res)
@@ -38,10 +38,10 @@ RSAT <- function(method, parameters = NULL){
     res.format$Body[[1]]$response$client$text
   },
   error = function(cond){
-    message(cond)
-    message("\nSee error details in output.")
-    res <- content(res)
+    #message(cond)
+    message("\nError details:")
     # Extracts result from XML response
+    res <- content(res)
     res.format <- xmlToList(xmlParse(res))
     return(res.format$Body)
   }
