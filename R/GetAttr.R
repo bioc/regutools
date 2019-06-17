@@ -50,11 +50,19 @@ GetAttr <- function(dataset = NULL, attributes = NULL, filters = NULL, and = TRU
   }
 
   # Validate partialmatch
+
   if(!all(partialmatch %in% ListAttributes(dataset)[["attribute"]])) {
     non.existing.attrs.index <- partialmatch %in% ListAttributes(dataset)[["attribute"]]
     non.existing.attrs <- partialmatch[!non.existing.attrs.index]
     stop("Partialmatch ", paste0('"',paste(non.existing.attrs, collapse = ", "), '"'),
          " do not exist.", call.= FALSE)
+  }
+
+  if(!all(partialmatch %in% names(filters))) {
+    non.existing.attrs.index <- partialmatch %in% names(filters)
+    non.existing.attrs <- partialmatch[!non.existing.attrs.index]
+    stop("Partialmatch ", paste0('"',paste(non.existing.attrs, collapse = ", "), '"'),
+         " not defined in 'filters' ", call.= FALSE)
   }
 
   # Sets logical operator
