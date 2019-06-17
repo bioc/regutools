@@ -7,7 +7,7 @@
 RSAT(method, parameters = NULL)
 }
 \arguments{
-\item{method}{Name of the method to be used from RSAT}
+\item{method}{Name of the method to be used from RSAT. See \code{\link{RetrieveSeq}}, \code{\link{RandomSeq}}}
 
 \item{parameters}{List of parameters provided to method}
 }
@@ -29,5 +29,5 @@ RSAT(method = "random_seq",
                       format = "fasta"))
 }
 \author{
-José Alquicira Hernández
+José Alquicira Hernández & Joselyn Chávez
 }
