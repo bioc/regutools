@@ -14,9 +14,9 @@ RetrieveSeq(organism, genes = NULL, all = FALSE, noorf = FALSE,
 
 \item{genes}{A list of genes}
 
-\item{all}{Return sequences for all the genes of the organism if TRUE. Incompatible with `genes`.}
+\item{all}{If TRUE: return sequences for all the genes of the organism.. Incompatible with `genes`.}
 
-\item{noorf}{Prevent overlap with upstream open reading frames (ORF) if value TRUE.}
+\item{noorf}{If TRUE: Prevents overlap with upstream open reading frames (ORF).}
 
 \item{from}{Inferior limit of the region to retrieve. Default is organism dependant (example: Saccharomyces cerevisiae = -800).}
 
@@ -34,7 +34,7 @@ RetrieveSeq(organism, genes = NULL, all = FALSE, noorf = FALSE,
 
 \item{label.sep}{Separator between the label fields. Default: '|' (pipe character).}
 
-\item{nocom}{No comments if TRUE. Only the identifier and the sequence are returned. By default, the comment indicates the ORF and upstream sequence coordinates.}
+\item{nocom}{If TRUE: No comments are shown, only the identifier and the sequence are returned. By default, the comment indicates the ORF and upstream sequence coordinates.}
 
 \item{repeat.mask}{Use the repeat masked version of the genome if TRUE. Attention: repeated regions are annotated for some genomes only.}
 
