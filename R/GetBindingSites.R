@@ -4,7 +4,7 @@
 #' @param TF name of the transcription factor of interest
 #' @param seq.format Default: \code{table}. Supported: \code{fasta}, \code{wconsensus}.
 #' @return A dataframe with the following columns corresponding to the TFBSs associated with the TF.
-#' If seq.format = "fasta", returns a string with the TFBS sequences with '\n' breakline character.
+#' If seq.format = "fasta", returns a string with the TFBS sequences with breakline character.
 #' If the transcription factor does not exist, returns NA.
 #' \itemize{
 #' \item ID (identifier)
@@ -24,21 +24,13 @@
 #' cat(fasta.seq)
 #' @export
 
-GetBindingSites <- function(TF, seq.format = "table", evidence = NULL) {
+GetBindingSites <- function(TF, seq.format = "table") {
 
-  if (!is.null(evidence)) {
-    tfbs.raw <- tryCatch({
-      GetAttr(dataset = "TF",
-              attributes = c("name", "tfbs_unique", "evidence_reference"),
-              filters = list(name = TF))
-    },error = function(cond) return(NULL))
-  } else {
     tfbs.raw <- tryCatch({
       GetAttr(dataset = "TF",
               attributes = c("name", "tfbs_unique"),
               filters = list(name = TF))
     },error = function(cond) return(NULL))
-  }
 
 
 
@@ -48,14 +40,12 @@ GetBindingSites <- function(TF, seq.format = "table", evidence = NULL) {
     # convert raw info into a table with 1 row per TFBS and 1 col per attribute
     tfbs.table <-  as.data.frame(strsplit(x = tfbs.raw$tfbs_unique, split = " "), col.names = "V1")
     tfbs.table <- t(as.data.frame(strsplit(x = as.character(tfbs.table$V1), split =  "\t")))
-    if (!is.null(evidence)) {
-      tfbs.table <- rbind(tfbs.table,as.data.frame(tfbs.raw$evidence_reference))
-      colnames(tfbs.table) <- c("ID", "left", "right", "strand", "sequence", "evidence_reference")
-    } else {
-      colnames(tfbs.table) <- c("ID", "left", "right", "strand", "sequence")
-    }
+    tfbs.table <- rbind(tfbs.table,as.data.frame(tfbs.raw$evidence_reference))
+
+    colnames(tfbs.table) <- c("ID", "left", "right", "strand", "sequence")
     rownames(tfbs.table) <- NULL
     tfbs.table <- as.data.frame(tfbs.table)
+
     if (seq.format == "table") {return(tfbs.table)}
     if (seq.format == "fasta") {
       header <- paste0(">", tfbs.table$ID, "_", tfbs.table$left, ":", tfbs.table$right, ":", tfbs.table$strand)
@@ -65,7 +55,3 @@ GetBindingSites <- function(TF, seq.format = "table", evidence = NULL) {
 
   }
 }
-
-## TO DO:
-## - add chromosome (for future multi-organisms RegulonDB)
-## - add evidence
