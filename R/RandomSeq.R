@@ -1,6 +1,6 @@
 #' @title Generate random sequences
 #' @description Generates random sequences with RSAT.
-#' @author José Alquicira Hernández
+#' @author José Alquicira Hernández & Joselyn chávez
 #' @param n Number of sequences to generate
 #' @param seq.length Length of sequence to generate.
 #' @param format Format of sequence(s) to generate
@@ -20,9 +20,10 @@
 #' @param organism Name of the organism when using a background model.
 #' @param oligo.length Length of oligomer when using a background model.
 #' @param length.file Length file. Allows to generate random sequences with the same lengths as a set of reference sequences.The length file contains two columns : sequence ID (ignored) and sequence length.
+#' @param lw Line width (0 for whole sequence on one line).
 #' @return a string with results retrieved from RSAT
 #' @examples
-#' res <- RandomSeq(n = 3, len = 3, format = "fasta",
+#' res <- RandomSeq(n = 3, seq.length = 100, format = "fasta",
 #'                 type = "DNA", seed = 12,
 #'                 organism = "Escherichia_coli_K12")
 #' cat(res)
@@ -30,13 +31,13 @@
 
 
 
-RandomSeq <- function(n, len, format = NULL, type = NULL, seed = NULL,
+RandomSeq <- function(n, seq.length, format = NULL, type = NULL, seed = NULL,
                       alphabet = NULL, expfreq = NULL, bg.model = NULL,
                       organism = NULL, oligo.length = NULL,
-                      length.file = NULL){
+                      length.file = NULL, lw = NULL){
 
   !missing(n) || stop('parameter n is missing. A number of sequences to be generated is required')
-  !missing(len) || stop('parameter len is missing. A length of sequences to be generated is required')
+  !missing(seq.length) || stop('parameter seq.length is missing. A length of sequences to be generated is required')
 
   if(!is.null(type)){
     (type %in% c("DNA", "protein", "other")) || stop('Only "DNA", "protein" and "other" sequence types are allowed')
@@ -44,7 +45,7 @@ RandomSeq <- function(n, len, format = NULL, type = NULL, seed = NULL,
 
 
   parameters <- list(repetition = n,
-                     sequence_length = len,
+                     sequence_length = seq.length,
                      format = format,
                      type = type,
                      seed = seed,
@@ -53,9 +54,12 @@ RandomSeq <- function(n, len, format = NULL, type = NULL, seed = NULL,
                      bg_model = bg.model,
                      organism = organism,
                      oligo_length = oligo.length,
-                     length_file = length.file)
+                     length_file = length.file,
+                     line_width = lw)
 
   res <- RSAT(method = "random_seq",
               parameters = parameters)
+  res <- strsplit(res, split = ">")
+  res <- res[[1]][-1]
   return(res)
 }
