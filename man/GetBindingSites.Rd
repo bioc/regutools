@@ -4,7 +4,7 @@
 \alias{GetBindingSites}
 \title{Get the binding sites for a Transcription Factor (TF)}
 \usage{
-GetBindingSites(TF, seq.format = "table", evidence = NULL)
+GetBindingSites(TF, seq.format = "table")
 }
 \arguments{
 \item{TF}{name of the transcription factor of interest}
@@ -13,7 +13,7 @@ GetBindingSites(TF, seq.format = "table", evidence = NULL)
 }
 \value{
 A dataframe with the following columns corresponding to the TFBSs associated with the TF.
-If seq.format = "fasta", returns a string with the TFBS sequences with '\n' breakline character.
+If seq.format = "fasta", returns a string with the TFBS sequences with breakline character.
 If the transcription factor does not exist, returns NA.
 \itemize{
 \item ID (identifier)
