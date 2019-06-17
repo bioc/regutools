@@ -4,12 +4,15 @@
 \alias{RandomSeq}
 \title{Generate random sequences}
 \usage{
-RandomSeq(n, len, format = NULL, type = NULL, seed = NULL,
+RandomSeq(n, seq.length, format = NULL, type = NULL, seed = NULL,
   alphabet = NULL, expfreq = NULL, bg.model = NULL,
-  organism = NULL, oligo.length = NULL, length.file = NULL)
+  organism = NULL, oligo.length = NULL, length.file = NULL,
+  lw = NULL)
 }
 \arguments{
 \item{n}{Number of sequences to generate}
+
+\item{seq.length}{Length of sequence to generate.}
 
 \item{format}{Format of sequence(s) to generate}
 
@@ -37,7 +40,7 @@ Type of sequences used as background model for estimating expected oligonucleoti
 
 \item{length.file}{Length file. Allows to generate random sequences with the same lengths as a set of reference sequences.The length file contains two columns : sequence ID (ignored) and sequence length.}
 
-\item{seq.length}{Length of sequence to generate.}
+\item{lw}{Line width (0 for whole sequence on one line).}
 }
 \value{
 a string with results retrieved from RSAT
@@ -46,11 +49,11 @@ a string with results retrieved from RSAT
 Generates random sequences with RSAT.
 }
 \examples{
-res <- RandomSeq(n = 3, len = 3, format = "fasta",
+res <- RandomSeq(n = 3, seq.length = 100, format = "fasta",
                 type = "DNA", seed = 12,
                 organism = "Escherichia_coli_K12")
 cat(res)
 }
 \author{
-José Alquicira Hernández
+José Alquicira Hernández & Joselyn chávez
 }
