@@ -65,5 +65,7 @@ RetrieveSeq <- function(organism, genes = NULL, all = FALSE, noorf = FALSE, from
                      imp_pos = imp.pos)
 
   res <- RSAT(method = 'retrieve_seq', parameters = parameters)
+  res <- strsplit(res, split = ">")
+  res <- res[[1]][-1]
   return(res)
 }
