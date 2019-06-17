@@ -24,5 +24,5 @@ request <- BuildXml("supported_organisms",
                    )
 }
 \author{
-José Alquicira Hernández
+José Alquicira Hernández & Joselyn Chávez
 }
