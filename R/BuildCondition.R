@@ -34,6 +34,7 @@ BuildCondition <- function(dataset, filters, operator, interval, partialmatch){
              " do not exist in the filters you provided", call.= FALSE)
       }
 
+    condition_intervals<-ExistingIntervals(filters, interval, operator, partialmatch)
      if((length(filters)==length(interval))){
        condition_intervals<-ExistingIntervals(filters, interval, operator, partialmatch)
         return(condition_intervals)
