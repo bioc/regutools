@@ -40,11 +40,11 @@ GetBindingSites <- function(TF, seq.format = "table") {
     # convert raw info into a table with 1 row per TFBS and 1 col per attribute
     tfbs.table <-  as.data.frame(strsplit(x = tfbs.raw$tfbs_unique, split = " "), col.names = "V1")
     tfbs.table <- t(as.data.frame(strsplit(x = as.character(tfbs.table$V1), split =  "\t")))
-    tfbs.table <- rbind(tfbs.table,as.data.frame(tfbs.raw$evidence_reference))
 
-    colnames(tfbs.table) <- c("ID", "left", "right", "strand", "sequence")
-    rownames(tfbs.table) <- NULL
     tfbs.table <- as.data.frame(tfbs.table)
+    colnames(tfbs.table) <- c("ID", "left", "right", "strand", "sequence")
+    rownames(tfbs.table) <- seq(1:nrow(tfbs.table))
+    for (i in 1:5) {names(tfbs.table[,i]) <- NULL}
 
     if (seq.format == "table") {return(tfbs.table)}
     if (seq.format == "fasta") {
