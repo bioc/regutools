@@ -1,6 +1,6 @@
 #' @title Retrieve sequences from RSAT
 #' @description Returns upstream, downstream or coding DNA sequences for list of query genes from RSAT.
-#' @author José Alquicira Hernández
+#' @author José Alquicira Hernández, Joselyn Chávez
 #' @param organism Organism. Words need to be underscore separated (example: Escherichia_coli_K12).
 #' @param genes A list of genes
 #' @param all Return sequences for all the genes of the organism if TRUE. Incompatible with `genes`.
