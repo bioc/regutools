@@ -63,5 +63,5 @@ res <- RetrieveSeq(organism = "Escherichia_coli_K12",
 cat(res)
 }
 \author{
-José Alquicira Hernández
+José Alquicira Hernández, Joselyn Chávez
 }
