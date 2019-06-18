@@ -59,7 +59,13 @@ RandomSeq <- function(n, seq.length, format = NULL, type = NULL, seed = NULL,
 
   res <- RSAT(method = "random_seq",
               parameters = parameters)
-  res <- strsplit(res, split = ">")
-  res <- res[[1]][-1]
+
+  if (format == "fasta") { res <- strsplit(res, split = ">")[[1]][-1] }
+
+  if (format == "WC" || format == "IG") {
+    ifelse(format == "WC", res <- strsplit(res, split = '\\\n;', fixed = T), res <- strsplit(res, split = '1\n;', fixed = T))
+    res_temp <- strsplit(res[[1]][1], split = ";")[[1]][-1]
+    res[[1]][1] <- paste0(res_temp, collapse = ";")}
+
   return(res)
 }

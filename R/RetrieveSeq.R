@@ -65,18 +65,13 @@ RetrieveSeq <- function(organism, genes = NULL, all = FALSE, noorf = FALSE, from
                      imp_pos = imp.pos)
 
   res <- RSAT(method = 'retrieve_seq', parameters = parameters)
-  if (format == "fasta") {
-    res <- strsplit(res, split = ">")
-    res <- res[[1]][-1] }
-  if (format == "WC") {
-    res <- strsplit(res, split = '\\\n;', fixed = T)
+
+  if (format == "fasta") { res <- strsplit(res, split = ">")[[1]][-1] }
+
+  if (format == "WC" || format == "IG") {
+    ifelse(format == "WC", res <- strsplit(res, split = '\\\n;', fixed = T), res <- strsplit(res, split = '1\n;', fixed = T))
     res_temp <- strsplit(res[[1]][1], split = ";")[[1]][-1]
-    res[[1]][1] <- paste0(res_temp, collapse = ";")
-    }
-  if (format == "IG") {
-    res <- strsplit(res, split = '1\n;', fixed = T)
-    res_temp <- strsplit(res[[1]][1], split = ";")[[1]][-1]
-    res[[1]][1] <- paste0(res_temp, collapse = ";")}
+    res[[1]][1] <- paste0(res_temp, collapse = ";") }
 
   return(res)
 }
