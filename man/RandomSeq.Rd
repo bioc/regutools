@@ -4,7 +4,7 @@
 \alias{RandomSeq}
 \title{Generate random sequences}
 \usage{
-RandomSeq(n, seq.length, format = NULL, type = NULL, seed = NULL,
+RandomSeq(n, seq.length, format = "fasta", type = NULL, seed = NULL,
   alphabet = NULL, expfreq = NULL, bg.model = NULL,
   organism = NULL, oligo.length = NULL, length.file = NULL,
   lw = NULL)
