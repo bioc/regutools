@@ -31,7 +31,7 @@
 
 
 
-RandomSeq <- function(n, seq.length, format = NULL, type = NULL, seed = NULL,
+RandomSeq <- function(n, seq.length, format = "fasta", type = NULL, seed = NULL,
                       alphabet = NULL, expfreq = NULL, bg.model = NULL,
                       organism = NULL, oligo.length = NULL,
                       length.file = NULL, lw = NULL){
