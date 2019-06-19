@@ -25,7 +25,7 @@ dnaPattern(sequence, format = "fasta", substitution = NULL, pattern,
 
 \item{both.strand}{Oligonucleotide occurrences found on both stands are summed (TRUE) or not (FALSE). Default is TRUE}
 
-\item{sort.oligo}{oligomers according to overrepresentation if TRUE.}
+\item{sort.oligo}{sort oligomers according to overrepresentation if TRUE.}
 
 \item{threshold}{Threshold on match count.}
 }
@@ -52,9 +52,8 @@ res <- dnaPattern(sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA
                   pattern = "TCGCAAT")
 res <- dnaPattern(sequence = ">seq1\\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
                   pattern = "TCGCAAT",
-                  id = "patt_1",
-
-                  )
+                  both.strand = F,
+                  id = "patt_1")
 cat(res)
 }
 \author{
