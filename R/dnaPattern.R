@@ -72,8 +72,8 @@ dnaPattern <- function(sequence, format = "fasta", substitution = NULL, pattern,
   res <- as.data.frame(strsplit(res, split = "\n"), col.names = "V1")
   res <- as.data.frame(t(as.data.frame(strsplit(as.character(res$V1), split = "\t"))))
   colnames(res) <- c("patternID", "strand", "pattern", "seqID", "start", "end", "matching_seq", "score")
+  rownames(res) <- NULL
   for (i in 1:8) {names(res[,i]) <- NULL}
-
 
   return(res)
 }

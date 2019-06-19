@@ -43,6 +43,7 @@ GetBindingSites <- function(TF, seq.format = "table") {
 
     tfbs.table <- as.data.frame(tfbs.table)
     colnames(tfbs.table) <- c("ID", "left", "right", "strand", "sequence")
+    rownames(tfbs.table) <- NULL
     for (i in 1:5) {names(tfbs.table[,i]) <- NULL}
 
     if (seq.format == "table") {return(tfbs.table)}
