@@ -9,7 +9,7 @@
 #' @param origin Origin for the calculation of positions (0 for end of sequence).
 #' @param noov No overlapping of oligos allowed if TRUE. Disable the detection of overlapping matches for self-overlapping patterns (e.g. TATATA, GATAGA).
 #' @param both.strand Oligonucleotide occurrences found on both stands are summed (TRUE) or not (FALSE). Default is TRUE
-#' @param sort.oligo oligomers according to overrepresentation if TRUE.
+#' @param sort.oligo sort oligomers according to overrepresentation if TRUE.
 #' @param threshold Threshold on match count.
 #' @return A data frame with columns
 #' \itemize{
@@ -29,9 +29,8 @@
 #'                   pattern = "TCGCAAT")
 #' res <- dnaPattern(sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
 #'                   pattern = "TCGCAAT",
-#'                   id = "patt_1",
-#'
-#'                   )
+#'                   both.strand = F,
+#'                   id = "patt_1")
 #' cat(res)
 #' @export
 
@@ -61,13 +60,6 @@ dnaPattern <- function(sequence, format = "fasta", substitution = NULL, pattern,
                      th = threshold)
 
   res <- RSAT(method = 'dna_pattern', parameters = parameters)
-
-  #if (format == "fasta") { res <- strsplit(res, split = ">")[[1]][-1] }
-
-  if (format == "WC" || format == "IG") {
-    ifelse(format == "WC", res <- strsplit(res, split = '\\\n;', fixed = T), res <- strsplit(res, split = '1\n;', fixed = T))
-    res_temp <- strsplit(res[[1]][1], split = ";")[[1]][-1]
-    res[[1]][1] <- paste0(res_temp, collapse = ";") }
 
   res <- as.data.frame(strsplit(res, split = "\n"), col.names = "V1")
   res <- as.data.frame(t(as.data.frame(strsplit(as.character(res$V1), split = "\t"))))
