@@ -1,5 +1,5 @@
 ---
-title: "regutools: an R package for data extraction from RegulonDB"
+title: "regutools: an R package for the extraction of gene regulatory networks from RegulonDB"
 author: "Jose Alquicira Hernandez, Joselyn Chavez, Carmina Barberena Jonas, Jesus Emiliano Sotelo Fonseca "
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -10,9 +10,14 @@ vignette: >
 ---
 
 
-## Introduction
+## Overview
 
-**RegulonDB** is a relational database that offers, in an organized and computable form, updated knowledge on transcriptional regulation in *Escherichia coli K-12*. **RegulonDB** has more than 70 tables currently available and as it continues to grow manual information extraction gets complex. This R package provides a simplified version of **RegulonDB**, as well as querying functions that make data exploration and extraction easy and automatic.
+*Escherichia coli K-12 (E-coli)* is the best bacterial organism studied to date. Thousands of papers have been published using *E-coli* as a model system that ask how genes are regulated. The throughput of these experiments range from single-gene studies to whole-genome approaches. Twenty years ago, the database *regulondb* started collecting, curating and organizing this information into a centralized resource. Thanks to this, researchers have had an easy way to access all these data in a centralized database and this has facilitated the advancements of complete fields, such as *systems biology*. 
+
+The analysis of high-thoughput experiments - such as RNA-seq or ChIP-seq - often requires the integration of databases such as *regulondb* in order to give biological interpretations to these data. Thus, this package is designed to facilitate such integration by providing programatic access to *regulondb* with R. The package retreives information from the *regulondb* database into *Bioconductor* objects, ready for downstream analyses. 
+
+
+**RegulonDB** is a database that offers manually curated information on transcriptional regulation in *Escherichia coli K-12*. **RegulonDB** has more than 70 tables currently available and as it continues to grow manual information extraction gets complex. This R package provides a simplified version of **RegulonDB**, as well as querying functions that make data exploration and extraction easy and automatic.
 
 ## Exploring the database
 
