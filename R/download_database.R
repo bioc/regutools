@@ -1,5 +1,5 @@
-#' Download regulondb database from online file
-#'
+#' Download regulondb database
+#' @description If the file does not exist, this function downloads regulondb_sqlite3.db into the extdata directory of the regutools package.
 #' @return local file regulondb_sqlite3.db
 #' @export
 #'
