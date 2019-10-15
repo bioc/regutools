@@ -2,7 +2,7 @@
 % Please edit documentation in R/download_database.R
 \name{download_database}
 \alias{download_database}
-\title{Download regulondb database from online file}
+\title{Download regulondb database}
 \usage{
 download_database()
 }
@@ -10,7 +10,7 @@ download_database()
 local file regulondb_sqlite3.db
 }
 \description{
-Download regulondb database from online file
+If the file does not exist, this function downloads regulondb_sqlite3.db into the extdata directory of the regutools package.
 }
 \examples{
 download_database()
