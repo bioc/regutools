@@ -9,7 +9,7 @@
 regutools extracts and processes data from RegulonDB
 }
 \section{Maintainer}{
- Jose Alquicira and Joselyn Chavez
+ Joselyn Chavez
 }
 
 \section{See Also}{
@@ -18,5 +18,5 @@ Report bugs at https://github.com/ComunidadBioInfo/regutools.git/issues
 }
 
 \author{
-Jose Alquicira Hernandez, Joselyn Chavez, Carmina Barberena Jonas, Jesus Emiliano Sotelo Fonseca
+Joselyn Chavez, Jose Alquicira Hernandez, Carmina Barberena Jonas, Jesus Emiliano Sotelo Fonseca
 }
