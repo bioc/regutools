@@ -6,11 +6,9 @@
 #' list_datasets()
 #' @export
 
-list_datasets <- function(){
+list_datasets <- function( regulonData ){
   # Connect to database
-  regulon <- dbConnect(SQLite(),
-                       system.file("extdata", "regulondb_sqlite3.db",
-                                   package = "regutools"))
+
   # List tables
   result <- dbListTables(regulon)
   dbDisconnect(regulon)

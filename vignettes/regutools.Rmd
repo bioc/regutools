@@ -16,7 +16,7 @@ vignette: >
 
 The analysis of high-thoughput experiments -such as RNA-seq or ChIP-seq- often requires the integration of databases such as *regulondb* in order to give biological interpretations to these data. The *regutools* package is designed to facilitate such integration by providing programatic access to *regulondb* within the R environment. The package retreives information from the *regulondb* database into *Bioconductor* objects, ready for downstream analyses. 
 
-The package defines the object *regulonData*, which is a data structure that contains the path to a *sqlite* database retrieved from *regulondb* along with metadata such as database version and reference genome. The function `download_regulondb()` will retrieve the latest version of the database. The *regulondb* package contains functions with the most popular queries to *regulondb*, such as retrieving information of which gene targets are regulated by a transcription factor. But users can also design queries that are specific to their analyses. This vignette describes how to use the provided functions and how to design programmatic queries to *regulondb*. The general format of the function calls of this package is `result = functionCalled( regulonData, arguments )`. 
+The package defines the object *regulonData*, which is a data structure that contains the path to a *sqlite* database retrieved from *regulondb* along with metadata such as database version and reference genome. The function `download_regulondb()` will retrieve the latest version of the database. The *regulondb* package contains functions with the most popular queries to *regulondb*, such as retrieving information of which gene targets are regulated by a transcription factor. But users can also design queries that are specific to their analyses. This vignette describes how to use the provided functions and how to design programmatic queries to *regulondb*. The general format of the function calls of this package is `result <- functionCalled( regulonData, arguments )`. 
 
 # The regulonData object
 
@@ -24,7 +24,13 @@ In order to get an overview of the tables present in a *regulonData* object, we 
 
 ```{r echo = TRUE}
 library(regutools)
-ListDatasets()
+## to be replaced with AnnotationHub call ##
+
+download_database(getwd())
+regulonData <- dbConnect(SQLite(), file.path(getwd(), "regulondb_sqlite3.db"))
+class(regulonData)
+###
+list_datasets()
 ```
 
 For each table in the database, users can explore the columns of each table using the function `columns`. 
