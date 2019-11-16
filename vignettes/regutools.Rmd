@@ -20,17 +20,21 @@ The package defines the object *regulonData*, which is a data structure that con
 
 # The regulonData object
 
-In order to get an overview of the tables present in a *regulonData* object, we can use the function `ListDataSets()`. This function will output all the available tables that can be used to design queries. 
+In order to get an overview of the tables present in a *regulonData* object, we can use the function `list_datasets()`. This function will output all the available tables that can be used to design queries. 
 
 ```{r echo = TRUE}
 library(regutools)
-## to be replaced with AnnotationHub call ##
 
+## to be replaced with AnnotationHub call ##
 download_database(getwd())
-regulonData <- dbConnect(SQLite(), file.path(getwd(), "regulondb_sqlite3.db"))
-class(regulonData)
-###
-list_datasets()
+
+ecoli_regulondb <- 
+  build_regulondb(
+    database_path=file.path(getwd(), "regulondb_sqlite3.db"),
+    organism="E.coli", database_version="1", genome_version="1" )
+
+ecoli_regulondb
+
 ```
 
 For each table in the database, users can explore the columns of each table using the function `columns`. 
