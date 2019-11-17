@@ -27,7 +27,7 @@ setClass(
 #' @slot genome_version A character vector with the version of the genome build.
 #' @slot database_version A character vector with the version of regulondb build.
 #' @export
-build_regulondb <- function( database_path, organism, genome_version, database_version ){
+regulondb <- function( database_path, organism, genome_version, database_version ){
   stopifnot( file.exists( database_path ) )
   stopifnot( is(class(organism), "character") )
   stopifnot( is(class(genome_version), "character") )
@@ -37,4 +37,26 @@ build_regulondb <- function( database_path, organism, genome_version, database_v
        genome_version=genome_version,
        database_version=database_version)
 }
+
+setValidity("regulondb", function(object) {
+  table_must <- c( "DNA_OBJECTS", "GENE", "NETWORK",
+              "OPERON", "PROMOTER", "RI", "TF", "TU" )
+   if( !all( table_must %in% dbListTables( object ) ) ){
+     table_must <- table_must[!table_must %in% dbListTables( object )]
+     flg <- length(table_must) > 1
+     sprintf(
+       "The following table%s %s missing from the database: %s",
+       ifelse(flg, "s", ""),
+       ifelse(flg, "are", "is"),
+       ifelse(flg, paste(table_must, collapse=", "), table_must) )
+   }else if( !is( object@organism, "character" ) ){
+     "The slot 'organism' name must be a character vector"
+   }else if( !is( object@database_version, "character" ) ){
+     "The slot 'database_version' must be a character vector"
+   }else if( !is( object@genome_version, "character" ) ){
+     "The slot 'genome_version' name must be a character vector"
+   }else{
+     TRUE
+   }
+})
 

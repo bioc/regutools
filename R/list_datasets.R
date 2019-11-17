@@ -8,6 +8,7 @@
 #' list_datasets( ecoli_regulondb )
 #' @export
 list_datasets <- function( regulondb ){
+  stopifnot(validObject(ecoli_regulondb))
   result <- dbListTables( regulondb )
   return( result )
 }

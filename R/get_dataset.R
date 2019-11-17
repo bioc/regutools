@@ -1,7 +1,8 @@
 #' @title Extract data from RegulonDB
 #' @description This function retrieves data from RegulonDB. Attributes from datasets can be selected and filtered.
-#' @param dataset Dataset of interest.
-#' @param attributes Vector of attributes to be retrieved
+#' @param regulondb A regulondb object.
+#' @param dataset Dataset of interest. Use the function list_datasets for an overview of valid datasets.
+#' @param attributes Vector of attributes to be retrieved.
 #' @param filters List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.
 #' @param and Logical argument. If FALSE, filters will be considered under the "OR" operator
 #' @param partialmatch name of the condition(s) with a string pattern for full or partial match in the query
@@ -27,8 +28,7 @@
 #'        partialmatch = "name",
 #'        interval= "posright")
 #' @export
-
-get_dataset <- function(dataset = NULL, attributes = NULL, filters = NULL, and = TRUE, interval=NULL, partialmatch=NULL){
+get_dataset <- function(regulondb, dataset = NULL, attributes = NULL, filters = NULL, and = TRUE, interval=NULL, partialmatch=NULL){
 
   # Validate if attributes is a vector
   if(!is.null(attributes) & (!is.vector(attributes))){
@@ -37,22 +37,22 @@ get_dataset <- function(dataset = NULL, attributes = NULL, filters = NULL, and =
 
   # Validate dataset
   if(is.null(dataset)) {stop("Non dataset provided", call.= FALSE)}
-  if(!all(dataset %in% list_datasets())){
-    stop("Invalid dataset. See valid datasets in ListDatasets()", call.= FALSE)
+  if(!all(dataset %in% list_datasets(regulondb))){
+    stop("Invalid dataset. See valid datasets in list_datasets()", call.= FALSE)
   }
 
   # Validate attributes
-  if(!all(attributes %in% list_attributes(dataset)[["attribute"]])){
-    non.existing.attrs.index <- attributes %in% list_attributes(dataset)[["attribute"]]
+  if(!all(attributes %in% list_attributes(regulondb, dataset))){
+    non.existing.attrs.index <- attributes %in% list_attributes(regulondb, dataset)
     non.existing.attrs <- attributes[!non.existing.attrs.index]
     stop("Attribute(s) ", paste0('"',paste(non.existing.attrs, collapse = ", "), '"'),
-         " do not exist. See valid attributes in ListAttributes()", call.= FALSE)
+         " do not exist. See valid attributes in list_attributes()", call.= FALSE)
   }
 
   # Validate partialmatch
 
-  if(!all(partialmatch %in% list_attributes(dataset)[["attribute"]])) {
-    non.existing.attrs.index <- partialmatch %in% list_attributes(dataset)[["attribute"]]
+  if(!all(partialmatch %in% list_attributes(regulondb, dataset))) {
+    non.existing.attrs.index <- partialmatch %in% list_attributes(regulondb, dataset)
     non.existing.attrs <- partialmatch[!non.existing.attrs.index]
     stop("Partialmatch ", paste0('"',paste(non.existing.attrs, collapse = ", "), '"'),
          " do not exist.", call.= FALSE)
@@ -81,15 +81,14 @@ get_dataset <- function(dataset = NULL, attributes = NULL, filters = NULL, and =
     query <- paste("SELECT ", paste(attributes, collapse = " , "), "FROM ", dataset, " WHERE ", cond , ";") #Construct query
   }
   # Connect to database
-  regulon <- dbConnect(SQLite(), system.file("extdata", "regulondb_sqlite3.db", package = "regutools"))
-
+  # regulon <- dbConnect(SQLite(), system.file("extdata", "regulondb_sqlite3.db", package = "regutools"))
   # Retrieve data
-  result <- dbGetQuery(regulon, query)
-  dbDisconnect(regulon)
+  result <- dbGetQuery( regulondb, query )
+  #dbDisconnect(regulon)
 
   #Check if results exist
   if(!nrow(result)){
     stop("Your query returned no results.", call.= FALSE)
-    }
+  }
   return(result)
 }

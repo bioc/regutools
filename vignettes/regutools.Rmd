@@ -12,15 +12,15 @@ vignette: >
 
 # Overview
 
-*Escherichia coli K-12 (E-coli)* is the best bacterial organism studied to date. Thousands of papers have been published using *E-coli* as a model system asking how genes are regulated. The throughput of these experiments range from single-gene studies to whole-genome approaches. Twenty years ago, the database *regulondb* started collecting, curating and organizing this information into a centralized resource. Thanks to this huge efforts, researchers have had an easy way to access all these data in a database, facilitating the advancements of complete fields, such as *systems biology*. 
+*Escherichia coli K-12 (E-coli)* is the best bacterial organism studied to date. Thousands of papers have been published using *E-coli* as a model system asking how genes are regulated. The throughput of these experiments range from single-gene studies to whole-genome approaches. Twenty years ago, the database *RegulonDB* started collecting, curating and organizing this information into a centralized resource. Thanks to this huge efforts, researchers have had an easy way to access all these data in a database, facilitating the advancements of complete fields, such as *systems biology*. 
 
-The analysis of high-thoughput experiments -such as RNA-seq or ChIP-seq- often requires the integration of databases such as *regulondb* in order to give biological interpretations to these data. The *regutools* package is designed to facilitate such integration by providing programatic access to *regulondb* within the R environment. The package retreives information from the *regulondb* database into *Bioconductor* objects, ready for downstream analyses. 
+The analysis of high-thoughput experiments -such as RNA-seq or ChIP-seq- often requires the integration of databases such as *RegulonDB* in order to give biological interpretations to these data. The *regutools* package is designed to facilitate such integration by providing programatic access to *RegulonDB* within the R environment. The package retreives information from the *RegulonDB* database into *Bioconductor* objects, ready for downstream analyses. 
 
-The package defines the object *regulonData*, which is a data structure that contains the path to a *sqlite* database retrieved from *regulondb* along with metadata such as database version and reference genome. The function `download_regulondb()` will retrieve the latest version of the database. The *regulondb* package contains functions with the most popular queries to *regulondb*, such as retrieving information of which gene targets are regulated by a transcription factor. But users can also design queries that are specific to their analyses. This vignette describes how to use the provided functions and how to design programmatic queries to *regulondb*. The general format of the function calls of this package is `result <- functionCalled( regulonData, arguments )`. 
+The package defines the object **regulondb**, which is a data structure that contains the path to a *SQLite* database retrieved from *RegulonDB* along with metadata such as database version and reference genome. The function `download_database()` will retrieve the latest version of the database. The *regutools* package contains functions with the most popular queries to *regutools*, such as retrieving information of which gene targets are regulated by a transcription factor. But users can also design queries that are specific to their analyses. This vignette describes how to use the provided functions and how to design programmatic queries to *regutools*. The general syntax of the function calls of this package is `result <- functionCalled( regulondb, arguments )`. 
 
-# The regulonData object
+# The **regulondb** object
 
-In order to get an overview of the tables present in a *regulonData* object, we can use the function `list_datasets()`. This function will output all the available tables that can be used to design queries. 
+The **regulondb** object is an extension of an **SQLiteConnection** class that host a connection to a database with the table structure defined in the *RegulonDb* database. It contains additional slots that especify the organism, genome version and database version. The function `regulondb()` is the constructor function of **regulondb** objects. This function receives as input a file path to the database file as well as information about the annotation as character vectors.
 
 ```{r echo = TRUE}
 library(regutools)
@@ -29,26 +29,32 @@ library(regutools)
 download_database(getwd())
 
 ecoli_regulondb <- 
-  build_regulondb(
+  regulondb(
     database_path=file.path(getwd(), "regulondb_sqlite3.db"),
-    organism="E.coli", database_version="1", genome_version="1" )
+    organism="E.coli", database_version="version 1", genome_version="version 1" )
 
 ecoli_regulondb
 
 ```
 
-For each table in the database, users can explore the columns of each table using the function `columns`. 
+In order to get an overview of the tables present in a *regulondb* object, we can use the function `list_datasets()`. This function will output all the available tables (datasets) that can be used to build queries. 
 
 ```{r echo = TRUE}
-head(ListAttributes("GENE",
-               comments = TRUE))
+list_datasets( ecoli_regulondb )
+```
+
+For each table in the database, users can explore the fields (or attributes) of each table using the function `list_attributes`.
+
+```{r}
+list_attributes( ecoli_regulondb, "GENE" )
 ```
 
 # Retrieving data
 
 ```{r echo = TRUE}
-head(GetAttr(attributes=c("posright","name"),
-        dataset="GENE"))
+get_dataset(regulondb=ecoli_regulondb, 
+            dataset="GENE",
+            attributes=c("posright","name") )
 ```
 
 ## Using filters
