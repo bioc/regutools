@@ -35,7 +35,7 @@ regulondb <- function( database_path, organism, genome_version, database_version
   dbconn <- dbConnect( SQLite(), database_path )
   new( "regulondb", dbconn, organism=organism,
        genome_version=genome_version,
-       database_version=database_version)
+       database_version=database_version )
 }
 
 setValidity("regulondb", function(object) {

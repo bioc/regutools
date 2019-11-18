@@ -30,8 +30,9 @@ download_database(getwd())
 
 ecoli_regulondb <- 
   regulondb(
-    database_path=file.path(getwd(), "regulondb_sqlite3.db"),
-    organism="E.coli", database_version="version 1", genome_version="version 1" )
+    database_path = file.path( getwd(), "regulondb_sqlite3.db" ),
+    organism="E.coli", database_version="version 1", 
+    genome_version="version 1" )
 
 ecoli_regulondb
 
@@ -46,13 +47,13 @@ list_datasets( ecoli_regulondb )
 For each table in the database, users can explore the fields (or attributes) of each table using the function `list_attributes`.
 
 ```{r}
-list_attributes( ecoli_regulondb, "GENE" )
+list_attributes( ecoli_regulondb, "NETWORK" )
 ```
 
 # Retrieving data
 
 ```{r echo = TRUE}
-get_dataset(regulondb=ecoli_regulondb, 
+get_dataset( regulondb=ecoli_regulondb, 
             dataset="GENE",
             attributes=c("posright","name") )
 ```
