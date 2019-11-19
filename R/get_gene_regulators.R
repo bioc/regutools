@@ -99,6 +99,5 @@ get_gene_regulators <- function(genes,format="multirow",output.type="TF"){
     return(regulation)
 
   }
-
 }
 

@@ -5,7 +5,6 @@
 #' @keywords data retrieval, attributes,
 #' @param dataset Dataset of interest. The name should correspond to a table of the database.
 #' @return A character vector with the field names.
-#' }
 #' @examples
 #' download_database(getwd())
 #' ecoli_regulondb <-build_regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )

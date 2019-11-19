@@ -4,16 +4,18 @@
 \alias{list_datasets}
 \title{List available datasets in RegulonDB database}
 \usage{
-list_datasets()
+list_datasets(regulondb)
+}
+\arguments{
+\item{regulondb}{A regulondb class.}
 }
 \description{
-This function returns a vector of all available datasets. No parameters are provided.
+This function returns a vector of all available tables from a regulondb class.
 }
 \examples{
-list_datasets()
-}
-\author{
-Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, Josá Alquicira Hernández
+download_database(getwd())
+ecoli_regulondb <-build_regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
+list_datasets( ecoli_regulondb )
 }
 \keyword{data}
 \keyword{database,}

@@ -1,7 +1,4 @@
-library(testthat)
-library(regutools)
+context("get_attributes")
+test_that( "Function get attributes works as expected", {
 
-test_check("regutools")
-context("errors")
-
-expect_error(1 / "a", "non-numeric argument")
+} )

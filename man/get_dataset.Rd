@@ -4,13 +4,15 @@
 \alias{get_dataset}
 \title{Extract data from RegulonDB}
 \usage{
-get_dataset(dataset = NULL, attributes = NULL, filters = NULL,
-  and = TRUE, interval = NULL, partialmatch = NULL)
+get_dataset(regulondb, dataset = NULL, attributes = NULL,
+  filters = NULL, and = TRUE, interval = NULL, partialmatch = NULL)
 }
 \arguments{
-\item{dataset}{Dataset of interest.}
+\item{regulondb}{A regulondb object.}
 
-\item{attributes}{Vector of attributes to be retrieved}
+\item{dataset}{Dataset of interest. Use the function list_datasets for an overview of valid datasets.}
+
+\item{attributes}{Vector of attributes to be retrieved.}
 
 \item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
 
@@ -19,6 +21,9 @@ get_dataset(dataset = NULL, attributes = NULL, filters = NULL,
 \item{interval}{the filters whose values will be considered as interval}
 
 \item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
+}
+\value{
+A data frame.
 }
 \description{
 This function retrieves data from RegulonDB. Attributes from datasets can be selected and filtered.
@@ -45,7 +50,3 @@ get_dataset(dataset = "GENE",
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 }
-\keyword{attributes,}
-\keyword{data}
-\keyword{filters,}
-\keyword{retrieval,}

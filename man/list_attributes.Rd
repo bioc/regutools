@@ -2,29 +2,25 @@
 % Please edit documentation in R/list_attributes.R
 \name{list_attributes}
 \alias{list_attributes}
-\title{List attributes from a dataset}
+\title{List attributes/fields from a dataset/table}
 \usage{
-list_attributes(dataset, comments = FALSE)
+list_attributes(regulondb, dataset)
 }
 \arguments{
-\item{dataset}{Dataset of interest}
-
-\item{coments}{Default FALSE. If TRUE, displays the description of each attribute}
+\item{dataset}{Dataset of interest. The name should correspond to a table of the database.}
 }
 \value{
-A data frame with two columns:
-\itemize{
-\item \code{attribute}. Name of the attribute
-\item \code{description}. Description of attribute
-}
+A character vector with the field names.
 }
 \description{
 List all attributes and their description of a dataset from RegulonDB. The result of this function may
-be used as parameter 'values' in \code{\link{GetAttr}} function.
+be used as parameter 'values' in \code{\link{list_attributes}} function.
 }
 \examples{
-list_attributes("TF")
-list_attributes("OPERON", comments = TRUE)
+download_database(getwd())
+ecoli_regulondb <-build_regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
+list_attributes(ecoli_regulondb, "TF")
+list_attributes(ecoli_regulondb, "OPERON")
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez

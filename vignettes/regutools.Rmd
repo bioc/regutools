@@ -47,15 +47,22 @@ list_datasets( ecoli_regulondb )
 For each table in the database, users can explore the fields (or attributes) of each table using the function `list_attributes`.
 
 ```{r}
-list_attributes( ecoli_regulondb, "NETWORK" )
+list_attributes( ecoli_regulondb, "GENE" )
 ```
 
 # Retrieving data
 
 ```{r echo = TRUE}
-get_dataset( regulondb=ecoli_regulondb, 
+xx <- get_dataset( regulondb=ecoli_regulondb, 
             dataset="GENE",
-            attributes=c("posright","name") )
+            attributes=c("posleft", "posright","name"), 
+            list("name"=c("araC","crp","lacI")) )
+
+xx <- get_dataset( regulondb=ecoli_regulondb, 
+            dataset="DNA_OBJECTS" )
+
+head(xx)
+attributes( xx )
 ```
 
 ## Using filters

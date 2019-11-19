@@ -18,11 +18,10 @@
 #'         partialmatch = "name")
 #' @export
 
-buil_condition <- function(dataset, filters, operator, interval, partialmatch){
-  if(class(filters) == "list")
-  {
-    if(!all(names(filters) %in% list_attributes(dataset)[["attribute"]])){
-      non.existing.attrs.index <- names(filters) %in% list_attributes(dataset)[["attribute"]]
+build_condition <- function(regulondb, dataset, filters, operator, interval, partialmatch){
+  if(class(filters) == "list"){
+    if(!all(names(filters) %in% list_attributes(regulondb, dataset))){
+      non.existing.attrs.index <- names(filters) %in% list_attributes(regulondb, dataset)
       non.existing.attrs <- names(filters)[!non.existing.attrs.index]
       stop("Attribute(s) ", non.existing.attrs , " do not exist.", call.= FALSE)
     }
@@ -47,7 +46,8 @@ buil_condition <- function(dataset, filters, operator, interval, partialmatch){
         conditions_nonintervals<-non_existing_intervals(filters, interval, operator, partialmatch)
         return(conditions_nonintervals)
       }
-    }
+  }else{
     stop("The argument filters is not a list", call.= FALSE)
   }
+}
 
