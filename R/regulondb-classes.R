@@ -80,3 +80,17 @@ setClass(
     dataset="character"
   )
 )
+
+setValidity( "regulondb_result", function( object ) {
+  if( !is( object@organism, "character" ) ){
+    "The slot 'organism' name must be a character vector"
+  }else if( !is( object@database_version, "character" ) ){
+    "The slot 'database_version' must be a character vector"
+  }else if( !is( object@genome_version, "character" ) ){
+    "The slot 'genome_version' name must be a character vector"
+  }else if( !is( object@dataset, "character" ) ){
+    "The slot 'dataset' name must be a character vector"
+  }else{
+    TRUE
+  }
+} )

@@ -53,16 +53,30 @@ list_attributes( ecoli_regulondb, "GENE" )
 # Retrieving data
 
 ```{r echo = TRUE}
+
 xx <- get_dataset( regulondb=ecoli_regulondb, 
             dataset="GENE",
             attributes=c("posleft", "posright","name"), 
             list("name"=c("araC","crp","lacI")) )
 
 xx <- get_dataset( regulondb=ecoli_regulondb, 
-            dataset="GENE" )
+            dataset="GENE", 
+            attributes=c("name", "dna_sequence", "product_sequence"),
+            filters=list("name"=c("araC","crp","lacI") ) )
 
-xx$dna_sequence
-attributes( xx )
+colnames(xx)
+regulondb_result <- xx
+
+regulondb_result
+
+library(Biostrings)
+
+xx <- xx[!is.na(xx$dna_sequence),]
+
+pr <- DNAStringSet( xx$dna_sequence )
+
+mcols( pr ) <- xx[,c("name"), drop=FALSE]
+
 ```
 
 ## Using filters

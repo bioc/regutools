@@ -28,6 +28,7 @@
 #'        partialmatch = "name",
 #'        interval= "posright")
 #' @export
+#' @importFrom S4Vectors DataFrame
 get_dataset <- function(regulondb, dataset = NULL, attributes = NULL, filters = NULL, and = TRUE, interval=NULL, partialmatch=NULL){
 
   # Validate if attributes is a vector
@@ -95,10 +96,9 @@ get_dataset <- function(regulondb, dataset = NULL, attributes = NULL, filters = 
   return(result)
 }
 
-#' @title Function to convert output of regulondb queries to Bioconductor S4 objects
+#' @title Function to convert output of regulondb queries to GenomicRanges objects
 #' @description This function converts, when possible, a regulon_result object into a GRanges object.
 #' @param regulondb_result A regulon_result object.
-#' @keywords data retrieval, attributes, filters,
 #' @author Alejandro Reyes
 #' @importFrom GenomicRanges GRanges
 #' @export
@@ -137,4 +137,44 @@ convert_to_granges <- function( regulondb_result ){
       paste(c(posLeft, posRight), collapse="\n\t") ), call.=FALSE )
   }
   grdata
+}
+
+#' @title Function to convert output of regulondb queries to Biostrings objects
+#' @description This function converts, when possible, a regulon_result object into a Biostrings object.
+#' @param regulondb_result A regulon_result object.
+#' @param seq_type A character string with either DNA or protein, specyfing what
+#' @author Alejandro Reyes
+#' @importFrom Biostrings DNAStringSet AAStringSet
+#' @export
+convert_to_biostrings <- function( regulondb_result, seq_type="DNA" ){
+  if(!is( regulondb_result, "regulondb_result" ))
+    stop("The input is not a 'regulondb_result' object.")
+  if( !seq_type %in% c("DNA", "product") )
+    stop("'seq_type' must be either 'DNA' or 'product'")
+  dataset <- regulondb_result@dataset
+  if( dataset == "GENE" ){
+    if( seq_type == "DNA" ){
+      func <- DNAStringSet
+      col_name <- "dna_sequence"
+    }else{
+      func <- BStringSet
+      col_name <- "product_sequence"
+    }
+  }else if( dataset == "PROMOTER" ){
+    func <- DNAStringSet
+    col_name <- "promoter_sequence"
+  }else{
+    stop( sprintf("Can not coerse 'regulondb_result' from dataset %s into a Biostrings object\n", dataset) )
+  }
+  if( !col_name %in% colnames( regulondb_result ) ){
+    stop(sprintf( "Not enough information to convert to a Biostrings object.\nPlease add the following column to the regulondb_result object: \n\t%s\n", col_name) )
+  }
+  seq_character <- gsub("\\*$", "", regulondb_result[[col_name]])
+  keep <- !is.na( seq_character )
+  rs <- func( seq_character[which(keep)] )
+  mcols( rs ) <- regulondb_result[which(keep),!colnames(regulondb_result) %in% col_name,drop=FALSE]
+  if( sum(!keep) ){
+    warning(sprintf("Dropped %s entries where sequence data were NAs", sum(!keep)))
+  }
+  rs
 }

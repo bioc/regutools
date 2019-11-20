@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_dataset.R
 \name{convert_to_granges}
 \alias{convert_to_granges}
-\title{Function to convert output of regulondb queries to Bioconductor S4 objects}
+\title{Function to convert output of regulondb queries to GenomicRanges objects}
 \usage{
 convert_to_granges(regulondb_result)
 }
@@ -15,7 +15,3 @@ This function converts, when possible, a regulon_result object into a GRanges ob
 \author{
 Alejandro Reyes
 }
-\keyword{attributes,}
-\keyword{data}
-\keyword{filters,}
-\keyword{retrieval,}
