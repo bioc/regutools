@@ -7,15 +7,19 @@ test_that( "Results from regulondb queries can be converted to GRanges", {
                dataset="GENE",
                attributes=c("posleft", "posright","name", "strand"),
                filters=list(name=c("araC","crp","lacI") ) )
-  query
-
-  expect_s4_class( convert_to_granges( query ), "GRanges")
+  expect_s4_class( convert_to_granges( query ), "GRanges" )
   expect_error( convert_to_granges( query[,c("posleft", "name")] ) )
-
-  regulondb_result <- query
-  keep <- !(is.na(regulondb_result$posleft) | is.na(regulondb_result$posright))
-  grdata <- with( regulondb_result[which(keep),],
-                  GRanges( attributes( regulondb_result )$organism,
-                           IRanges(start=posleft, end=posright)) )
-
+  expect_s4_class( convert_to_granges( query[,c("posleft", "posright")] ), "GRanges" )
+  query <- get_dataset( regulondb=regdb,
+               dataset="DNA_OBJECTS" )
+  expect_s4_class( convert_to_granges( query ), "GRanges" )
+  expect_error( convert_to_granges( as.data.frame( query ) ) )
+  query <- get_dataset( regulondb=regdb, dataset="OPERON" )
+  expect_s4_class( convert_to_granges( query ), "GRanges" )
+  query <- get_dataset( regulondb=regdb, dataset="RI" )
+  expect_s4_class( convert_to_granges( query ), "GRanges" )
+  query <- get_dataset( regulondb=regdb, dataset="TF",
+                        attributes="total_regulated_tf",
+                        filters=list(name=c("Fis", "Rob", "TyrR") ) )
+  expect_error( convert_to_granges( query ) )
 } )

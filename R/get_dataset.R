@@ -96,37 +96,41 @@ get_dataset <- function(regulondb, dataset = NULL, attributes = NULL, filters = 
 }
 
 #' @title Function to convert output of regulondb queries to Bioconductor S4 objects
-#' @description This function
-#' @param regulondb_result A data frame that resulted from a call to the function get_dataset.
+#' @description This function converts, when possible, a regulon_result object into a GRanges object.
+#' @param regulondb_result A regulon_result object.
 #' @keywords data retrieval, attributes, filters,
 #' @author Alejandro Reyes
 #' @importFrom GenomicRanges GRanges
 #' @export
 convert_to_granges <- function( regulondb_result ){
-  stopifnot( is( regulondb_result, "data.frame" ) )
-  if( !all(c("source", "dataset") %in% names( attributes( regulondb_result ) ) ) ){
-    stop( "Attributes 'source' and/or 'dataset' were not found in the input.
-         Is the input the result of get_dataset?",
-         call.=FALSE )
-  }
-  dataset <- attributes( regulondb_result )$dataset
+  if(!is( regulondb_result, "regulondb_result" ))
+    stop("The input is not a 'regulondb_result' object.")
+  dataset <- regulondb_result@dataset
   if( dataset %in% c("GENE", "DNA_OBJECTS") ){
     posLeft <- "posleft"
     posRight <- "posright"
-  }else if( dataset == "" ){
+  }else if( dataset == "OPERON" ){
+    posLeft <- "regulationposleft"
+    posRight <- "regulationposright"
+  }else if( dataset == "RI" ){
+    posLeft <- "site_posleft"
+    posRight <- "site_posright"
+  }else{
+    stop( sprintf("Can not coerse 'regulondb_result' from dataset %s into a GRanges object\n", dataset) )
   }
   if( all( c( posLeft, posRight ) %in% names( regulondb_result ) ) ){
-    keep <- !(is.na(regulondb_result$posleft) | is.na(regulondb_result$posright))
-    grdata <- with( regulondb_result[which(keep),],
-          GRanges( attributes( regulondb_result )$organism,
-                   IRanges(start=posleft, end=posright)) )
+    keep <- !( is.na(regulondb_result[[posLeft]]) | is.na(regulondb_result[[posRight]]) )
+    grdata <- GRanges( regulondb_result@organism,
+                   IRanges(start=regulondb_result[[posLeft]][keep], end=regulondb_result[[posRight]][keep]) )
     if( "strand" %in% names(regulondb_result) ){
-      strand(grdata) <- ifelse( regulondb_result$strand[which(keep)] == "forward", "+", "-" )
+      stnd <- ifelse( regulondb_result$strand[which(keep)] == "forward", "+", "-" )
+      stnd[which(is.na(stnd))] <- "*"
+      strand(grdata) <- stnd
     }
     mcols(grdata) <- DataFrame(
       regulondb_result[keep,!colnames( regulondb_result ) %in% c(posLeft, posRight, "strand"),drop=FALSE])
     if(sum(!keep)> 0)
-      warning( sprintf("Dropped %s entries since NAs were found in the genomic coordinates", sum(keep)) )
+      warning( sprintf("Dropped %s entries where genomic coordinates were NAs", sum(!keep)) )
     grdata
   }else{
     stop( sprintf( "Not enough information to convert into a GRanges object. Please make sure that the input the following columns: \n\t%s",

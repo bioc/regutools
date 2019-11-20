@@ -7,10 +7,10 @@
 convert_to_granges(regulondb_result)
 }
 \arguments{
-\item{regulondb_result}{A data frame that resulted from a call to the function get_dataset.}
+\item{regulondb_result}{A regulon_result object.}
 }
 \description{
-This function
+This function converts, when possible, a regulon_result object into a GRanges object.
 }
 \author{
 Alejandro Reyes

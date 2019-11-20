@@ -59,9 +59,9 @@ xx <- get_dataset( regulondb=ecoli_regulondb,
             list("name"=c("araC","crp","lacI")) )
 
 xx <- get_dataset( regulondb=ecoli_regulondb, 
-            dataset="DNA_OBJECTS" )
+            dataset="GENE" )
 
-head(xx)
+xx$dna_sequence
 attributes( xx )
 ```
 
