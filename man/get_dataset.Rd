@@ -5,7 +5,8 @@
 \title{Extract data from RegulonDB}
 \usage{
 get_dataset(regulondb, dataset = NULL, attributes = NULL,
-  filters = NULL, and = TRUE, interval = NULL, partialmatch = NULL)
+  filters = NULL, and = TRUE, interval = NULL, partialmatch = NULL,
+  output_format = "regulondb_result")
 }
 \arguments{
 \item{regulondb}{A regulondb object.}
@@ -21,9 +22,11 @@ get_dataset(regulondb, dataset = NULL, attributes = NULL,
 \item{interval}{the filters whose values will be considered as interval}
 
 \item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
+
+\item{output_format}{A string specifying the output format. Possible options are "regulondb_result", "GRanges", "DNAStringSet" or "BStringSet".}
 }
 \value{
-A data frame.
+By default, a regulon_results object. If specified in the parameter output_format, it can also return either a GRanges object or a Biostrings object.
 }
 \description{
 This function retrieves data from RegulonDB. Attributes from datasets can be selected and filtered.

@@ -7,8 +7,11 @@
 #' @param and Logical argument. If FALSE, filters will be considered under the "OR" operator
 #' @param partialmatch name of the condition(s) with a string pattern for full or partial match in the query
 #' @param interval the filters whose values will be considered as interval
+#' @param output_format A string specifying the output format. Possible options are "regulondb_result", "GRanges", "DNAStringSet" or "BStringSet".
 #' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
-#' @return A data frame.
+#' @return By default, a regulon_results object. If specified in the parameter output_format, it can also return either a GRanges object or a Biostrings object.
+#' @importFrom IRanges IRanges
+#' @importFrom GenomicRanges strand mcols "strand<-" "mcols<-"
 #' @examples
 #' # Obtain all the information from the "GENE" dataset
 #' get_dataset(dataset="GENE")
@@ -29,7 +32,17 @@
 #'        interval= "posright")
 #' @export
 #' @importFrom S4Vectors DataFrame
-get_dataset <- function(regulondb, dataset = NULL, attributes = NULL, filters = NULL, and = TRUE, interval=NULL, partialmatch=NULL){
+#' @importFrom Biostrings DNAStringSet BStringSet
+get_dataset <- function(regulondb, dataset = NULL, attributes = NULL,
+                        filters = NULL, and = TRUE, interval=NULL,
+                        partialmatch=NULL,
+                        output_format="regulondb_result" ){
+  # Check if format specification is valid
+  if( !output_format %in% c( "regulondb_result", "GRanges",
+                           "DNAStringSet", "BStringSet" ) ){
+    stop("Output format must be one of the following: regulondb_result, GRanges, DNAStringSet or BStringSet",
+         call.= FALSE)
+  }
 
   # Validate if attributes is a vector
   if(!is.null(attributes) & (!is.vector(attributes))){
@@ -93,7 +106,16 @@ get_dataset <- function(regulondb, dataset = NULL, attributes = NULL, filters = 
        genome_version=regulondb@genome_version,
        database_version=regulondb@database_version,
        dataset=dataset )
-  return(result)
+
+  if( output_format == "GRanges" ){
+    result <- convert_to_granges( result )
+  }else if( output_format == "DNAStringSet" ){
+    result <- convert_to_biostrings( result, seq_type="DNA" )
+  }else if( output_format == "BStringSet" ){
+    result <- convert_to_biostrings( result, seq_type="product" )
+  }
+
+  result
 }
 
 #' @title Function to convert output of regulondb queries to GenomicRanges objects
