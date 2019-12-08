@@ -24,11 +24,11 @@ non_existing_intervals<-function(filters, interval, operator, partialmatch){
   condition.non.interv <- paste(unlist(condition.format.non.interv), collapse = paste0(" ", operator, " "))
   }
   if (!is.null(partialmatch)){
-    condition.partialmatch<- existing_intervals(filters, partialmatch, operator)
+    condition.partialmatch<- existing_partial_match(filters, partialmatch, operator)
     if ((length(partialmatch)+length(interval)==length(filters))){
       return(condition.partialmatch)
     }else{
-    condition.partialmatch<- existing_intervals(filters, partialmatch, operator)
+    condition.partialmatch<- existing_partial_match(filters, partialmatch, operator)
     condition.pmandnoin<-paste(condition.partialmatch, condition.non.interv, sep = operator, collapse = operator)
     return(condition.pmandnoin)
   }}else{
