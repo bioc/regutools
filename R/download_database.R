@@ -4,11 +4,16 @@
 #' @export
 #'
 #' @examples download_database()
-download_database <- function(path=".") {
+download_database <- function(path=".", overwrite = FALSE) {
   destfile <-  file.path(path, "regulondb_sqlite3.db")
-  if (!file.exists(destfile)) {
-    e <- simpleError("Download error")
-    tryCatch(download.file(url = "https://www.dropbox.com/s/3xg6b2c0era21q8/regulondb_sqlite3.db?dl=1",
-                           destfile ), error = function(e) e)
-  } else {print("regulondb_sqlite3.db already exists in local directory")}
+  url <- "https://www.dropbox.com/s/eod8vdq4fthvjcr/regulondb_v10.6.2_DM_sqlite3.db?dl=1"
+  e <- simpleError("Download error")
+  if(overwrite) {
+    tryCatch(download.file(url = url, destfile ), error = function(e) e)
+  } else {
+    if (!file.exists(destfile)) {
+      tryCatch(download.file(url = url, destfile ), error = function(e) e)
+    } else {print("regulondb_sqlite3.db already exists in local directory, set overwrite = TRUE if you want to replace existing file.")}
+  }
 }
+
