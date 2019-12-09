@@ -9,6 +9,5 @@
 #' @export
 list_datasets <- function( regulondb ){
   stopifnot(validObject(regulondb))
-  result <- dbListTables( regulondb )
-  return( result )
+  dbListTables( regulondb )
 }
