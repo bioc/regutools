@@ -4,8 +4,8 @@
 #' @keywords data retrieval, datasets, database,
 #' @examples
 #' download_database(getwd())
-#' ecoli_regulondb <-build_regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
-#' list_datasets( ecoli_regulondb )
+#' e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
+#' list_datasets( e_coli_regulondb )
 #' @export
 list_datasets <- function( regulondb ){
   stopifnot(validObject(regulondb))
