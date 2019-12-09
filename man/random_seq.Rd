@@ -4,10 +4,20 @@
 \alias{random_seq}
 \title{Generate random sequences}
 \usage{
-random_seq(n, seq.length, format = "fasta", type = NULL, seed = NULL,
-  alphabet = NULL, expfreq = NULL, bg.model = NULL,
-  organism = NULL, oligo.length = NULL, length.file = NULL,
-  lw = NULL)
+random_seq(
+  n,
+  seq.length,
+  format = "fasta",
+  type = NULL,
+  seed = NULL,
+  alphabet = NULL,
+  expfreq = NULL,
+  bg.model = NULL,
+  organism = NULL,
+  oligo.length = NULL,
+  length.file = NULL,
+  lw = NULL
+)
 }
 \arguments{
 \item{n}{Number of sequences to generate}

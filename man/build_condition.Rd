@@ -4,8 +4,7 @@
 \alias{build_condition}
 \title{Construct logical condition to query database}
 \usage{
-build_condition(regulondb, dataset, filters, operator, interval,
-  partialmatch)
+build_condition(regulondb, dataset, filters, operator, interval, partialmatch)
 }
 \arguments{
 \item{dataset}{dataset of interest}

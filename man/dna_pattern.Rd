@@ -4,9 +4,18 @@
 \alias{dna_pattern}
 \title{Searches all occurrences of a pattern within DNA sequences.}
 \usage{
-dna_pattern(sequence, format = "fasta", substitution = NULL, pattern,
-  id = NULL, origin = NULL, noov = NULL, both.strand = TRUE,
-  sort.oligo = NULL, threshold = NULL)
+dna_pattern(
+  sequence,
+  format = "fasta",
+  substitution = NULL,
+  pattern,
+  id = NULL,
+  origin = NULL,
+  noov = NULL,
+  both.strand = TRUE,
+  sort.oligo = NULL,
+  threshold = NULL
+)
 }
 \arguments{
 \item{sequence}{Input sequence}
@@ -50,7 +59,7 @@ Returns position of pattern match in the input sequence .
 res <- dna_pattern(sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
                   format = "raw",
                   pattern = "TCGCAAT")
-res <- dna_pattern(sequence = ">seq1\\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
+res <- dna_pattern(sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
                   pattern = "TCGCAAT",
                   both.strand = F,
                   id = "patt_1")

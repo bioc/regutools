@@ -4,9 +4,15 @@
 \alias{purge_seq}
 \title{Mask repeated fragments of an input sequence}
 \usage{
-purge_seq(sequence, format = "fasta", match.length = NULL,
-  mismatch = NULL, both.strand = TRUE, delete = NULL,
-  mask.short = NULL)
+purge_seq(
+  sequence,
+  format = "fasta",
+  match.length = NULL,
+  mismatch = NULL,
+  both.strand = TRUE,
+  delete = NULL,
+  mask.short = NULL
+)
 }
 \arguments{
 \item{sequence}{Sequence to purge}
@@ -31,7 +37,7 @@ Returns your sequence with substitution of repeated fragments by 'n' .
 }
 \examples{
 # Purge sequence with repeats of length 10
-res <- purge_seq(sequence = ">seq1\\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA")
+res <- purge_seq(sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA")
 res <- purge_seq(sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
                    match.length = 10,
                    format = "raw")

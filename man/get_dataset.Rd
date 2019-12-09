@@ -4,9 +4,16 @@
 \alias{get_dataset}
 \title{Extract data from RegulonDB}
 \usage{
-get_dataset(regulondb, dataset = NULL, attributes = NULL,
-  filters = NULL, and = TRUE, interval = NULL, partialmatch = NULL,
-  output_format = "regulondb_result")
+get_dataset(
+  regulondb,
+  dataset = NULL,
+  attributes = NULL,
+  filters = NULL,
+  and = TRUE,
+  interval = NULL,
+  partialmatch = NULL,
+  output_format = "regulondb_result"
+)
 }
 \arguments{
 \item{regulondb}{A regulondb object.}

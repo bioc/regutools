@@ -4,14 +4,32 @@
 \alias{matrix_scan}
 \title{Matrix scan.}
 \usage{
-matrix_scan(sequence, matrix, sequence.format = "fasta",
-  matrix.format = "tab", quick = FALSE, n.treatment = NULL,
-  concensus.name = NULL, pseudo = 1, equi.pseudo = FALSE,
-  top.matrices = NULL, background.model = NULL, background = NULL,
-  background.input = NULL, background.window = NULL, markov = NULL,
-  background.pseudo = NULL, return.fields = NULL,
-  sort.distrib = FALSE, lth = NULL, uth = NULL, str = NULL,
-  origin = NULL, decimals = NULL, crer.ids = NULL)
+matrix_scan(
+  sequence,
+  matrix,
+  sequence.format = "fasta",
+  matrix.format = "tab",
+  quick = FALSE,
+  n.treatment = NULL,
+  concensus.name = NULL,
+  pseudo = 1,
+  equi.pseudo = FALSE,
+  top.matrices = NULL,
+  background.model = NULL,
+  background = NULL,
+  background.input = NULL,
+  background.window = NULL,
+  markov = NULL,
+  background.pseudo = NULL,
+  return.fields = NULL,
+  sort.distrib = FALSE,
+  lth = NULL,
+  uth = NULL,
+  str = NULL,
+  origin = NULL,
+  decimals = NULL,
+  crer.ids = NULL
+)
 }
 \arguments{
 \item{sequence}{Sequence(s) to scan - all the formats supported in RSAT can be used as input (default: \code{fasta})}

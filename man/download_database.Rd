@@ -4,7 +4,7 @@
 \alias{download_database}
 \title{Download regulondb database}
 \usage{
-download_database(path = ".")
+download_database(path = ".", overwrite = FALSE)
 }
 \value{
 local file regulondb_sqlite3.db
