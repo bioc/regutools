@@ -16,8 +16,7 @@ Imports:
     data.table,
     RCy3
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Suggests: testthat, knitr, rmarkdown
 Maintainer: Joselyn Chavez <joselynchavezf@gmail.com>
 BugReports: https://github.com/ComunidadBioInfo/regutools.git/issues
-
