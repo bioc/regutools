@@ -18,9 +18,9 @@ be used as parameter 'values' in \code{\link{list_attributes}} function.
 }
 \examples{
 download_database(getwd())
-ecoli_regulondb <-build_regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
-list_attributes(ecoli_regulondb, "TF")
-list_attributes(ecoli_regulondb, "OPERON")
+e_coli_regulondb <- regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
+list_attributes(e_coli_regulondb, "TF")
+list_attributes(e_coli_regulondb, "OPERON")
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez

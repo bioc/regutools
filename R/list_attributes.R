@@ -7,20 +7,14 @@
 #' @return A character vector with the field names.
 #' @examples
 #' download_database(getwd())
-#' ecoli_regulondb <-build_regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
-#' list_attributes(ecoli_regulondb, "TF")
-#' list_attributes(ecoli_regulondb, "OPERON")
+#' e_coli_regulondb <- regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
+#' list_attributes(e_coli_regulondb, "TF")
+#' list_attributes(e_coli_regulondb, "OPERON")
 #' @export
 
-list_attributes <- function( regulondb, dataset#, description=FALSE
-                             ){
+list_attributes <- function( regulondb, dataset){
   if(missing(dataset))
     stop("Parameter 'dataset' is missing, please specify\n")
   stopifnot( validObject( regulondb ) )
-#  if( !description ){
-    dbListFields( regulondb, dataset )
-  # }else{
-  #   query <- paste0("SELECT attribute, description FROM REGULONDB_OBJECTS WHERE table_name = '", dataset, "'")
-  #   dbGetQuery( regulondb, query )
-  # }
+  dbListFields( regulondb, dataset )
 }
