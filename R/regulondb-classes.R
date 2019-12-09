@@ -21,7 +21,7 @@ setClass(
 
 setValidity("regulondb", function(object) {
   table_must <- c( "DNA_OBJECTS", "GENE", "NETWORK",
-                   "OPERON", "PROMOTER", "RI", "TF", "TU" )
+                   "OPERON", "PROMOTER", "REGULONDB_OBJECTS", "TF", "TU" )
   if( !all( table_must %in% dbListTables( object ) ) ){
     table_must <- table_must[!table_must %in% dbListTables( object )]
     flg <- length(table_must) > 1
@@ -48,6 +48,8 @@ setValidity("regulondb", function(object) {
 #' @slot organism A character vector with the name of the organism of the database.
 #' @slot genome_version A character vector with the version of the genome build.
 #' @slot database_version A character vector with the version of regulondb build.
+#' @examples
+#' e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
 #' @export
 regulondb <- function( database_path, organism, genome_version, database_version ){
   stopifnot( file.exists( database_path ) )
