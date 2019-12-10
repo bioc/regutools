@@ -61,7 +61,7 @@ res <- dna_pattern(sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAG
                   pattern = "TCGCAAT")
 res <- dna_pattern(sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
                   pattern = "TCGCAAT",
-                  both.strand = F,
+                  both.strand = FALSE,
                   id = "patt_1")
 cat(res)
 }
