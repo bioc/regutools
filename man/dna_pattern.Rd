@@ -2,7 +2,7 @@
 % Please edit documentation in R/dna_pattern.R
 \name{dna_pattern}
 \alias{dna_pattern}
-\title{Searches all occurrences of a pattern within DNA sequences.}
+\title{Searches all occurrences of a pattern within DNA sequences via RSAT.}
 \usage{
 dna_pattern(
   sequence,

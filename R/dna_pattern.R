@@ -1,4 +1,4 @@
-#' @title Searches all occurrences of a pattern within DNA sequences.
+#' @title Searches all occurrences of a pattern within DNA sequences via RSAT.
 #' @description Returns position of pattern match in the input sequence .
 #' @author Joselyn Chávez
 #' @param sequence Input sequence
