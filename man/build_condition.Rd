@@ -7,6 +7,8 @@
 build_condition(regulondb, dataset, filters, operator, interval, partialmatch)
 }
 \arguments{
+\item{regulondb}{A regulondb object.}
+
 \item{dataset}{dataset of interest}
 
 \item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
@@ -25,7 +27,7 @@ Given a list of filters, this function builds a logical condition to query datab
 The output is used in \code{\link{GetAttr}}.
 }
 \examples{
-buil_condition(dataset = "GENE",
+buil_condition(regulondb, dataset = "GENE",
         filters = list(name=c("ara"),
                        strand=c("forward"),
                        posright=c("2000","40000")),
