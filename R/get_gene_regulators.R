@@ -2,6 +2,7 @@
 #' @description Given a list of genes (name, bnumber or GI),
 #' get all transcription factors or genes that regulate them.
 #' The effect of regulators over the gene of interest can be positive (+), negative (-) or dual (+/-)
+#' @param regulondb A regulondb class.
 #' @param genes Vector of genes (name, bnumber or GI).
 #' @param format Output format: multirow, onerow, table
 #' @param output.type How regulators will be represented: "TF"/"GENE"
@@ -9,13 +10,15 @@
 #' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 #' @examples
 #' # Get Transcription factors that regulate araC in one row
-#' get_gene_regulators(genes = c("araC"),output.type = "TF",format = "onerow")
+#' download_database(getwd())
+#' e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
+#' get_gene_regulators(e_coli_regulondb, genes = c("araC"),output.type = "TF",format = "onerow")
 #'
 #' # Get genes that regulate araC in table format
-#' get_gene_regulators(genes = c("araC"),output.type = "GENE",format = "table")
+#' get_gene_regulators(e_coli_regulondb, genes = c("araC"),output.type = "GENE",format = "table")
 #' @export
 
-get_gene_regulators <- function(genes,format="multirow",output.type="TF"){
+get_gene_regulators <- function(regulondb, genes, format="multirow", output.type="TF"){
   #Check genes parameter class
   if(! class(genes) %in% c("vector","list","character")){
     stop("Parameter 'genes' must be a character vector or list.",call.=FALSE)
@@ -30,15 +33,15 @@ get_gene_regulators <- function(genes,format="multirow",output.type="TF"){
   }
 
   #Convert GIs to gene names
-  equivalence_table<- get_dataset(dataset="GENE", attributes=c("id","name","bnumber","gi"))
+  equivalence_table <- as.data.frame(get_dataset(regulondb, dataset="GENE", attributes=c("id","name","bnumber","gi")) )
   genes<-lapply(as.list(genes),function(gene){
     if(grepl("ECK12",gene)){
-      return(equivalence_table[equivalence_table[,"id"]==gene,"name"])
+      return(equivalence_table[equivalence_table[,"id"] %in% as.character(gene),"name"])
     }
     if(grepl("^b[0-9]", gene)){
-      return(equivalence_table[equivalence_table[,"bnumber"] %in% as.character(gene) , "name"])
+      return(equivalence_table[equivalence_table[,"bnumber"] %in% as.character(gene),"name"])
       }
-    ifelse(grepl("[a-z]",gene), return(gene), return(equivalence_table[equivalence_table[,"gi"] %in% as.character(gene) , "name"]))
+    ifelse(grepl("[a-z]",gene), return(gene), return(equivalence_table[equivalence_table[,"gi"] %in% as.character(gene),"name"]))
   })
 
   #Checks for type of network
@@ -49,9 +52,9 @@ get_gene_regulators <- function(genes,format="multirow",output.type="TF"){
   }
 
   #Retrieve data from NETWORK table
-  regulation <- get_dataset(attributes=c("regulated_name","regulator_name","effect"),
-                        filters=list("regulated_name"=genes, "network_type"=network.type),
-                        dataset="NETWORK")
+  regulation <- as.data.frame(get_dataset(regulondb, attributes=c("regulated_name","regulator_name","effect"),
+                        filters=list("regulated_name"= genes, "network_type"= network.type),
+                        dataset="NETWORK") )
   colnames(regulation)<-c("genes","regulators","effect")
 
   #Change effect to +, - and +/-

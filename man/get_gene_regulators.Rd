@@ -4,9 +4,11 @@
 \alias{get_gene_regulators}
 \title{Get TFs or genes that regulate the genes of interest}
 \usage{
-get_gene_regulators(genes, format = "multirow", output.type = "TF")
+get_gene_regulators(regulondb, genes, format = "multirow", output.type = "TF")
 }
 \arguments{
+\item{regulondb}{A regulondb class.}
+
 \item{genes}{Vector of genes (name, bnumber or GI).}
 
 \item{format}{Output format: multirow, onerow, table}
@@ -20,10 +22,12 @@ The effect of regulators over the gene of interest can be positive (+), negative
 }
 \examples{
 # Get Transcription factors that regulate araC in one row
-get_gene_regulators(genes = c("araC"),output.type = "TF",format = "onerow")
+download_database(getwd())
+e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
+get_gene_regulators(e_coli_regulondb, genes = c("araC"),output.type = "TF",format = "onerow")
 
 # Get genes that regulate araC in table format
-get_gene_regulators(genes = c("araC"),output.type = "GENE",format = "table")
+get_gene_regulators(e_coli_regulondb, genes = c("araC"),output.type = "GENE",format = "table")
 }
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
