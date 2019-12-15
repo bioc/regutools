@@ -40,15 +40,16 @@ This function retrieves data from RegulonDB. Attributes from datasets can be sel
 }
 \examples{
 # Obtain all the information from the "GENE" dataset
-get_dataset(dataset="GENE")
+get_dataset(e_coli_regulondb, dataset="GENE")
 
 # Get the attributes posright and name from the "GENE" dataset
-get_dataset(dataset="GENE", attributes=c("posright","name") )
+get_dataset(e_coli_regulondb, dataset="GENE", attributes=c("posright","name") )
 
 # From "GENE" dataset, get the gene name, strand, posright, product name and id of all genes regulated
   with name like "ara", strand as "forward" with a position rigth between 2000 and 40000
 
-get_dataset(dataset = "GENE",
+get_dataset(e_coli_regulondb,
+       dataset = "GENE",
        attributes = c("name", "strand", "posright", "product_name", "id"),
        filters = list(name=c("ara"),
                       strand=c("forward"),
