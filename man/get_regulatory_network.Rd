@@ -4,9 +4,16 @@
 \alias{get_regulatory_network}
 \title{Return complete regulatory network.}
 \usage{
-get_regulatory_network(regulator = NULL, type = "TF-GENE", cytograph = FALSE)
+get_regulatory_network(
+  regulondb,
+  regulator = NULL,
+  type = "TF-GENE",
+  cytograph = FALSE
+)
 }
 \arguments{
+\item{regulondb}{A regulondb object}
+
 \item{regulator}{Name of TF or gene that acts as regulator. If NULL, the function retrieves all existent networks in the regulonDB.}
 
 \item{type}{"TF-GENE", "TF-TF", "GENE-GENE"}
