@@ -27,7 +27,7 @@
 #' @export
 
 get_binding_sites <- function(regulondb, TF, seq.format = "table") {
-    stopifnot(validObject(regulondb()))
+    stopifnot(validObject(regulondb))
     tfbs.raw <- tryCatch({
       get_dataset(regulondb = regulondb,
               dataset = "TF",
