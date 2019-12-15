@@ -17,7 +17,7 @@
 #' @examples
 #' # Get the binding sites for AraC
 #'
-#' get_binding_sites(TF = "AraC")
+#' get_binding_sites(e_coli_regulondb,TF = "AraC")
 #'
 #' # Get the fasta binding sites sequences for AraC
 #'
