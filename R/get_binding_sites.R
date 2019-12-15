@@ -17,7 +17,7 @@
 #' @examples
 #' # Get the binding sites for AraC
 #'
-#' get_binding_sites(e_coli_regulondb,TF = "AraC")
+#' get_binding_sites(e_coli_regulondb, TF = "AraC")
 #'
 #' # Get the fasta binding sites sequences for AraC
 #'
@@ -27,7 +27,7 @@
 #' @export
 
 get_binding_sites <- function(regulondb, TF, seq.format = "table") {
-
+    stopifnot(validObject(regulondb()))
     tfbs.raw <- tryCatch({
       get_dataset(regulondb = regulondb,
               dataset = "TF",
