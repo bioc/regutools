@@ -4,10 +4,12 @@
 \alias{get_summary}
 \title{Return summary of gene regulation.}
 \usage{
-get_summary(geneRegulation)
+get_summary(regulondb, gene_regulators)
 }
 \arguments{
-\item{geneRegulation}{Result from \code{\link{GetGeneRegulation}} or vector of genes}
+\item{regulondb}{A regulondb object}
+
+\item{gene_regulators}{Result from \code{\link{get_gene_regulators}} or vector of genes}
 }
 \value{
 A data frame with the following columns:
@@ -25,16 +27,19 @@ onerow or table, or a vector with genes and retrieves information about the TFs 
 }
 \examples{
 # Retrieve summary of  araC's regulation
+download_database(getwd())
+e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
 
-araC_regulation<- get_gene_regulators(genes = c("araC"),
+araC_regulation <- get_gene_regulators(e_coli_regulondb, genes = c("araC"),
                                     format = "multirow",
                                     output.type = "TF")
-get_summary(araC_regulation)
+get_summary(e_coli_regulondb, araC_regulation)
 
 # Retrieve summary of genes 'araC' and 'modB'
 
-get_summary(geneRegulation = c("araC", "modB"))
-get_summary(geneRegulation = c("ECK120000050", "modB"))
+get_summary(e_coli_regulondb, genes = c("araC", "modB"))
+
+get_summary(e_coli_regulondb, genes = c("ECK120000050", "modB"))
 }
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez

@@ -1,7 +1,8 @@
 #' @title Return summary of gene regulation.
 #' @description This function takes the output of \code{\link{GetGeneRegulation}} with format multirow,
 #' onerow or table, or a vector with genes and retrieves information about the TFs and their regulated genes
-#' @param geneRegulation Result from \code{\link{GetGeneRegulation}} or vector of genes
+#' @param regulondb A regulondb object
+#' @param gene_regulators Result from \code{\link{get_gene_regulators}} or vector of genes
 #' @return A data frame with the following columns:
 #' \itemize{
 #' \item The name or gene of TF
@@ -14,24 +15,27 @@
 #' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 #' @examples
 #' # Retrieve summary of  araC's regulation
+#' download_database(getwd())
+#' e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
 #'
-#' araC_regulation<- get_gene_regulators(genes = c("araC"),
+#' araC_regulation <- get_gene_regulators(e_coli_regulondb, genes = c("araC"),
 #'                                     format = "multirow",
 #'                                     output.type = "TF")
-#' get_summary(araC_regulation)
+#' get_summary(e_coli_regulondb, araC_regulation)
 #'
 #' # Retrieve summary of genes 'araC' and 'modB'
 #'
-#' get_summary(geneRegulation = c("araC", "modB"))
-#' get_summary(geneRegulation = c("ECK120000050", "modB"))
+#' get_summary(e_coli_regulondb, genes = c("araC", "modB"))
+#'
+#' get_summary(e_coli_regulondb, genes = c("ECK120000050", "modB"))
 #' @export
 
-get_summary<-function(geneRegulation){
-  regulation <- geneRegulation
+get_summary<-function(regulondb, gene_regulators){
+  regulation <- gene_regulators
 
   #Regulation of a gene list
   if(class(regulation)%in%c("character","vector")){
-    regulation <- get_gene_regulators(genes=regulation)
+    regulation <- get_gene_regulators(regulondb,genes=regulation)
   }
 
   #Checks if user changed the attribute format in the output data.frame from GetGeneRegulation.
@@ -41,7 +45,7 @@ get_summary<-function(geneRegulation){
 
   # Conver onerow to multirow
   if(attributes(regulation)$format == "onerow"){
-    regulation <- get_gene_regulators(genes = as.character(regulation$genes))
+    regulation <- get_gene_regulators(regulondb, genes = as.character(regulation$genes))
   }
 
   # Convert table to multirow
