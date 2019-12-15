@@ -1,7 +1,8 @@
 #' @title Get the binding sites for a Transcription Factor (TF)
 #' @description Retrieve the binding sites and genome location for a given transcription factor.
 #' @author José Alquicira Hernández, Jacques van Helden, Joselyn Chávez
-#' @param TF name of the transcription factor of interest
+#' @param regulondb A regulondb object.
+#' @param TF name of the transcription factor.
 #' @param seq.format Default: \code{table}. Supported: \code{fasta}, \code{wconsensus}.
 #' @return A dataframe with the following columns corresponding to the TFBSs associated with the TF.
 #' If seq.format = "fasta", returns a string with the TFBS sequences with breakline character.
@@ -20,19 +21,19 @@
 #'
 #' # Get the fasta binding sites sequences for AraC
 #'
-#' fasta.seq <- get_binding_sites(TF = "AraC", seq.format = "fasta")
+#' fasta.seq <- get_binding_sites(e_coli_regulondb,
+#'                                TF = "AraC", seq.format = "fasta")
 #' cat(fasta.seq)
 #' @export
 
-get_binding_sites <- function(TF, seq.format = "table") {
+get_binding_sites <- function(regulondb, TF, seq.format = "table") {
 
     tfbs.raw <- tryCatch({
-      get_dataset(dataset = "TF",
+      get_dataset(regulondb = regulondb,
+              dataset = "TF",
               attributes = c("name", "tfbs_unique"),
               filters = list(name = TF))
     },error = function(cond) return(NULL))
-
-
 
   if(is.null(tfbs.raw)){
     return(NA)

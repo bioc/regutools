@@ -4,10 +4,12 @@
 \alias{get_binding_sites}
 \title{Get the binding sites for a Transcription Factor (TF)}
 \usage{
-get_binding_sites(TF, seq.format = "table")
+get_binding_sites(regulondb, TF, seq.format = "table")
 }
 \arguments{
-\item{TF}{name of the transcription factor of interest}
+\item{regulondb}{A regulondb object.}
+
+\item{TF}{name of the transcription factor.}
 
 \item{seq.format}{Default: \code{table}. Supported: \code{fasta}, \code{wconsensus}.}
 }
@@ -33,7 +35,8 @@ get_binding_sites(TF = "AraC")
 
 # Get the fasta binding sites sequences for AraC
 
-fasta.seq <- get_binding_sites(TF = "AraC", seq.format = "fasta")
+fasta.seq <- get_binding_sites(e_coli_regulondb,
+                               TF = "AraC", seq.format = "fasta")
 cat(fasta.seq)
 }
 \author{
