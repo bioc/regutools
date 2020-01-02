@@ -26,7 +26,7 @@ The **regulondb** object is an extension of an **SQLiteConnection** class that h
 library(regutools)
 
 ## to be replaced with AnnotationHub call ##
-download_database(getwd())
+download_database(getwd(), overwrite=TRUE)
 
 ecoli_regulondb <- 
   regulondb(

@@ -124,6 +124,7 @@ get_dataset <- function(regulondb, dataset = NULL, attributes = NULL,
 #' @param regulondb_result A regulon_result object.
 #' @author Alejandro Reyes
 #' @importFrom GenomicRanges GRanges
+#' @importFrom S4Vectors metadata
 #' @export
 convert_to_granges <- function( regulondb_result ){
   if(!is( regulondb_result, "regulondb_result" ))
@@ -135,16 +136,17 @@ convert_to_granges <- function( regulondb_result ){
   }else if( dataset == "OPERON" ){
     posLeft <- "regulationposleft"
     posRight <- "regulationposright"
-  }else if( dataset == "RI" ){
-    posLeft <- "site_posleft"
-    posRight <- "site_posright"
   }else{
     stop( sprintf("Can not coerse 'regulondb_result' from dataset %s into a GRanges object\n", dataset) )
   }
   if( all( c( posLeft, posRight ) %in% names( regulondb_result ) ) ){
+    ### coding of regulondb for missing coordinates ###
+    nopos <- regulondb_result[[posLeft]] == 9999999999 & regulondb_result[[posRight]] == 0
     keep <- !( is.na(regulondb_result[[posLeft]]) | is.na(regulondb_result[[posRight]]) )
+    keep <- keep & !nopos
     grdata <- GRanges( regulondb_result@organism,
-                   IRanges(start=regulondb_result[[posLeft]][keep], end=regulondb_result[[posRight]][keep]) )
+                   IRanges(start=regulondb_result[[posLeft]][keep],
+                           end=regulondb_result[[posRight]][keep] ) )
     if( "strand" %in% names(regulondb_result) ){
       stnd <- ifelse( regulondb_result$strand[which(keep)] == "forward", "+", "-" )
       stnd[which(is.na(stnd))] <- "*"
@@ -159,6 +161,13 @@ convert_to_granges <- function( regulondb_result ){
     stop( sprintf( "Not enough information to convert into a GRanges object. Please make sure that the input the following columns: \n\t%s",
       paste(c(posLeft, posRight), collapse="\n\t") ), call.=FALSE )
   }
+  metadata( grdata ) <- c( metadata(grdata),
+     list(
+       organism=regulondb_result@organism,
+       genome_version=regulondb_result@genome_version,
+       database_version=regulondb_result@database_version,
+       dataset=regulondb_result@dataset
+       ) )
   grdata
 }
 
@@ -199,5 +208,13 @@ convert_to_biostrings <- function( regulondb_result, seq_type="DNA" ){
   if( sum(!keep) ){
     warning(sprintf("Dropped %s entries where sequence data were NAs", sum(!keep)))
   }
+  metadata( rs ) <- c(
+    metadata( rs ),
+    list(
+      organism=regulondb_result@organism,
+      genome_version=regulondb_result@genome_version,
+      database_version=regulondb_result@database_version,
+      dataset=regulondb_result@dataset
+      ) )
   rs
 }
