@@ -122,9 +122,15 @@ res_prodstring
 mcols( res_prodstring )
 ```
 
-As with the **GRanges** output mentioned above, it is possible for the output of `get_dataset()` to be a **DNAStringSet** object by specifying the parameter `output_format="DNAStringSet"` or a **BStringSet** object by specifying `output_format="BStringSet"`. Note that the functions to convert **regulondb_result** objects will throw errors if there is insufficient information for the coersion to occur. For example, we will get an error if we try to convert into a **GRanges** and genomic coordinates are missing from the **regulondb_result** object.
+As with the **GRanges** output mentioned above, it is possible for the output of `get_dataset()` to be a **DNAStringSet** object by specifying the parameter `output_format="DNAStringSet"` or a **BStringSet** object by specifying `output_format="BStringSet"`. Note that the functions to convert **regulondb_result** objects will throw errors if there is insufficient information for the coersion to occur. For example, we will get an error if we try to convert into a **GRanges** object when genomic coordinates are missing from the **regulondb_result** object.
 
-## Partial match
+# Building your own queries
+
+In the *regutools* package, we have implemented features that are commonly used when quering data from databases: filtering results by partial matching or by numeric intervals, and building complex queries.
+
+## Partial matching
+
+The code below illustrates the concept of partial matching, in which by setting the parameter `partialmatch=` to `TRUE`, the query returns all the gene name in which the word *ara* is contained. Note that setting the parameter `partialmatch=` to `FALSE` will only return genes where the name string is identical to *ara*. 
 
 ```{r echo = TRUE}
 get_dataset( ecoli_regulondb, 
@@ -134,9 +140,28 @@ get_dataset( ecoli_regulondb,
              dataset="GENE" )
 ```
 
-## Complex queries
+## Filtering by numeric intervals
+
+In addition to partial matching, queries can be filtered by numeric intervals. For example, in the code below, the parameter `interv=` is set to `"posright"`. By doing this assignment, we are specifying that the values for `"posright"` must lie between the values specified in the `filter=` parameter. Thus, the result of this query will be genes whose right positions lie between the coordinates 2000 and 4000000. Note that the use of the `interv=` parameter in the code below is equivalent to setting the parameter `output_format=` to `"GRanges"` and further subsetting the *GRanges* object using the function `subsetByOverlaps()`. 
+
 ```{r echo = TRUE}
-dim(get_dataset(
+
+get_dataset(
+  ecoli_regulondb, 
+  attributes = c("name", "strand", "posright", "product_name"), 
+           dataset = "GENE",
+           filters = list(posright=c("2000","4000000") ),
+           interv="posright" )
+```
+
+## Complex filters
+
+The examples so far have considered queries in which the results are filtered according to single fields from tables. In order to build queries with filters from more than one field, several filters names can be passed as a list to the `filters=` argument. Additionally the `and=` argument is used to specify whether the filtering conditions of the result of the query must be satisfied (`and=TRUE`) or if satisfying a single condition is enough (`and=FALSE`). 
+
+For example, the code below extracts the genes where either `name` or `product_name` contain the word *Ara* or *Ara*, rectively, or if the gene is in the forward strand or if the right position of the gene is between 2000 and 40000000. 
+
+```{r}
+nrow(get_dataset(
   ecoli_regulondb, 
   attributes = c("name", "strand", "posright", "product_name"), 
            dataset = "GENE",
@@ -149,9 +174,13 @@ dim(get_dataset(
            partialmatch = c("name", "product_name") ,
            interv="posright" ))
 ```
-## Complex queries
-```{r echo = TRUE}
-GetAttr(attributes = c("name", "strand", "posright", "product_name"), 
+
+The query below, which is identical to the query above except the `and=` is set to `TRUE`, returns the genes where all of the specified conditions are satisfied. 
+
+```{r}
+nrow(get_dataset(
+  ecoli_regulondb, 
+  attributes = c("name", "strand", "posright", "product_name"), 
            dataset = "GENE",
            filters = list(name=c("ARA"),
                           product_name=c("Ara"),
@@ -160,28 +189,28 @@ GetAttr(attributes = c("name", "strand", "posright", "product_name"),
            ),
            and=TRUE,
            partialmatch = c("name", "product_name") ,
-           interv="posright" )
+           interv="posright" ))
 ```
 
-## Gene regulation 
+# Functions with frequently used queries
+
+The regutools package provides functions that encode the most frequent queries that are submitted to the *RegulonDB* web resource.
+
+## Extracting regulatory networks
+
+One of the most important information that the *RegulonDB* database contains are manually curated regulatory networks. The *regutools* package exports the function `get_gene_regulators()`, which inputs a vector of gene names and outputs information about what are the transcription factors that regulate such genes together with the regulatory effect (activator, repressor or dual).
+
 ```{r echo = TRUE}
-get_gene_regulations( ecoli_regulondb, c("araC","fis","crp") )
+get_gene_regulators( ecoli_regulondb, c("araC","fis","crp") )
 ```
 
-## Table format
+Similarly, the `get_regulatory_network()` function retrieves all the regulatory network from a **regulondb** object. By default, the output will be a list of transcription factor-gene pairs, indicating which transcription factor regulates which gene.
+
 ```{r echo = TRUE}
-GetGeneRegulation(c("araC","fis","crp"),
-                  format="table")
+head( get_regulatory_network( ecoli_regulondb ) )
 ```
 
-## Retrieve whole network
-```{r echo = TRUE}
-head(GetNetwork())
-```
+But users can also set the parameter `type=` to `"GENE-GENE"` or `"TF-GENE"` to retrieve gene-gene regulatory networks or transcription factor-transcription factor regulatory networks, respectively. 
 
-##  TF-TF network
-```{r echo = TRUE}
-head(GetNetwork(type = "TF-TF"))
-```
 
 
