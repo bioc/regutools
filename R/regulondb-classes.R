@@ -9,6 +9,8 @@
 #' @slot genome_version A character vector with the version of the genome build.
 #' @slot database_version A character vector with the version of regulondb build.
 #' @export
+#' @import RSQLite
+
 setClass(
   "regulondb",
   contains="SQLiteConnection",
