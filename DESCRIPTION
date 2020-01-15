@@ -27,3 +27,4 @@ Suggests: testthat, knitr, rmarkdown
 URL: https://github.com/ComunidadBioInfo/regutools
 BugReports: https://github.com/ComunidadBioInfo/regutools/issues
 biocViews: software
+Roxygen: list(markdown = TRUE)

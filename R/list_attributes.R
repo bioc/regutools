@@ -1,6 +1,6 @@
 #' @title List attributes/fields from a dataset/table
 #' @description List all attributes and their description of a dataset from RegulonDB. The result of this function may
-#' be used as parameter 'values' in \code{\link{list_attributes}} function.
+#' be used as parameter 'values' in [list_attributes()] function.
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez
 #' @keywords data retrieval, attributes,
 #' @param dataset Dataset of interest. The name should correspond to a table of the database.

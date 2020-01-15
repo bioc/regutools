@@ -3,7 +3,7 @@
 #' @author José Alquicira Hernández, Jacques van Helden, Joselyn Chávez
 #' @param regulondb A regulondb object.
 #' @param TF name of the transcription factor.
-#' @param seq.format Default: \code{table}. Supported: \code{fasta}, \code{wconsensus}.
+#' @param seq.format Default: `table`. Supported: `fasta`, `wconsensus`.
 #' @return A dataframe with the following columns corresponding to the TFBSs associated with the TF.
 #' If seq.format = "fasta", returns a string with the TFBS sequences with breakline character.
 #' If the transcription factor does not exist, returns NA.

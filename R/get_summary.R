@@ -1,8 +1,8 @@
 #' @title Return summary of gene regulation.
-#' @description This function takes the output of \code{\link{GetGeneRegulation}} with format multirow,
+#' @description This function takes the output of [GetGeneRegulation()] with format multirow,
 #' onerow or table, or a vector with genes and retrieves information about the TFs and their regulated genes
 #' @param regulondb A regulondb object
-#' @param gene_regulators Result from \code{\link{get_gene_regulators}} or vector of genes
+#' @param gene_regulators Result from [get_gene_regulators()] or vector of genes
 #' @return A data frame with the following columns:
 #' \itemize{
 #' \item The name or gene of TF

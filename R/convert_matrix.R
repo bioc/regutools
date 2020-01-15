@@ -16,7 +16,7 @@
 #' The key must be one of the numeric parameters of the matrices (e.g. information.content, E-value, ...).
 #' This option is convenient, for example, to sort matrices from MotifSampler according to their information content:
 #' sort desc MS.ic.
-#' @param top Maximal number of matrices to return. Some of the input formats can contain several matrices in a single file (e.g. consensus, meme, MotifSampler). By default, all the matrices are parsed and exported. The option \code{top} allows to restrict the number of matrices to be exported.
+#' @param top Maximal number of matrices to return. Some of the input formats can contain several matrices in a single file (e.g. consensus, meme, MotifSampler). By default, all the matrices are parsed and exported. The option `top` allows to restrict the number of matrices to be exported.
 #' @param pseudo pseudo-weight used for the calculation of the weight matrix (default: 1).
 #' @param equi.pseudo If value is 1, the pseudo-weight is distributed in an equiprobable way between residues. By default, the pseudo-weight is distributed proportionally to residue priors.
 #' @param base Base for the logarithms used in the scores involving a log-likelihood (weight and information content). Default: exp(1) (natural logarithms). A common alternative to natural logarithms is to use logarithms in base 2, in which case the information content is computed in bits.

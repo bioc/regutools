@@ -15,7 +15,7 @@ build_xml(method, parameters = NULL)
 An XML schema
 }
 \description{
-This function creates an XML schema to be used by `POST` function.
+This function creates an XML schema to be used by \code{POST} function.
 }
 \examples{
 request <- build_xml("supported_organisms",

@@ -38,7 +38,7 @@ random_seq(
 This option is incompatible with the option \code{expfreq}.
 Type of sequences used as background model for estimating expected oligonucleotide frequencies (supported models):
 \itemize{
-\item \code{equi} (equiprobable residue frequencies [default]).
+\item \code{equi} (equiprobable residue frequencies \link{default}).
 \item \code{upstream} (all upstream sequences, allowing overlap with upstream ORFs. Requires to speciy a model organism).
 \item \code{upstream-noorf} (all upstream sequences, preventing overlap with upstream ORFs. Requires to specify a model organism).
 \item \code{intergenic} (intergenic frequencies. Whole set of intergenic regions, including upstream and downstream sequences. Requires to specify a model organism).
