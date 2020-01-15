@@ -2,7 +2,7 @@ Package: regutools
 Title: regutools: an R package for data extraction from RegulonDB
 Version: 0.99.0
 Authors@R: c(
-    person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = c("aut", "cre")),
+    person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591"))),
     person("Carmina", "Barberena-Jonas", email = "car.barjon@gmail.com", role = c("aut")),
     person(c("Jesus", "E."), "Sotelo-Fonseca", email = "jesus.sotelo@cinvestav.mx", role = c("aut")),
     person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut"), comment = c(ORCID = "0000-0002-9049-7780"))),
