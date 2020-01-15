@@ -1,6 +1,6 @@
 #' @title Construct logical condition to query database
 #' @description Given a list of filters, this function builds a logical condition to query database.
-#' The output is used in \code{\link{GetAttr}}.
+#' The output is used in [GetAttr()].
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 #'
 #' @param dataset dataset of interest

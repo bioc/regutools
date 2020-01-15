@@ -14,7 +14,7 @@ A character vector with the field names.
 }
 \description{
 List all attributes and their description of a dataset from RegulonDB. The result of this function may
-be used as parameter 'values' in \code{\link{list_attributes}} function.
+be used as parameter 'values' in \code{\link[=list_attributes]{list_attributes()}} function.
 }
 \examples{
 download_database(getwd())

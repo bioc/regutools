@@ -20,7 +20,7 @@ A string with a sql logical condition to query the dataset
 }
 \description{
 Given a list of filters, this function builds a logical condition to query database using intervals.
-The output is used in \code{\link{BuildCondition}}.
+The output is used in \code{\link[=BuildCondition]{BuildCondition()}}.
 }
 \examples{
 existing_intervals(filters = list(name="ara",

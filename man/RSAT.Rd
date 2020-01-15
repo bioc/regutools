@@ -7,7 +7,7 @@
 RSAT(method, parameters = NULL)
 }
 \arguments{
-\item{method}{Name of the method to be used from RSAT. See \code{\link{RetrieveSeq}}, \code{\link{RandomSeq}}}
+\item{method}{Name of the method to be used from RSAT. See \code{\link[=RetrieveSeq]{RetrieveSeq()}}, \code{\link[=RandomSeq]{RandomSeq()}}}
 
 \item{parameters}{List of parameters provided to method}
 }

@@ -1,6 +1,6 @@
 #' @title Constructs a particular logical condition to query database
 #' @description Given a list of filters, this function builds a logical condition to query database using intervals.
-#' The output is used in \code{\link{BuildCondition}}.
+#' The output is used in [BuildCondition()].
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 #' @param filters List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.
 #' @param interval the filters with values considered as interval

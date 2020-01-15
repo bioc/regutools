@@ -8,14 +8,14 @@
 #' @param seed Seed for the random generator.
 #' @param alphabet Alphabet. Must be followed by residue frequencies expressed precisely this way:    a:t # c:g #
 #' @param expfreq Expected frequencies of oligomers in sequence(s) to generate. When this option is used, the sequences are generated according to a Markov chain.
-#' @param bg.model Background model. Automatically load a pre-calibrated expected frequency file from the RSAT genome distribution. When this option is used, the options organism and \code{oligo.length} are also required, to indicate the organism and the oligonucleotide length, respectively.
-#' This option is incompatible with the option \code{expfreq}.
+#' @param bg.model Background model. Automatically load a pre-calibrated expected frequency file from the RSAT genome distribution. When this option is used, the options organism and `oligo.length` are also required, to indicate the organism and the oligonucleotide length, respectively.
+#' This option is incompatible with the option `expfreq`.
 #' Type of sequences used as background model for estimating expected oligonucleotide frequencies (supported models):
 #' \itemize{
-#' \item \code{equi} (equiprobable residue frequencies [default]).
-#' \item \code{upstream} (all upstream sequences, allowing overlap with upstream ORFs. Requires to speciy a model organism).
-#' \item \code{upstream-noorf} (all upstream sequences, preventing overlap with upstream ORFs. Requires to specify a model organism).
-#' \item \code{intergenic} (intergenic frequencies. Whole set of intergenic regions, including upstream and downstream sequences. Requires to specify a model organism).
+#' \item `equi` (equiprobable residue frequencies [default]).
+#' \item `upstream` (all upstream sequences, allowing overlap with upstream ORFs. Requires to speciy a model organism).
+#' \item `upstream-noorf` (all upstream sequences, preventing overlap with upstream ORFs. Requires to specify a model organism).
+#' \item `intergenic` (intergenic frequencies. Whole set of intergenic regions, including upstream and downstream sequences. Requires to specify a model organism).
 #' }
 #' @param organism Name of the organism when using a background model.
 #' @param oligo.length Length of oligomer when using a background model.

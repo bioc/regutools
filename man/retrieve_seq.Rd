@@ -27,7 +27,7 @@ retrieve_seq(
 
 \item{genes}{A list of genes}
 
-\item{all}{Return sequences for all the genes of the organism if TRUE. Incompatible with `genes`.}
+\item{all}{Return sequences for all the genes of the organism if TRUE. Incompatible with \code{genes}.}
 
 \item{noorf}{Prevents overlap with upstream open reading frames (ORF) if TRUE.}
 

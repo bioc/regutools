@@ -1,11 +1,17 @@
 Package: regutools
 Title: regutools: an R package for data extraction from RegulonDB
-Version: 1.0.0.0
-Authors: c(person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = "aut"),person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut", "cre")))
-Description: Extracts and processes data from RegulonDB
-Depends: R (>= 3.6.0), RSQLite, httr, XML, DBI, data.table, RCy3
-License: GNU GENERAL PUBLIC LICENSE
+Version: 0.99.0
+Authors@R: c(
+    person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591")),
+    person("Carmina", "Barberena-Jonas", email = "car.barjon@gmail.com", role = c("aut")),
+    person(c("Jesus", "E."), "Sotelo-Fonseca", email = "jesus.sotelo@cinvestav.mx", role = c("aut")),
+    person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut"), comment = c(ORCID = "0000-0002-9049-7780")),
+    person("Alejandro", "Reyes", email = "alejandro.reyes.ds@gmail.com", role = c("aut"), comment = c(ORCID = "0000-0001-8717-6612")),
+    person("Leonardo", "Collado-Torres", role = c("aut"), email = "lcolladotor@gmail.com", comment = c(ORCID = "0000-0003-2140-308X")))
+Description: Extracts and processes data from RegulonDB.
+License: Artistic-2.0
 Encoding: UTF-8
+Depends: R (>= 3.6.0)
 Imports:
     RSQLite,
     roxygen2,
@@ -14,9 +20,16 @@ Imports:
     XML,
     DBI,
     data.table,
-    RCy3
+    RCy3,
+    Biostrings,
+    S4Vectors,
+    GenomicRanges,
+    IRanges
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: testthat, knitr, rmarkdown
-Maintainer: Joselyn Chavez <joselynchavezf@gmail.com>
-BugReports: https://github.com/ComunidadBioInfo/regutools.git/issues
+URL: https://github.com/ComunidadBioInfo/regutools
+BugReports: https://github.com/ComunidadBioInfo/regutools/issues
+biocViews: software
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr

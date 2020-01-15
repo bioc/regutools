@@ -1,0 +1,28 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+
+r: bioc-devel
+warnings_are_errors: false
+sudo: false
+cache: packages
+
+r_packages:
+  - covr
+
+r_build_args: "--no-manual --no-resave-data"
+r_check_args: "--no-build-vignettes --no-manual --timings"
+
+after_success:
+  - Rscript -e 'library(covr); codecov()'
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+  slack:
+    secure: VWBLyoOvYuF0hPXSlSY7TOBVf5+VD4iHLtrDF8hwO/YkkTKaSBz2MFxodCRnenp5mSBpc8FBfr3OtR0iHndq8EP5PzIV+dt/6J6GGHB9Q+/KA54N7qKTjb9erNIMgHQaOmcOoIAnZEF5vNfS37nugkTe1iELnxrkfsWTyvrbn15UQYEZr1m9rjGk0OzVMmNXMRVz+gp0/s7Lh98m8ex/kOr04mCOTWmcCy/mtzZDZ/jsDXTvbDiCN2SBMIpukTY1M/qKSBJEfxeUZ201GCaWGSD/cpqINwIbvLpxko5hjf3MMK2vW5jdoDCnWCKCSKIfVJZxIFy4vY3Vbh/PokwQd7d+BeKugU8P0HupqUkBy1JdnLR6MbVJvb+uQ/AqYINxcKjb6998VpwIEDUkSr+OFZjl/dCADX+36+XGElgzCw854OY1kts48zVkfK0fm+8HLiwKLVv3YB43EuYASdr2OeJQPHtSjMK9Ack5gwBuznE+G/eckvJ3hPauvmiTwbV+/zrLUwkObzydP/GnvOVQtJr9qVthTYjqR61miO28XV40JLh7UmVvrGrF8+UZ8iNX1uf5UtSNaaQbsKZv7QaxAD95ZHMCtquO7+ksgYrrp4a5mDl1yBxcIzFHy2IxmVsEJZdVFMVZCpcV6KE0RIyNBCFftiH218ijBeBz0YFo53I=
+
+env:
+  global:
+    - _R_CHECK_TIMINGS_="0"

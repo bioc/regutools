@@ -9,7 +9,7 @@ get_regulatory_summary(regulondb, gene_regulators)
 \arguments{
 \item{regulondb}{A regulondb object}
 
-\item{gene_regulators}{Result from \code{\link{get_gene_regulators}} or vector of genes}
+\item{gene_regulators}{Result from \code{\link[=get_gene_regulators]{get_gene_regulators()}} or vector of genes}
 }
 \value{
 A data frame with the following columns:
@@ -22,7 +22,7 @@ A data frame with the following columns:
 }
 }
 \description{
-This function takes the output of \code{\link{GetGeneRegulation}} with format multirow,
+This function takes the output of \code{\link[=GetGeneRegulation]{GetGeneRegulation()}} with format multirow,
 onerow or table, or a vector with genes and retrieves information about the TFs and their regulated genes
 }
 \examples{

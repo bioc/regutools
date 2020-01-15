@@ -18,7 +18,7 @@ A sql logical condition to query the dataset
 }
 \description{
 Given a list of filters, this function builds a logical condition to query database using intervals.
-The output is used in \code{\link{ExistingIntervals}} and \code{\link{NonExistingIntervals}}.
+The output is used in \code{\link[=ExistingIntervals]{ExistingIntervals()}} and \code{\link[=NonExistingIntervals]{NonExistingIntervals()}}.
 }
 \examples{
 existing_partial_match(filters = list(name=c("ara"),
