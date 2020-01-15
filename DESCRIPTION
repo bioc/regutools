@@ -20,7 +20,11 @@ Imports:
     XML,
     DBI,
     data.table,
-    RCy3
+    RCy3,
+    Biostrings,
+    S4Vectors,
+    GenomicRanges,
+    IRanges
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: testthat, knitr, rmarkdown
