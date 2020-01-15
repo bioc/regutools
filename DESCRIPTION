@@ -27,7 +27,11 @@ Imports:
     IRanges
 LazyData: true
 RoxygenNote: 7.0.2
-Suggests: testthat, knitr, rmarkdown
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown,
+    BiocStyle
 URL: https://github.com/ComunidadBioInfo/regutools
 BugReports: https://github.com/ComunidadBioInfo/regutools/issues
 biocViews: software
