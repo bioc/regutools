@@ -66,8 +66,9 @@ get_gene_regulators <- function(regulondb, genes, format="multirow", output.type
   #Multirow
   if(format=="multirow"){
     #Add internal attribute "format" to use in GetSummary function.
-    attributes(regulation)$format <- format
-    return(regulation)
+    regulation <- dataframe_to_dbresult( regulation, regulondb, "NETWORK" )
+    metadata( regulation )$format <- format
+    return( regulation )
 
   #Onerow
   } else if (format=="onerow"){
@@ -81,7 +82,8 @@ get_gene_regulators <- function(regulondb, genes, format="multirow", output.type
     colnames(regulation)<-c("genes","regulators")
 
     #Add internal attribute "format" to use in GetSummary function.
-    attributes(regulation)$format <- format
+    regulation <- dataframe_to_dbresult( regulation, regulondb, "NETWORK" )
+    metadata( regulation )$format <- format
     return(regulation)
 
   #Table
@@ -92,15 +94,15 @@ get_gene_regulators <- function(regulondb, genes, format="multirow", output.type
     rownames(rtable)<-genes
 
     #Fill dataframe with regulation
-    for(i in 1:dim(regulation)[1]){
+    for( i in seq_len(dim(regulation)[1]) ){
       rtable[regulation[i,1],regulation[i,2]]<-regulation[i,3]
     }
     regulation<-rtable
 
     #Add internal attribute "format" to use in GetSummary function.
-    attributes(regulation)$format <- format
+    regulation <- dataframe_to_dbresult( regulation, regulondb, "NETWORK" )
+    metadata( regulation )$format <- format
     return(regulation)
-
   }
 }
 

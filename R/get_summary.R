@@ -29,27 +29,26 @@
 #'
 #' get_summary(e_coli_regulondb, genes = c("ECK120000050", "modB"))
 #' @export
-
-get_summary<-function(regulondb, gene_regulators){
+get_regulatory_summary<-function(regulondb, gene_regulators){
   regulation <- gene_regulators
 
   #Regulation of a gene list
   if(class(regulation)%in%c("character","vector")){
-    regulation <- get_gene_regulators(regulondb,genes=regulation)
+    regulation <- get_gene_regulators( regulondb, genes=regulation )
   }
 
-  #Checks if user changed the attribute format in the output data.frame from GetGeneRegulation.
-  if( ! attributes(regulation)$format %in% c("multirow","onerow","table")){
-    stop("The input data.frame attribute 'format' must be multirow, onerow, or table.",call.=FALSE)
+  if( !metadata( regulation )$format %in% c("multirow","onerow","table")){
+    stop("The parameter gene_regulators must be a regulondb_result object
+    resulting from a call to get_gene_regulators or a vector of genes.", call.=FALSE)
   }
 
   # Conver onerow to multirow
-  if(attributes(regulation)$format == "onerow"){
+  if( metadata(regulation)$format == "onerow" ){
     regulation <- get_gene_regulators(regulondb, genes = as.character(regulation$genes))
   }
 
   # Convert table to multirow
-  if(attributes(regulation)$format == "table") {
+  if( metadata(regulation)$format == "table" ) {
     regulation$genes <- rownames(regulation)
     regulation <- melt(regulation, id = "genes")
     colnames(regulation) <- c("genes", "regulators", "effect")
@@ -91,9 +90,10 @@ get_summary<-function(regulondb, gene_regulators){
   })
 
   summary <- data.frame(t(summary)) #Format summary as a data.frame
-  colnames(summary) <- c("TF", "Regulated_genes_per_TF", "Percent","+","-","+/-","Regulated_genes")
+  colnames(summary) <- c("TF", "Regulated_genes_per_TF", "Percent","Activator","Repressor","Dual","Regulated_genes")
 
-  return(summary)
+  summary <- dataframe_to_dbresult( summary, regulondb, "NETWORK" )
+  return( summary )
 }
 
 

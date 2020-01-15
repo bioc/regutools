@@ -42,7 +42,9 @@ get_regulatory_network <- function(regulondb, regulator = NULL, type="TF-GENE", 
                      dataset="NETWORK") ) }
 
   if (cytograph) { #CytoScape conection
-    tryCatch(cytoscapePing(), error = function(e) {stop("Launch Cytoscape before running GetNetwork()", call. = FALSE)})
+    tryCatch(cytoscapePing(), error = function(e) {
+      stop("To use integration with Cytoscape, please launch Cytoscape before running get_regulatory_network()",
+           call. = FALSE)})
     colnames(network) <- c("source", "target", "interaction")
     my_new_network <- createNetworkFromDataFrames(edges =  network)
     setVisualStyle('Sample1')
@@ -54,6 +56,8 @@ get_regulatory_network <- function(regulondb, regulator = NULL, type="TF-GENE", 
     network$effect<-sub(pattern="activator",replacement="+",x=network$effect)
     network$effect<-sub(pattern="repressor",replacement="-",x=network$effect)
     network$effect<-sub(pattern="dual",replacement="+/-",x=network$effect)
+
+    network <- dataframe_to_dbresult( network, regulondb, "NETWORK" )
 
     return(network)
     }

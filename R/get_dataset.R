@@ -124,7 +124,7 @@ get_dataset <- function(regulondb, dataset = NULL, attributes = NULL,
 #' @param regulondb_result A regulon_result object.
 #' @author Alejandro Reyes
 #' @importFrom GenomicRanges GRanges
-#' @importFrom S4Vectors metadata
+#' @importFrom S4Vectors metadata "metadata<-"
 #' @export
 convert_to_granges <- function( regulondb_result ){
   if(!is( regulondb_result, "regulondb_result" ))
@@ -217,4 +217,12 @@ convert_to_biostrings <- function( regulondb_result, seq_type="DNA" ){
       dataset=regulondb_result@dataset
       ) )
   rs
+}
+
+dataframe_to_dbresult <- function( df, regulondb, dataset){
+  new( "regulondb_result",
+       DataFrame(df), organism=regulondb@organism,
+       genome_version=regulondb@genome_version,
+       database_version=regulondb@database_version,
+       dataset=dataset )
 }

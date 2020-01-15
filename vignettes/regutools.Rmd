@@ -26,11 +26,11 @@ The **regulondb** object is an extension of an **SQLiteConnection** class that h
 library(regutools)
 
 ## to be replaced with AnnotationHub call ##
-download_database(getwd(), overwrite=TRUE)
+download_database(tempdir(), overwrite=FALSE)
 
 ecoli_regulondb <- 
   regulondb(
-    database_path = file.path( getwd(), "regulondb_sqlite3.db" ),
+    database_path = file.path( tempdir(), "regulondb_sqlite3.db" ),
     organism="E.coli", database_version="version 1", 
     genome_version="version 1" )
 
@@ -52,7 +52,7 @@ head( list_attributes( ecoli_regulondb, "GENE" ), 8 )
 
 # Retrieving data
 
-Since the *regulondb* object is an extension of the *SQLiteConnection*, users can retreive data from a *regulondb* object using the function `dbGetQuery()`. Additionally, this package provides a wrapper function to build queries to the database. This function is called `get_dataset()` and has a very similar syntax to the `getBM()` function from the biomaRt package. The main arguments of the `get_dataset()` function are a *regulondb* object, a dataset (or table) of the database, the fields of the dataset to retrieve (attributes) and filters to specify what information to get. The code below shows an example where three attributes from the dataset **"GENE"** for the genes *araC*, *crp* and *lacI*. Note that if the `filters=` parameter is empty, the function will retreive all the hits from the database.  
+Since the *regulondb* object is an extension of the *SQLiteConnection*, users can retreive data from a *regulondb* object using the function `dbGetQuery()`. Additionally, this package provides a wrapper function to build queries to the database. This function is called `get_dataset()` and has a very similar syntax to the `getBM()` function from the biomaRt package. The main arguments of the `get_dataset()` function are a *regulondb* object, a dataset (or table) of the database, the fields of the dataset to retrieve (attributes) and filters to specify what information to get. The code below shows an example where three attributes from the dataset **"GENE"** for the genes *araC*, *crp* and *lacI*. Note that if the `filters=` parameter is empty, the function will retreive all the hits it find in the database.  
 
 ```{r echo = TRUE}
 
@@ -126,11 +126,11 @@ As with the **GRanges** output mentioned above, it is possible for the output of
 
 # Building your own queries
 
-In the *regutools* package, we have implemented features that are commonly used when quering data from databases: filtering results by partial matching or by numeric intervals, and building complex queries.
+In the *regutools* package, we have implemented features that are commonly used when quering data from databases: filtering results by partial matching, filtering by numeric intervals, and building complex queries.
 
 ## Partial matching
 
-The code below illustrates the concept of partial matching, in which by setting the parameter `partialmatch=` to `TRUE`, the query returns all the gene name in which the word *ara* is contained. Note that setting the parameter `partialmatch=` to `FALSE` will only return genes where the name string is identical to *ara*. 
+The code below illustrates the concept of partial matching, in which by setting the parameter `partialmatch=` to `TRUE`, the query returns all the gene name in which the word *ara* is contained. 
 
 ```{r echo = TRUE}
 get_dataset( ecoli_regulondb, 
@@ -140,9 +140,11 @@ get_dataset( ecoli_regulondb,
              dataset="GENE" )
 ```
 
+Note that setting the parameter `partialmatch=` to `FALSE` will only return genes where the name string is identical to *ara*. 
+
 ## Filtering by numeric intervals
 
-In addition to partial matching, queries can be filtered by numeric intervals. For example, in the code below, the parameter `interv=` is set to `"posright"`. By doing this assignment, we are specifying that the values for `"posright"` must lie between the values specified in the `filter=` parameter. Thus, the result of this query will be genes whose right positions lie between the coordinates 2000 and 4000000. Note that the use of the `interv=` parameter in the code below is equivalent to setting the parameter `output_format=` to `"GRanges"` and further subsetting the *GRanges* object using the function `subsetByOverlaps()`. 
+In addition to partial matching, queries can be filtered by numeric intervals. For example, in the code below, the parameter `interv=` is set to `"posright"`. By doing this assignment, we are specifying that the values for `"posright"` must lie between the values of `posright` specified in the `filter=` parameter. Thus, the result of this query will be genes whose right positions lie between the coordinates 2000 and 4000000. Note that the use of the `interv=` parameter in the code below is equivalent to setting the parameter `output_format=` to `"GRanges"` and further subsetting the *GRanges* object using the function `subsetByOverlaps()`. 
 
 ```{r echo = TRUE}
 
@@ -158,7 +160,7 @@ get_dataset(
 
 The examples so far have considered queries in which the results are filtered according to single fields from tables. In order to build queries with filters from more than one field, several filters names can be passed as a list to the `filters=` argument. Additionally the `and=` argument is used to specify whether the filtering conditions of the result of the query must be satisfied (`and=TRUE`) or if satisfying a single condition is enough (`and=FALSE`). 
 
-For example, the code below extracts the genes where either `name` or `product_name` contain the word *Ara* or *Ara*, rectively, or if the gene is in the forward strand or if the right position of the gene is between 2000 and 40000000. 
+For example, the code below extracts the genes where either `name` or `product_name` contain the word *Ara* or *Ara*, respectively, if the gene is in the forward strand or if the right position of the gene is between 2000 and 40000000. 
 
 ```{r}
 nrow(get_dataset(
@@ -212,5 +214,8 @@ head( get_regulatory_network( ecoli_regulondb ) )
 
 But users can also set the parameter `type=` to `"GENE-GENE"` or `"TF-GENE"` to retrieve gene-gene regulatory networks or transcription factor-transcription factor regulatory networks, respectively. 
 
+Users can also use the `get_regulatory_summary()` to retrieve a summary of the transcription factor regulated the expression of a set of given genes. The parameter `gene_regulators` can receive either a vector of gene names or the output of a call to the function `get_gene_regulators()`. The resulting output is a *regulondb_result* object in which each row shows a transcription factor, and the columns display information about the number, percentage and regulatory activity exerted to the genes.
 
-
+```{r}
+get_regulatory_summary( ecoli_regulondb, gene_regulators = c("araC", "modB") )
+```
