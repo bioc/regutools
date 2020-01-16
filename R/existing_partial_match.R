@@ -1,6 +1,6 @@
 #' @title Constructs a logical condition to query database
 #' @description Given a list of filters, this function builds a logical condition to query database using intervals.
-#' The output is used in [ExistingIntervals()] and [NonExistingIntervals()].
+#' The output is used in [existing_intervals()] and [non_existing_intervals()].
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
 #' @param filters List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.
 #' @param partialmatch name of the condition(s) with a string pattern for full or partial match in the query

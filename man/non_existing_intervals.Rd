@@ -18,7 +18,7 @@ A string with a sql logical condition to query the dataset
 }
 \description{
 Given a list of filters, this function builds a logical condition to query database using intervals.
-The output is used in \code{\link[=BuildCondition]{BuildCondition()}}.
+The output is used in \code{\link[=build_condition]{build_condition()}}.
 }
 \examples{
 non_existing_intervals(filters = list(name="ara",strand = "for"),

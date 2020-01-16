@@ -28,7 +28,8 @@ matrix_scan(
   str = NULL,
   origin = NULL,
   decimals = NULL,
-  crer.ids = NULL
+  crer.ids = NULL,
+  organism = NULL
 )
 }
 \arguments{
@@ -141,11 +142,11 @@ The matching positions are then negative values, providing the distance between 
 
 \item{decimals}{Number of decimals displayed for the weight score.}
 
-\item{consensus.name}{Use the motif (degenerate) consensus as matrix name.}
+\item{crer.ids}{Assign one separate feature ID per CRER. This option is convenient to distinguish separate CRERs.}
 
 \item{organism}{To use a precalculated background model from RSAT, choose the organism corresponding to the background model. Works with background and markov options.}
 
-\item{crer_ids}{Assign one separate feature ID per CRER. This option is convenient to distinguish separate CRERs.}
+\item{consensus.name}{Use the motif (degenerate) consensus as matrix name.}
 }
 \value{
 an R object with results retrieved from RSAT
@@ -156,6 +157,8 @@ to identify instances of the corresponding motifs (putative sites).
 This function supports a variety of background models (Bernoulli, Markov chains of any order).
 }
 \examples{
+
+## TODO!
 
 }
 \author{

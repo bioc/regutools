@@ -92,9 +92,11 @@
 #' `origin` -0 defines the end of each sequence as the origin.
 #' The matching positions are then negative values, providing the distance between the match and the end of the sequence.
 #' @param decimals Number of decimals displayed for the weight score.
-#' @param crer_ids Assign one separate feature ID per CRER. This option is convenient to distinguish separate CRERs.
+#' @param crer.ids Assign one separate feature ID per CRER. This option is convenient to distinguish separate CRERs.
 #' @return an R object with results retrieved from RSAT
 #' @examples
+#'
+#' ## TODO!
 #'
 #' @export
 
@@ -104,7 +106,7 @@ matrix_scan <- function(sequence, matrix, sequence.format = "fasta", matrix.form
                        background.model = NULL, background = NULL, background.input = NULL,
                        background.window = NULL, markov = NULL, background.pseudo = NULL,
                        return.fields = NULL, sort.distrib = FALSE, lth = NULL, uth = NULL,
-                       str = NULL, origin = NULL, decimals = NULL, crer.ids = NULL){
+                       str = NULL, origin = NULL, decimals = NULL, crer.ids = NULL, organism = NULL){
 
   !missing(sequence) || stop('"sequence" parameter is missing. Indicate an input format')
   !missing(matrix) || stop('Matrix is missing')
@@ -115,6 +117,7 @@ matrix_scan <- function(sequence, matrix, sequence.format = "fasta", matrix.form
   if(sort.distrib){sort.distrib <- 1}else{sort.distrib <- NULL}
 
 
+  ## Should 'organism' be used here?
   parameters <- list(sequence = sequence,
                      matrix = matrix,
                      sequence_format = sequence.format,

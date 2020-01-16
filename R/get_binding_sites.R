@@ -50,7 +50,7 @@ get_binding_sites <- function(regulondb, TF, seq.format = "table") {
     if (seq.format == "table") {return(tfbs.table)}
     if (seq.format == "fasta") {
       header <- paste0(">", tfbs.table$ID, "_", tfbs.table$left, ":", tfbs.table$right, ":", tfbs.table$strand)
-      seq.string <- paste0(header,"\n",as.vector(tfbs$sequence), "\n")
+      seq.string <- paste0(header,"\n",as.vector(tfbs.table$sequence), "\n")
       return(seq.string)
     } else { stop("seq.format must be 'table' or 'fasta' ", call. = FALSE)}
 
