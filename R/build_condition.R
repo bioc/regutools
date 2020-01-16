@@ -1,6 +1,6 @@
 #' @title Construct logical condition to query database
 #' @description Given a list of filters, this function builds a logical condition to query database.
-#' The output is used in [GetAttr()].
+#' The output is used in [get_dataset()].
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
 #'
 #' @param dataset dataset of interest
@@ -12,7 +12,7 @@
 #'
 #' @return A string with a sql logical condition to query the dataset
 #' @examples
-#' buil_condition(regulondb, dataset = "GENE",
+#' build_condition(regulondb, dataset = "GENE",
 #'         filters = list(name=c("ara"),
 #'                        strand=c("forward"),
 #'                        posright=c("2000","40000")),
