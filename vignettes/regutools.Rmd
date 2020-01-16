@@ -23,7 +23,10 @@ The package defines the object **regulondb**, which is a data structure that con
 The **regulondb** object is an extension of an **SQLiteConnection** class that host a connection to a database with the table structure defined in the *RegulonDb* database. It contains additional slots that especify the organism, genome version and database version. The function `regulondb()` is the constructor function of **regulondb** objects. This function receives as input a file path to the database file as well as information about the annotation as character vectors.
 
 ```{r echo = TRUE}
-library(regutools)
+library('regutools')
+
+## Other packages used
+library('Biostrings')
 
 ## to be replaced with AnnotationHub call ##
 download_database(tempdir(), overwrite=FALSE)
