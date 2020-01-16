@@ -7,7 +7,7 @@ Authors@R: c(
     person(c("Jesus", "E."), "Sotelo-Fonseca", email = "jesus.sotelo@cinvestav.mx", role = c("aut")),
     person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut"), comment = c(ORCID = "0000-0002-9049-7780")),
     person("Alejandro", "Reyes", email = "alejandro.reyes.ds@gmail.com", role = c("aut"), comment = c(ORCID = "0000-0001-8717-6612")),
-    person("Leonardo", "Collado-Torres", role = c("aut"), email = "lcolladotor@gmail.com", comment = c(ORCID = "0000-0003-2140-308X")))
+    person("Leonardo", "Collado-Torres", role = c("ctb"), email = "lcolladotor@gmail.com", comment = c(ORCID = "0000-0003-2140-308X")))
 Description: Extracts and processes data from RegulonDB.
 License: Artistic-2.0
 Encoding: UTF-8
