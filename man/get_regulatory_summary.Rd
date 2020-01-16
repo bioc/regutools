@@ -22,7 +22,7 @@ A data frame with the following columns:
 }
 }
 \description{
-This function takes the output of \code{\link[=GetGeneRegulation]{GetGeneRegulation()}} with format multirow,
+This function takes the output of \code{\link[=get_gene_regulators]{get_gene_regulators()}} with format multirow,
 onerow or table, or a vector with genes and retrieves information about the TFs and their regulated genes
 }
 \examples{

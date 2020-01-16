@@ -45,8 +45,9 @@ get_dataset(e_coli_regulondb, dataset="GENE")
 # Get the attributes posright and name from the "GENE" dataset
 get_dataset(e_coli_regulondb, dataset="GENE", attributes=c("posright","name") )
 
-# From "GENE" dataset, get the gene name, strand, posright, product name and id of all genes regulated
-  with name like "ara", strand as "forward" with a position rigth between 2000 and 40000
+# From "GENE" dataset, get the gene name, strand, posright, product name
+# and id of all genes regulated with name like "ara", strand as "forward"
+# with a position rigth between 2000 and 40000
 
 get_dataset(e_coli_regulondb,
        dataset = "GENE",

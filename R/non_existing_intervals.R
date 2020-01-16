@@ -1,10 +1,9 @@
 #' @title Constructs a logical condition to query database
 #' @description Given a list of filters, this function builds a logical condition to query database using intervals.
-#' The output is used in [BuildCondition()].
+#' The output is used in [build_condition()].
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
-#' @param filters List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.
 #' @param interval the filters whose values will be considered as interval
-#' @param operator A string indicating if all the filters (AND) or some of them (OR) should be met
+#' @inheritParams existing_partial_match
 #' @return A string with a sql logical condition to query the dataset
 #' @examples
 #' non_existing_intervals(filters = list(name="ara",strand = "for"),
