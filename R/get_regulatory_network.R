@@ -22,6 +22,7 @@
 #'
 #' get_regulatory_network(e_coli_regulondb, regulator = "AraC", type = "TF-GENE", cytograph = TRUE)
 #' @export
+#' @importFrom RCy3 cytoscapePing createNetworkFromDataFrames setEdgeColorMapping setVisualStyle
 
 get_regulatory_network <- function(regulondb, regulator = NULL, type="TF-GENE", cytograph = FALSE){
   #Check type parameter

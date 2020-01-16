@@ -16,7 +16,6 @@ Imports:
     RSQLite,
     httr,
     XML,
-    DBI,
     data.table,
     RCy3,
     Biostrings,
