@@ -1,7 +1,7 @@
 #' @title Call RSAT.
 #' @description This function access RSAT via SOAP.
 #' @author José Alquicira Hernández & Joselyn Chávez
-#' @param method Name of the method to be used from RSAT. See [RetrieveSeq()], [RandomSeq()]
+#' @param method Name of the method to be used from RSAT. See [retrieve_seq()], [random_seq()]
 #' @param parameters List of parameters provided to method
 #' @return an R object with results retrieved from RSAT
 #' @examples

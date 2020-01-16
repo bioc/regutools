@@ -12,7 +12,7 @@
 #' This option is incompatible with the option `expfreq`.
 #' Type of sequences used as background model for estimating expected oligonucleotide frequencies (supported models):
 #' \itemize{
-#' \item `equi` (equiprobable residue frequencies [default]).
+#' \item `equi` (equiprobable residue frequencies; default).
 #' \item `upstream` (all upstream sequences, allowing overlap with upstream ORFs. Requires to speciy a model organism).
 #' \item `upstream-noorf` (all upstream sequences, preventing overlap with upstream ORFs. Requires to specify a model organism).
 #' \item `intergenic` (intergenic frequencies. Whole set of intergenic regions, including upstream and downstream sequences. Requires to specify a model organism).
