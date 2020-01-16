@@ -1,7 +1,11 @@
 #' Download regulondb database
 #' @description If the file does not exist, this function downloads regulondb_sqlite3.db into the extdata directory of the regutools package.
+#' @param path The directory where the database will be downloaded to.
+#' @param overwrite `logical(1)` specifying whether to overwrite the database
+#' file.
 #' @return local file regulondb_sqlite3.db
 #' @export
+#' @importFrom utils download.file
 #'
 #' @examples download_database()
 download_database <- function(path=".", overwrite = FALSE) {

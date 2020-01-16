@@ -14,8 +14,6 @@ Encoding: UTF-8
 Depends: R (>= 3.6.0)
 Imports:
     RSQLite,
-    roxygen2,
-    devtools,
     httr,
     XML,
     DBI,
@@ -24,7 +22,10 @@ Imports:
     Biostrings,
     S4Vectors,
     GenomicRanges,
-    IRanges
+    IRanges,
+    methods,
+    utils,
+    stats
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: 

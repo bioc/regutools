@@ -6,6 +6,12 @@
 \usage{
 download_database(path = ".", overwrite = FALSE)
 }
+\arguments{
+\item{path}{The directory where the database will be downloaded to.}
+
+\item{overwrite}{\code{logical(1)} specifying whether to overwrite the database
+file.}
+}
 \value{
 local file regulondb_sqlite3.db
 }

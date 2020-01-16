@@ -29,6 +29,8 @@
 #'
 #' get_summary(e_coli_regulondb, genes = c("ECK120000050", "modB"))
 #' @export
+#' @importFrom stats complete.cases
+
 get_regulatory_summary<-function(regulondb, gene_regulators){
   regulation <- gene_regulators
 

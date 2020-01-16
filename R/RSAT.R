@@ -15,14 +15,16 @@
 #'                       seed = 300,
 #'                       format = "fasta"))
 #' @export
+#' @import XML
+#' @import httr
 
 RSAT <- function(method, parameters = NULL){
 
   if(!is.null(parameters)){
-    request <- BuildXml(method = method,
+    request <- build_xml(method = method,
                         parameters = parameters)
   }else{
-    request <- BuildXml(method = method)
+    request <- build_xml(method = method)
   }
 
 
