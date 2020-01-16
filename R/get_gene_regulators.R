@@ -19,6 +19,7 @@
 #' @export
 
 get_gene_regulators <- function(regulondb, genes, format="multirow", output.type="TF"){
+  stopifnot(validObject(regulondb))
   #Check genes parameter class
   if(! class(genes) %in% c("vector","list","character")){
     stop("Parameter 'genes' must be a character vector or list.",call.=FALSE)
