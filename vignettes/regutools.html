@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Jose Alquicira Hernandez, Joselyn Chavez, Carmina Barberena Jonas, Jesus Emiliano Sotelo Fonseca, Alejandro Reyes" />
+
+<meta name="date" content="2020-01-16" />
+
+<title>regutools: an R package for the extraction of gene regulatory networks from RegulonDB</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">regutools: an R package for the extraction of gene regulatory networks from RegulonDB</h1>
+<h4 class="author">Jose Alquicira Hernandez, Joselyn Chavez, Carmina Barberena Jonas, Jesus Emiliano Sotelo Fonseca, Alejandro Reyes</h4>
+<h4 class="date">2020-01-16</h4>
+
+
+
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<p><em>Escherichia coli K-12 (E-coli)</em> is the best bacterial organism studied to date. Thousands of papers have been published using <em>E-coli</em> as a model system asking how genes are regulated. The throughput of these experiments range from single-gene studies to whole-genome approaches. Twenty years ago, the database <em>RegulonDB</em> started collecting, curating and organizing this information into a centralized resource. Thanks to this huge efforts, researchers have had an easy way to access all these data in a database, facilitating the advancements of complete fields, such as <em>systems biology</em>.</p>
+<p>The analysis of high-thoughput experiments -such as RNA-seq or ChIP-seq- often requires the integration of databases such as <em>RegulonDB</em> in order to give biological interpretations to these data. The <em>regutools</em> package is designed to facilitate such integration by providing programatic access to <em>RegulonDB</em> within the R environment. The package retreives information from the <em>RegulonDB</em> database into <em>Bioconductor</em> objects, ready for downstream analyses.</p>
+<p>The package defines the object <strong>regulondb</strong>, which is a data structure that contains the path to a <em>SQLite</em> database retrieved from <em>RegulonDB</em> along with metadata such as database version and reference genome. The function <code>download_database()</code> will retrieve the latest version of the database. The <em>regutools</em> package contains functions with the most popular queries to <em>regutools</em>, such as retrieving information of which gene targets are regulated by a transcription factor. But users can also design queries that are specific to their analyses. This vignette describes how to use the provided functions and how to design programmatic queries to <em>regutools</em>. The general syntax of the function calls of this package is <code>result &lt;- functionCalled( regulondb, arguments )</code>.</p>
+</div>
+<div id="the-regulondb-object" class="section level1">
+<h1>The <strong>regulondb</strong> object</h1>
+<p>The <strong>regulondb</strong> object is an extension of an <strong>SQLiteConnection</strong> class that host a connection to a database with the table structure defined in the <em>RegulonDb</em> database. It contains additional slots that especify the organism, genome version and database version. The function <code>regulondb()</code> is the constructor function of <strong>regulondb</strong> objects. This function receives as input a file path to the database file as well as information about the annotation as character vectors.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(<span class="st">'regutools'</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">## Other packages used</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(<span class="st">'Biostrings'</span>)</a></code></pre></div>
+<pre><code>## Loading required package: BiocGenerics</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre><code>## 
+## Attaching package: 'BiocGenerics'</code></pre>
+<pre><code>## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     IQR, mad, sd, var, xtabs</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     Filter, Find, Map, Position, Reduce, anyDuplicated, append,
+##     as.data.frame, basename, cbind, colnames, dirname, do.call,
+##     duplicated, eval, evalq, get, grep, grepl, intersect, is.unsorted,
+##     lapply, mapply, match, mget, order, paste, pmax, pmax.int, pmin,
+##     pmin.int, rank, rbind, rownames, sapply, setdiff, sort, table,
+##     tapply, union, unique, unsplit, which, which.max, which.min</code></pre>
+<pre><code>## Loading required package: S4Vectors</code></pre>
+<pre><code>## Loading required package: stats4</code></pre>
+<pre><code>## 
+## Attaching package: 'S4Vectors'</code></pre>
+<pre><code>## The following object is masked from 'package:base':
+## 
+##     expand.grid</code></pre>
+<pre><code>## Loading required package: IRanges</code></pre>
+<pre><code>## Loading required package: XVector</code></pre>
+<pre><code>## 
+## Attaching package: 'Biostrings'</code></pre>
+<pre><code>## The following object is masked from 'package:base':
+## 
+##     strsplit</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">## to be replaced with AnnotationHub call ##</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">download_database</span>(<span class="kw">tempdir</span>(), <span class="dt">overwrite=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">ecoli_regulondb &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="st">  </span><span class="kw">regulondb</span>(</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">    <span class="dt">database_path =</span> <span class="kw">file.path</span>( <span class="kw">tempdir</span>(), <span class="st">&quot;regulondb_sqlite3.db&quot;</span> ),</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">    <span class="dt">organism=</span><span class="st">&quot;E.coli&quot;</span>, <span class="dt">database_version=</span><span class="st">&quot;version 1&quot;</span>, </a>
+<a class="sourceLine" id="cb16-8" data-line-number="8">    <span class="dt">genome_version=</span><span class="st">&quot;version 1&quot;</span> )</a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10">ecoli_regulondb</a></code></pre></div>
+<pre><code>## regulondb object
+##   organism: E.coli
+##   genome_build: version 1
+##   database_version: version 1
+##   database_path: /private/var/folders/52/m1rxrzjn1l97_q4c0s8ryyph0000gn/T/RtmptMfMhD/regulondb_sqlite3.db</code></pre>
+<p>In order to get an overview of the tables present in a <em>regulondb</em> object, we can use the function <code>list_datasets()</code>. This function will output all the available tables (datasets) that can be used to build queries.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">list_datasets</span>( ecoli_regulondb )</a></code></pre></div>
+<pre><code>## [1] &quot;DNA_OBJECTS&quot;       &quot;GENE&quot;              &quot;NETWORK&quot;          
+## [4] &quot;OPERON&quot;            &quot;PROMOTER&quot;          &quot;REGULONDB_OBJECTS&quot;
+## [7] &quot;TF&quot;                &quot;TU&quot;</code></pre>
+<p>For each table in the database, users can explore the fields (or attributes) of each table using the function <code>list_attributes</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">head</span>( <span class="kw">list_attributes</span>( ecoli_regulondb, <span class="st">&quot;GENE&quot;</span> ), <span class="dv">8</span> )</a></code></pre></div>
+<pre><code>## [1] &quot;id&quot;       &quot;name&quot;     &quot;bnumber&quot;  &quot;gi&quot;       &quot;synonyms&quot; &quot;posleft&quot;  &quot;posright&quot;
+## [8] &quot;strand&quot;</code></pre>
+</div>
+<div id="retrieving-data" class="section level1">
+<h1>Retrieving data</h1>
+<p>Since the <em>regulondb</em> object is an extension of the <em>SQLiteConnection</em>, users can retreive data from a <em>regulondb</em> object using the function <code>dbGetQuery()</code>. Additionally, this package provides a wrapper function to build queries to the database. This function is called <code>get_dataset()</code> and has a very similar syntax to the <code>getBM()</code> function from the biomaRt package. The main arguments of the <code>get_dataset()</code> function are a <em>regulondb</em> object, a dataset (or table) of the database, the fields of the dataset to retrieve (attributes) and filters to specify what information to get. The code below shows an example where three attributes from the dataset <strong>“GENE”</strong> for the genes <em>araC</em>, <em>crp</em> and <em>lacI</em>. Note that if the <code>filters=</code> parameter is empty, the function will retreive all the hits it find in the database.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">get_dataset</span>( <span class="dt">regulondb=</span>ecoli_regulondb, </a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">            <span class="dt">dataset=</span><span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">            <span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;posleft&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;name&quot;</span>), </a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">            <span class="dt">filters=</span><span class="kw">list</span>(<span class="st">&quot;name&quot;</span>=<span class="kw">c</span>(<span class="st">&quot;araC&quot;</span>,<span class="st">&quot;crp&quot;</span>,<span class="st">&quot;lacI&quot;</span>)) )</a></code></pre></div>
+<pre><code>## regulondb_result with 3 rows and 4 columns
+##     posleft  posright      strand        name
+##   &lt;integer&gt; &lt;integer&gt; &lt;character&gt; &lt;character&gt;
+## 1     70387     71265     forward        araC
+## 2   3486120   3486752     forward         crp
+## 3    366428    367510     reverse        lacI</code></pre>
+<p>Some of the filters, such as <em>posright</em> or <em>posleft</em>, can be filtered by specifying intervals. For example, the code below indicates that all the start positions *posright&quot; should be between position 1 and position 5000 of the genome. The parameter <code>inverval=</code> is used to specify that the filter for that field will be defined by an interval rather than a exact match.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">get_dataset</span>( ecoli_regulondb, <span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;posright&quot;</span>,<span class="st">&quot;name&quot;</span>),</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">        <span class="dt">filters=</span><span class="kw">list</span>( <span class="st">&quot;posright&quot;</span>=<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5000</span>) ),</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">        <span class="dt">interval =</span> <span class="st">&quot;posright&quot;</span>,</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">        <span class="dt">dataset=</span><span class="st">&quot;GENE&quot;</span> )</a></code></pre></div>
+<pre><code>## regulondb_result with 3 rows and 2 columns
+##    posright        name
+##   &lt;integer&gt; &lt;character&gt;
+## 1      2799        thrA
+## 2      3733        thrB
+## 3       255        thrL</code></pre>
+</div>
+<div id="the-regulondb_result-object-and-integration-into-the-bioc-ecosystem" class="section level1">
+<h1>The <strong>regulondb_result</strong> object and integration into the <em>BioC</em> ecosystem</h1>
+<p>By default, the function <code>get_dataset()</code> outputs a <strong>regulondb_result</strong> object, which is an extension of a <strong>DataFrame</strong> that stores information about the query used to generate this object. This additional information includes the organism name, the database and genome versions, and the table (or dataset) of the <em>regulondb</em> object that was queried by <code>get_dataset()</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">get_dataset</span>( <span class="dt">regulondb=</span>ecoli_regulondb, </a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">            <span class="dt">dataset=</span><span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">            <span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;posleft&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;name&quot;</span>), </a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">            <span class="dt">filters=</span><span class="kw">list</span>(<span class="st">&quot;name&quot;</span>=<span class="kw">c</span>(<span class="st">&quot;araC&quot;</span>,<span class="st">&quot;crp&quot;</span>,<span class="st">&quot;lacI&quot;</span>)) )</a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="kw">slotNames</span>(res)</a></code></pre></div>
+<pre><code>##  [1] &quot;organism&quot;         &quot;genome_version&quot;   &quot;database_version&quot; &quot;dataset&quot;         
+##  [5] &quot;rownames&quot;         &quot;nrows&quot;            &quot;listData&quot;         &quot;elementType&quot;     
+##  [9] &quot;elementMetadata&quot;  &quot;metadata&quot;</code></pre>
+<p>To enable integration with other Bioconductor packages, we provide the function <code>convert_to_granges()</code> which converts a <strong>regulondb_result</strong> object into a <strong>GRanges</strong> object whenever possible. For example, the result stored in the variable <code>res</code> has genomic coordinates and it is thus possible convert <code>res</code> into a <strong>GRanges</strong> object.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">convert_to_granges</span>(res)</a></code></pre></div>
+<pre><code>## GRanges object with 3 ranges and 1 metadata column:
+##       seqnames          ranges strand |        name
+##          &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;
+##   [1]   E.coli     70387-71265      + |        araC
+##   [2]   E.coli 3486120-3486752      + |         crp
+##   [3]   E.coli   366428-367510      - |        lacI
+##   -------
+##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
+<p>An alternative way to get to the same result is to use the parameter <code>output_format=</code> directly in the function <code>get_dataset()</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">get_dataset</span>( <span class="dt">regulondb=</span>ecoli_regulondb, </a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">            <span class="dt">dataset=</span><span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">            <span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;posleft&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;name&quot;</span>), </a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">            <span class="dt">filters=</span><span class="kw">list</span>(<span class="st">&quot;name&quot;</span>=<span class="kw">c</span>(<span class="st">&quot;araC&quot;</span>,<span class="st">&quot;crp&quot;</span>,<span class="st">&quot;lacI&quot;</span>)), </a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">            <span class="dt">output_format=</span><span class="st">&quot;GRanges&quot;</span> )</a></code></pre></div>
+<pre><code>## GRanges object with 3 ranges and 1 metadata column:
+##       seqnames          ranges strand |        name
+##          &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;
+##   [1]   E.coli     70387-71265      + |        araC
+##   [2]   E.coli 3486120-3486752      + |         crp
+##   [3]   E.coli   366428-367510      - |        lacI
+##   -------
+##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
+<p>In a similar manner, the function <code>convert_to_biostrings()</code> converts <strong>regulondb</strong> objects into objects from the <em><a href="https://bioconductor.org/packages/3.10/Biostrings">Biostrings</a></em> package. Possible outputs of <code>convert_to_biostrings()</code> are <strong>DNAStringSet</strong> objects if <code>seq_type=&quot;DNA&quot;</code> or a <strong>BStringSet</strong> if <code>seq_type=&quot;product&quot;</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">res_dnastring &lt;-<span class="st"> </span><span class="kw">get_dataset</span>( <span class="dt">regulondb=</span>ecoli_regulondb, </a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">            <span class="dt">dataset=</span><span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">            <span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;posleft&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;name&quot;</span>, <span class="st">&quot;dna_sequence&quot;</span>), </a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">            <span class="dt">filters=</span><span class="kw">list</span>(<span class="st">&quot;name&quot;</span>=<span class="kw">c</span>(<span class="st">&quot;araC&quot;</span>,<span class="st">&quot;crp&quot;</span>,<span class="st">&quot;lacI&quot;</span>)) )</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">res_dnastring &lt;-<span class="st"> </span><span class="kw">convert_to_biostrings</span>( res_dnastring, <span class="dt">seq_type=</span><span class="st">&quot;DNA&quot;</span> )</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">res_dnastring</a></code></pre></div>
+<pre><code>##   A DNAStringSet instance of length 3
+##     width seq
+## [1]   879 ATGGCTGAAGCGCAAAATGATCCCCTGCTGCCGG...AAAGTGAATGATGTAGCCGTCAAGTTGTCATAA
+## [2]   633 ATGGTGCTTGGCAAACCGCAAACAGACCCGACTC...GGTAAAACCATCGTCGTTTACGGCACTCGTTAA
+## [3]  1083 GTGAAACCAGTAACGTTATACGATGTCGCAGAGT...CGACAGGTTTCCCGACTGGAAAGCGGGCAGTGA</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">mcols</span>( res_dnastring )</a></code></pre></div>
+<pre><code>## regulondb_result with 3 rows and 4 columns
+##     posleft  posright      strand        name
+##   &lt;integer&gt; &lt;integer&gt; &lt;character&gt; &lt;character&gt;
+## 1     70387     71265     forward        araC
+## 2   3486120   3486752     forward         crp
+## 3    366428    367510     reverse        lacI</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">res_prodstring &lt;-<span class="st"> </span><span class="kw">get_dataset</span>( <span class="dt">regulondb=</span>ecoli_regulondb, </a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">            <span class="dt">dataset=</span><span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">            <span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;posleft&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;name&quot;</span>, <span class="st">&quot;product_sequence&quot;</span>), </a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">            <span class="dt">filters=</span><span class="kw">list</span>(<span class="st">&quot;name&quot;</span>=<span class="kw">c</span>(<span class="st">&quot;araC&quot;</span>,<span class="st">&quot;crp&quot;</span>,<span class="st">&quot;lacI&quot;</span>)) )</a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">res_prodstring &lt;-<span class="st"> </span><span class="kw">convert_to_biostrings</span>( res_prodstring, <span class="dt">seq_type=</span><span class="st">&quot;product&quot;</span> )</a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">res_prodstring</a></code></pre></div>
+<pre><code>##   A BStringSet instance of length 3
+##     width seq
+## [1]   292 MAEAQNDPLLPGYSFNAHLVAGLTPIEANGYLDF...YFSRVFKKCTGASPSEFRAGCEEKVNDVAVKLS
+## [2]   210 MVLGKPQTDPTLEWFLSHCHIHKYPSKSTLIHQG...GCSRETVGRILKMLEDQNLISAHGKTIVVYGTR
+## [3]   360 MKPVTLYDVAEYAGVSYQTVSRVVNQASHVSAKT...TTLAPNTQTASPRALADSLMQLARQVSRLESGQ</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">mcols</span>( res_prodstring )</a></code></pre></div>
+<pre><code>## regulondb_result with 3 rows and 4 columns
+##     posleft  posright      strand        name
+##   &lt;integer&gt; &lt;integer&gt; &lt;character&gt; &lt;character&gt;
+## 1     70387     71265     forward        araC
+## 2   3486120   3486752     forward         crp
+## 3    366428    367510     reverse        lacI</code></pre>
+<p>As with the <strong>GRanges</strong> output mentioned above, it is possible for the output of <code>get_dataset()</code> to be a <strong>DNAStringSet</strong> object by specifying the parameter <code>output_format=&quot;DNAStringSet&quot;</code> or a <strong>BStringSet</strong> object by specifying <code>output_format=&quot;BStringSet&quot;</code>. Note that the functions to convert <strong>regulondb_result</strong> objects will throw errors if there is insufficient information for the coersion to occur. For example, we will get an error if we try to convert into a <strong>GRanges</strong> object when genomic coordinates are missing from the <strong>regulondb_result</strong> object.</p>
+</div>
+<div id="building-your-own-queries" class="section level1">
+<h1>Building your own queries</h1>
+<p>In the <em>regutools</em> package, we have implemented features that are commonly used when quering data from databases: filtering results by partial matching, filtering by numeric intervals, and building complex queries.</p>
+<div id="partial-matching" class="section level2">
+<h2>Partial matching</h2>
+<p>The code below illustrates the concept of partial matching, in which by setting the parameter <code>partialmatch=</code> to <code>TRUE</code>, the query returns all the gene name in which the word <em>ara</em> is contained.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">get_dataset</span>( ecoli_regulondb, </a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">             <span class="dt">attributes=</span><span class="kw">c</span>(<span class="st">&quot;posright&quot;</span>,<span class="st">&quot;name&quot;</span>),</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">             <span class="dt">filters=</span><span class="kw">list</span>(<span class="st">&quot;name&quot;</span>=<span class="st">&quot;ara&quot;</span>),</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4">             <span class="dt">partialmatch =</span><span class="st">&quot;name&quot;</span>,</a>
+<a class="sourceLine" id="cb40-5" data-line-number="5">             <span class="dt">dataset=</span><span class="st">&quot;GENE&quot;</span> )</a></code></pre></div>
+<pre><code>## regulondb_result with 13 rows and 2 columns
+##      posright        name
+##     &lt;integer&gt; &lt;character&gt;
+## 1       68337        araA
+## 2       70048        araB
+## 3       71265        araC
+## 4       66550        araD
+## 5     2982182        araE
+## ...       ...         ...
+## 9      412481        araJ
+## 10      30799        carA
+## 11    2917813        barA
+## 12    1619957        marA
+## 13     939337        rarA</code></pre>
+<p>Note that setting the parameter <code>partialmatch=</code> to <code>FALSE</code> will only return genes where the name string is identical to <em>ara</em>.</p>
+</div>
+<div id="filtering-by-numeric-intervals" class="section level2">
+<h2>Filtering by numeric intervals</h2>
+<p>In addition to partial matching, queries can be filtered by numeric intervals. For example, in the code below, the parameter <code>interv=</code> is set to <code>&quot;posright&quot;</code>. By doing this assignment, we are specifying that the values for <code>&quot;posright&quot;</code> must lie between the values of <code>posright</code> specified in the <code>filter=</code> parameter. Thus, the result of this query will be genes whose right positions lie between the coordinates 2000 and 4000000. Note that the use of the <code>interv=</code> parameter in the code below is equivalent to setting the parameter <code>output_format=</code> to <code>&quot;GRanges&quot;</code> and further subsetting the <em>GRanges</em> object using the function <code>subsetByOverlaps()</code>.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">get_dataset</span>(</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">  ecoli_regulondb, </a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">  <span class="dt">attributes =</span> <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;product_name&quot;</span>), </a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">           <span class="dt">dataset =</span> <span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5">           <span class="dt">filters =</span> <span class="kw">list</span>(<span class="dt">posright=</span><span class="kw">c</span>(<span class="st">&quot;2000&quot;</span>,<span class="st">&quot;4000000&quot;</span>) ),</a>
+<a class="sourceLine" id="cb42-6" data-line-number="6">           <span class="dt">interv=</span><span class="st">&quot;posright&quot;</span> )</a></code></pre></div>
+<pre><code>## regulondb_result with 3963 rows and 4 columns
+##             name      strand  posright
+##      &lt;character&gt; &lt;character&gt; &lt;integer&gt;
+## 1           modB     forward    796551
+## 2           cysZ     forward   2532224
+## 3            dfp     forward   3813951
+## 4           hisM     reverse   2425233
+## 5           rhsE     forward   1529938
+## ...          ...         ...       ...
+## 3959        yqfH     reverse   3033010
+## 3960        yliM     forward    850397
+## 3961        ynfS     forward   1642211
+## 3962        ylcJ     forward    568844
+## 3963        sdhX     forward    765150
+##                                                                                       product_name
+##                                                                                        &lt;character&gt;
+## 1                                                       molybdate ABC transporter membrane subunit
+## 2                                                                  sulfate:H&lt;sup&gt;+&lt;/sup&gt; symporter
+## 3    fused 4'-phosphopantothenoylcysteine decarboxylase and phosphopantothenoylcysteine synthetase
+## 4     lysine/arginine/ornithine ABC transporter / histidine ABC transporter, membrane subunit HisM
+## 5                                                                      RhsE protein in rhs element
+## ...                                                                                            ...
+## 3959                                                                                  protein YqfH
+## 3960                                                                                  protein YliM
+## 3961                                                                    Qin prophage; protein YnfS
+## 3962                                                                                  protein YlcJ
+## 3963                                                                     small regulatory RNA SdhX</code></pre>
+</div>
+<div id="complex-filters" class="section level2">
+<h2>Complex filters</h2>
+<p>The examples so far have considered queries in which the results are filtered according to single fields from tables. In order to build queries with filters from more than one field, several filters names can be passed as a list to the <code>filters=</code> argument. Additionally the <code>and=</code> argument is used to specify whether the filtering conditions of the result of the query must be satisfied (<code>and=TRUE</code>) or if satisfying a single condition is enough (<code>and=FALSE</code>).</p>
+<p>For example, the code below extracts the genes where either <code>name</code> or <code>product_name</code> contain the word <em>Ara</em> or <em>Ara</em>, respectively, if the gene is in the forward strand or if the right position of the gene is between 2000 and 40000000.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">nrow</span>(<span class="kw">get_dataset</span>(</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">  ecoli_regulondb, </a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">  <span class="dt">attributes =</span> <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;product_name&quot;</span>), </a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">           <span class="dt">dataset =</span> <span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">           <span class="dt">filters =</span> <span class="kw">list</span>(<span class="dt">name=</span><span class="kw">c</span>(<span class="st">&quot;ARA&quot;</span>),</a>
+<a class="sourceLine" id="cb44-6" data-line-number="6">                          <span class="dt">product_name=</span><span class="kw">c</span>(<span class="st">&quot;Ara&quot;</span>),</a>
+<a class="sourceLine" id="cb44-7" data-line-number="7">                          <span class="dt">strand=</span><span class="kw">c</span>(<span class="st">&quot;forward&quot;</span>),</a>
+<a class="sourceLine" id="cb44-8" data-line-number="8">                          <span class="dt">posright=</span><span class="kw">c</span>(<span class="st">&quot;2000&quot;</span>,<span class="st">&quot;4000000&quot;</span>)</a>
+<a class="sourceLine" id="cb44-9" data-line-number="9">           ),</a>
+<a class="sourceLine" id="cb44-10" data-line-number="10">           <span class="dt">and=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb44-11" data-line-number="11">           <span class="dt">partialmatch =</span> <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;product_name&quot;</span>) ,</a>
+<a class="sourceLine" id="cb44-12" data-line-number="12">           <span class="dt">interv=</span><span class="st">&quot;posright&quot;</span> ))</a></code></pre></div>
+<pre><code>## [1] 2331</code></pre>
+<p>The query below, which is identical to the query above except the <code>and=</code> is set to <code>TRUE</code>, returns the genes where all of the specified conditions are satisfied.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">nrow</span>(<span class="kw">get_dataset</span>(</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">  ecoli_regulondb, </a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">  <span class="dt">attributes =</span> <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;strand&quot;</span>, <span class="st">&quot;posright&quot;</span>, <span class="st">&quot;product_name&quot;</span>), </a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">           <span class="dt">dataset =</span> <span class="st">&quot;GENE&quot;</span>,</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">           <span class="dt">filters =</span> <span class="kw">list</span>(<span class="dt">name=</span><span class="kw">c</span>(<span class="st">&quot;ARA&quot;</span>),</a>
+<a class="sourceLine" id="cb46-6" data-line-number="6">                          <span class="dt">product_name=</span><span class="kw">c</span>(<span class="st">&quot;Ara&quot;</span>),</a>
+<a class="sourceLine" id="cb46-7" data-line-number="7">                          <span class="dt">strand=</span><span class="kw">c</span>(<span class="st">&quot;forward&quot;</span>),</a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">                          <span class="dt">posright=</span><span class="kw">c</span>(<span class="st">&quot;2000&quot;</span>,<span class="st">&quot;4000000&quot;</span>)</a>
+<a class="sourceLine" id="cb46-9" data-line-number="9">           ),</a>
+<a class="sourceLine" id="cb46-10" data-line-number="10">           <span class="dt">and=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb46-11" data-line-number="11">           <span class="dt">partialmatch =</span> <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;product_name&quot;</span>) ,</a>
+<a class="sourceLine" id="cb46-12" data-line-number="12">           <span class="dt">interv=</span><span class="st">&quot;posright&quot;</span> ))</a></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+</div>
+<div id="functions-with-frequently-used-queries" class="section level1">
+<h1>Functions with frequently used queries</h1>
+<p>The regutools package provides functions that encode the most frequent queries that are submitted to the <em>RegulonDB</em> web resource.</p>
+<div id="extracting-regulatory-networks" class="section level2">
+<h2>Extracting regulatory networks</h2>
+<p>One of the most important information that the <em>RegulonDB</em> database contains are manually curated regulatory networks. The <em>regutools</em> package exports the function <code>get_gene_regulators()</code>, which inputs a vector of gene names and outputs information about what are the transcription factors that regulate such genes together with the regulatory effect (activator, repressor or dual).</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">get_gene_regulators</span>( ecoli_regulondb, <span class="kw">c</span>(<span class="st">&quot;araC&quot;</span>,<span class="st">&quot;fis&quot;</span>,<span class="st">&quot;crp&quot;</span>) )</a></code></pre></div>
+<pre><code>## regulondb_result with 9 rows and 3 columns
+##         genes  regulators      effect
+##   &lt;character&gt; &lt;character&gt; &lt;character&gt;
+## 1         crp         Fis           -
+## 2         fis         Fis           -
+## 3        araC         CRP           +
+## 4         crp         CRP         +/-
+## 5         fis         CRP         +/-
+## 6        araC        AraC         +/-
+## 7         crp         Cra           +
+## 8        araC        XylR           -
+## 9         fis         IHF           +</code></pre>
+<p>Similarly, the <code>get_regulatory_network()</code> function retrieves all the regulatory network from a <strong>regulondb</strong> object. By default, the output will be a list of transcription factor-gene pairs, indicating which transcription factor regulates which gene.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">head</span>( <span class="kw">get_regulatory_network</span>( ecoli_regulondb ) )</a></code></pre></div>
+<pre><code>## regulondb_result with 6 rows and 3 columns
+##     regulator   regulated      effect
+##   &lt;character&gt; &lt;character&gt; &lt;character&gt;
+## 1         Fis        adhE           +
+## 2         Fis        osmE           -
+## 3         Fis        ansB           -
+## 4         Fis        apaG           +
+## 5         Fis        apaH           +
+## 6         Fis        bglB           -</code></pre>
+<p>But users can also set the parameter <code>type=</code> to <code>&quot;GENE-GENE&quot;</code> or <code>&quot;TF-GENE&quot;</code> to retrieve gene-gene regulatory networks or transcription factor-transcription factor regulatory networks, respectively.</p>
+<p>Users can also use the <code>get_regulatory_summary()</code> to retrieve a summary of the transcription factor regulated the expression of a set of given genes. The parameter <code>gene_regulators</code> can receive either a vector of gene names or the output of a call to the function <code>get_gene_regulators()</code>. The resulting output is a <em>regulondb_result</em> object in which each row shows a transcription factor, and the columns display information about the number, percentage and regulatory activity exerted to the genes.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">get_regulatory_summary</span>( ecoli_regulondb, <span class="dt">gene_regulators =</span> <span class="kw">c</span>(<span class="st">&quot;araC&quot;</span>, <span class="st">&quot;modB&quot;</span>) )</a></code></pre></div>
+<pre><code>## regulondb_result with 4 rows and 7 columns
+##         TF Regulated_genes_per_TF  Percent Activator Repressor     Dual
+##   &lt;factor&gt;               &lt;factor&gt; &lt;factor&gt;  &lt;factor&gt;  &lt;factor&gt; &lt;factor&gt;
+## 1     AraC                      1       20         0         0        1
+## 2      CRP                      2       40         2         0        0
+## 3     ModE                      1       20         0         1        0
+## 4     XylR                      1       20         0         1        0
+##   Regulated_genes
+##          &lt;factor&gt;
+## 1            araC
+## 2      modB, araC
+## 3            modB
+## 4            araC</code></pre>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
