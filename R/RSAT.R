@@ -15,6 +15,7 @@
 #'                       seed = 300,
 #'                       format = "fasta"))
 #' @export
+#' @import xml2
 #' @importFrom XML xmlParse xmlToList
 #' @importFrom httr content content_type POST stop_for_status
 

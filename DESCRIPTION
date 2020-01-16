@@ -24,7 +24,8 @@ Imports:
     IRanges,
     methods,
     utils,
-    stats
+    stats,
+    xml2
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: 

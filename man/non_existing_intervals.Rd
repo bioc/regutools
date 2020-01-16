@@ -12,6 +12,8 @@ non_existing_intervals(filters, interval, operator, partialmatch)
 \item{interval}{the filters whose values will be considered as interval}
 
 \item{operator}{A string indicating if all the filters (AND) or some of them (OR) should be met}
+
+\item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
 }
 \value{
 A string with a sql logical condition to query the dataset
