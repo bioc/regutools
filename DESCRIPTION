@@ -25,7 +25,8 @@ Imports:
     methods,
     utils,
     stats,
-    xml2
+    xml2,
+    DBI
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: 

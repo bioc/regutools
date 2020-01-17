@@ -11,6 +11,7 @@
 #' list_attributes(e_coli_regulondb, "TF")
 #' list_attributes(e_coli_regulondb, "OPERON")
 #' @export
+#' @importFrom DBI dbListFields
 
 list_attributes <- function( regulondb, dataset){
   if(missing(dataset))
