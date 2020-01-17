@@ -8,18 +8,23 @@ author:
   - name: Joselyn Chávez
     affiliation:
     - &ibt Instituto de Biotecnología, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
+    email: joselynchavezf@gmail.com
   - name: Carmina Barberena Jonas
     affiliation:
     - TODO
+    email: car.barjon@gmail.com
   - name: Jesus Emiliano Sotelo Fonseca
     affiliation:
     - LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
+    email: jesus.sotelo@cinvestav.mx
   - name: Heladia Salgado
     affiliation:
     - *ccg
+    email: heladia@ccg.unam.mx
   - name: Alejandro Reyes
     affiliation:
     - Dana Farber Cancer Institute, Boston, MA, US
+    email: alejandro.reyes.ds@gmail.com
   - name: Leonardo Collado-Torres
     affiliation:
     - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus, Baltimore, MD, US
