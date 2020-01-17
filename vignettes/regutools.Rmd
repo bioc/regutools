@@ -3,23 +3,27 @@ title: "regutools: an R package for the extraction of gene regulatory networks f
 author:
   - name: Jose Alquicira Hernandez
     affiliation:
-    - TODO
+    - &ccg Centro de Ciencias Genómicas, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
+    - University of Queensland, Brisbane, QLD, AU
   - name: Joselyn Chávez
     affiliation:
-    - TODO
+    - &ibt Instituto de Biotecnología, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
   - name: Carmina Barberena Jonas
     affiliation:
     - TODO
   - name: Jesus Emiliano Sotelo Fonseca
     affiliation:
-    - TODO
+    - LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
+  - name: Heladia Salgado
+    affiliation:
+    - *ccg
   - name: Alejandro Reyes
     affiliation:
-    - TODO
+    - Dana Farber Cancer Institute, Boston, MA, US
   - name: Leonardo Collado-Torres
     affiliation:
-    - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus
-    - &ccb Center for Computational Biology, Johns Hopkins University
+    - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus, Baltimore, MD, US
+    - &ccb Center for Computational Biology, Johns Hopkins University, Baltimore, MD, US
     email: lcolladotor@gmail.com
 date: "`r doc_date()`"
 package: "`r pkg_ver('regutools')`"
@@ -60,7 +64,7 @@ bib <- c(
     BiocStyle = citation('BiocStyle'),
     knitcitations = citation('knitcitations'),
     knitr = citation('knitr')[3],
-    rmarkdown = citation('rmarkdown'),
+    rmarkdown = citation('rmarkdown')[1],
     sessioninfo = citation('sessioninfo'),
     testthat = citation('testthat'),
     RSQLite = citation('RSQLite'),
