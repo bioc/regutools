@@ -357,7 +357,7 @@ get_regulatory_summary(ecoli_regulondb, gene_regulators = c("araC", "modB"))
 
 # Reproducibility
 
-The `r Biocpkg('regutools')` package `r #citep(bib[['regutools']])` was made possible thanks to:
+The `r Biocpkg('regutools')` package `r citep(bib[['regutools']])` was made possible thanks to:
 
 * R `r citep(bib[['R']])`
 * `r Biocpkg('BiocStyle')` `r citep(bib[['BiocStyle']])`

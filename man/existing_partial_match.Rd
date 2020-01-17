@@ -7,26 +7,38 @@
 existing_partial_match(filters, partialmatch, operator)
 }
 \arguments{
-\item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
+\item{filters}{List of filters to be used. The names should correspond to
+the attribute and the values correspond to the condition for selection.}
 
-\item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
+\item{partialmatch}{name of the condition(s) with a string pattern for full
+or partial match in the query.}
 
-\item{operator}{A string indicating if all the filters (AND) or some of them (OR) should be met}
+\item{operator}{A string indicating if all the filters (AND) or some of them
+(OR) should be met.}
 }
 \value{
-A sql logical condition to query the dataset
+A \code{character(1)} with the sql logical condition to query the dataset.
 }
 \description{
-Given a list of filters, this function builds a logical condition to query database using intervals.
+Given a list of filters, this function builds a logical
+condition to query database using intervals.
 The output is used in \code{\link[=existing_intervals]{existing_intervals()}} and \code{\link[=non_existing_intervals]{non_existing_intervals()}}.
 }
 \examples{
-existing_partial_match(filters = list(name=c("ara"),
-                                    strand=c("forward"),
-                                    posright=c("2000","40000")),
-                     partialmatch = "name",
-                     operator = "AND")
+
+## Build the SQL query for existing partial matches for ara
+existing_partial_match(
+    filters = list(
+        name = c("ara"),
+        strand = c("forward"),
+        posright = c("2000", "40000")
+    ),
+    partialmatch = "name",
+    operator = "AND"
+)
+
 }
 \author{
-Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández
+Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,
+José Alquicira Hernández
 }

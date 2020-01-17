@@ -5,18 +5,23 @@
 \alias{regulondb_result-class}
 \title{The regulondb_results class}
 \description{
-The regulondb class is an extension of the DataFrame class, with
-additional slots that host information of the database used to obtain these results.
+The regulondb class is an extension of the DataFrame class,
+with
+additional slots that host information of the database used to obtain these
+results.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{organism}}{A character string with the name of the organism of the database.}
+\item{\code{organism}}{A character string with the name of the organism of the
+database.}
 
 \item{\code{genome_version}}{A character string with the version of the genome build.}
 
-\item{\code{database_version}}{A character string with the version of regulondb build.}
+\item{\code{database_version}}{A character string with the version of regulondb
+build.}
 
-\item{\code{dataset}}{A character string with the name of the table used for the query in get_dataset().}
+\item{\code{dataset}}{A character string with the name of the table used for the
+query in get_dataset().}
 }}
 
