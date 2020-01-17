@@ -372,7 +372,7 @@ The `r Biocpkg('regutools')` package `r citep(bib[['regutools']])` was made poss
 * `r CRANpkg('data.table')` `r citep(bib[['data.table']])`
 * `r Biocpkg('RCy3')` `r citep(bib[['RCy3']])`
 * `r Biocpkg('Biostrings')` `r citep(bib[['Biostrings']])`
-* `r Biocpkg('S4Vectors)` `r citep(bib[['S4Vectors']])`
+* `r Biocpkg('S4Vectors')` `r citep(bib[['S4Vectors']])`
 * `r Biocpkg('GenomicRanges')` `r citep(bib[['GenomicRanges']])`
 * `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`
 * `r CRANpkg('xml2')` `r citep(bib[['xml2']])`

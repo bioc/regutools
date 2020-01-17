@@ -4,3 +4,6 @@
 ^\.travis\.yml$
 planning
 ^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
