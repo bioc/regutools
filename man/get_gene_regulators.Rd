@@ -30,7 +30,7 @@ if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
 ## Build the regulon db object
 e_coli_regulondb <-
     regulondb(
-        database_path = file.path(getwd(), "regulondb_sqlite3.db"),
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
         organism = "E.coli",
         database_version = "1",
         genome_version = "1"
