@@ -48,7 +48,7 @@ datasets can be selected and filtered.
 }
 \examples{
 ## Download the database if necessary
-if(!file.exists(file.path(tempdir(), 'regulondb-sqlite3.db'))) {
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
     download_database(tempdir())
 }
 

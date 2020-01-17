@@ -33,7 +33,7 @@ The output is used in \code{\link[=get_dataset]{get_dataset()}}.
 \examples{
 
 ## Download the database if necessary
-if(!file.exists(file.path(tempdir(), 'regulondb-sqlite3.db'))) {
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
     download_database(tempdir())
 }
 

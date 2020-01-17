@@ -27,14 +27,14 @@ build.}
 \examples{
 
 ## Download the database if necessary
-if(!file.exists(file.path(tempdir(), 'regulondb-sqlite3.db'))) {
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
     download_database(tempdir())
 }
 
 ## Build a regulondb object
 e_coli_regulondb <-
     regulondb(
-        database_path = file.path(tempdir(), 'regulondb-sqlite3.db'),
+        database_path = file.path(tempdir(), 'regulondb_sqlite3.db'),
         organism = "E.coli",
         database_version = "1",
         genome_version = "1"
