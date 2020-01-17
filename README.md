@@ -96,16 +96,16 @@ citation('regutools')
 #> To cite package 'regutools' in publications use:
 #> 
 #>   Joselyn Chavez, Carmina Barberena-Jonas, Jesus E. Sotelo-Fonseca,
-#>   Jose Alquicira-Hernandez, Alejandro Reyes and Leonardo Collado-Torres
-#>   (2020). regutools: regutools: an R package for data extraction from
-#>   RegulonDB. R package version 0.99.0.
+#>   Jose Alquicira-Hernandez, Heladia Salgado, Alejandro Reyes and
+#>   Leonardo Collado-Torres (2020). regutools: regutools: an R package
+#>   for data extraction from RegulonDB. R package version 0.99.0.
 #>   https://github.com/ComunidadBioInfo/regutools
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {regutools: regutools: an R package for data extraction from RegulonDB},
-#>     author = {Joselyn Chavez and Carmina Barberena-Jonas and Jesus E. Sotelo-Fonseca and Jose Alquicira-Hernandez and Alejandro Reyes and Leonardo Collado-Torres},
+#>     author = {Joselyn Chavez and Carmina Barberena-Jonas and Jesus E. Sotelo-Fonseca and Jose Alquicira-Hernandez and Heladia Salgado and Alejandro Reyes and Leonardo Collado-Torres},
 #>     year = {2020},
 #>     note = {R package version 0.99.0},
 #>     url = {https://github.com/ComunidadBioInfo/regutools},
