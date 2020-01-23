@@ -17,31 +17,40 @@ purge_seq(
 \arguments{
 \item{sequence}{Sequence to purge}
 
-\item{format}{Sequence format. Supported: 'IG' (Intelligenetics), 'WC' (wconsensus), 'raw', 'fasta'. Defaul is 'fasta'.}
+\item{format}{Sequence format. Supported: 'IG' (Intelligenetics), 'WC'
+(wconsensus), 'raw', 'fasta'. Defaul is 'fasta'.}
 
 \item{match.length}{Minimal match length. Default is 40.}
 
 \item{mismatch}{Number of mismatches allowed. Default is 3.}
 
-\item{both.strand}{Discard duplications on the direct strand only (FALSE) or on the reverse complement as well (TRUE). Default is TRUE.}
+\item{both.strand}{Discard duplications on the direct strand only (\code{FALSE})
+or on the reverse complement as well (\code{TRUE}). Default is \code{TRUE}.}
 
-\item{delete}{Delete repeats instead of masking them if TRUE.}
+\item{delete}{Delete repeats instead of masking them if \code{TRUE}.}
 
-\item{mask.short}{Mask (replace by N characters) sequences shorter than the specified length.}
+\item{mask.short}{Mask (replace by N characters) sequences shorter than
+the specified length.}
 }
 \value{
 An string with results retrieved from RSAT
 }
 \description{
-Returns your sequence with substitution of repeated fragments by 'n' .
+Returns your sequence with substitution of repeated fragments
+by 'n' .
 }
 \examples{
-# Purge sequence with repeats of length 10
-res <- purge_seq(sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA")
-res <- purge_seq(sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
-                   match.length = 10,
-                   format = "raw")
-cat(res)
+## Purge sequence with repeats of length 10
+res <-
+    purge_seq(sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA")
+res
+
+res2 <-
+    purge_seq(sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
+        match.length = 10,
+        format = "raw")
+res2
+
 }
 \author{
 Joselyn Chávez

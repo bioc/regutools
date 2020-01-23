@@ -1,27 +1,118 @@
-<!-- badges: start -->
-[![Travis build status](https://travis-ci.org/ComunidadBioInfo/regutools.svg?branch=master)](https://travis-ci.org/ComunidadBioInfo/regutools)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Codecov test coverage](https://codecov.io/gh/ComunidadBioInfo/regutools/branch/master/graphs/badge.svg)](https://codecov.io/gh/ComunidadBioInfo/regutools?branch=master)
-<!-- badges: end -->
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # regutools
 
-R package to extract and process data from [RegulonDB](http://regulondb.ccg.unam.mx/)
+<!-- badges: start -->
 
-## Description
+[![Travis build
+status](https://travis-ci.org/ComunidadBioInfo/regutools.svg?branch=master)](https://travis-ci.org/ComunidadBioInfo/regutools)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/ComunidadBioInfo/regutools/branch/master/graphs/badge.svg)](https://codecov.io/gh/ComunidadBioInfo/regutools?branch=master)
+<!-- badges: end -->
 
-`regutools` is an R package with functions that allows to import SQL databases and then search or visualize data of interest.
+The goal of `regutools` is to provide an R interface for extracting and
+processing data from [RegulonDB](http://regulondb.ccg.unam.mx/).
 
-## Installing
+## Installation
 
-To download and install `regutools`, run the next lines in your R session:
+You can install the released version of `regutools` from
+[Bioconductor](http://bioconductor.org/) with:
 
+``` r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("regutools")
+
+## Check that you have a valid Bioconductor installation
+BiocManager::valid()
 ```
-install.packages("devtools")
-library(devtools)
-install_github("ComunidadBioinfo/regutools")
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+BiocManager::install("ComunidadBioinfo/regutools")
 ```
 
-## Contact
+## Example
 
-- joselynchavezf@gmail.com
+This is a basic example which shows you how to use `regutools`. For more
+details, please check the vignette.
+
+``` r
+library('regutools')
+## basic example code
+
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
+
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## Get the araC regulators
+araC_regulation <-
+    get_gene_regulators(
+        e_coli_regulondb,
+        genes = c("araC"),
+        format = "multirow",
+        output.type = "TF"
+    )
+
+## Summarize the araC regulation
+get_regulatory_summary(e_coli_regulondb, araC_regulation)
+#> regulondb_result with 3 rows and 7 columns
+#>         TF Regulated_genes_per_TF          Percent Activator Repressor     Dual
+#>   <factor>               <factor>         <factor>  <factor>  <factor> <factor>
+#> 1     AraC                      1 33.3333333333333         0         0        1
+#> 2      CRP                      1 33.3333333333333         1         0        0
+#> 3     XylR                      1 33.3333333333333         0         1        0
+#>   Regulated_genes
+#>          <factor>
+#> 1            araC
+#> 2            araC
+#> 3            araC
+```
+
+# Citation
+
+Below is the citation output from using `citation('regutools')` in R.
+Please run this yourself to check for any updates on how to cite
+**regutools**.
+
+``` r
+citation('regutools')
+#> 
+#> To cite package 'regutools' in publications use:
+#> 
+#>   Joselyn Chavez, Carmina Barberena-Jonas, Jesus E. Sotelo-Fonseca,
+#>   Jose Alquicira-Hernandez, Heladia Salgado, Alejandro Reyes and
+#>   Leonardo Collado-Torres (2020). regutools: regutools: an R package
+#>   for data extraction from RegulonDB. R package version 0.99.0.
+#>   https://github.com/ComunidadBioInfo/regutools
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {regutools: regutools: an R package for data extraction from RegulonDB},
+#>     author = {Joselyn Chavez and Carmina Barberena-Jonas and Jesus E. Sotelo-Fonseca and Jose Alquicira-Hernandez and Heladia Salgado and Alejandro Reyes and Leonardo Collado-Torres},
+#>     year = {2020},
+#>     note = {R package version 0.99.0},
+#>     url = {https://github.com/ComunidadBioInfo/regutools},
+#>   }
+```
+
+# Testing
+
+Testing on Bioc-devel is feasible thanks to [R
+Travis](http://docs.travis-ci.com/user/languages/r/).

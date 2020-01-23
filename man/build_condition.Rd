@@ -11,30 +11,57 @@ build_condition(regulondb, dataset, filters, operator, interval, partialmatch)
 
 \item{dataset}{dataset of interest}
 
-\item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
+\item{filters}{List of filters to be used. The names should correspond to
+the attribute and the values correspond to the condition for selection.}
 
-\item{operator}{A string indicating if all the filters (AND) or some of them (OR) should be met}
+\item{operator}{A string indicating if all the filters (AND) or some of them
+(OR) should be met}
 
 \item{interval}{the filters with values considered as interval}
 
-\item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
+\item{partialmatch}{name of the condition(s) with a string pattern for full
+or partial match in the query}
 }
 \value{
-A string with a sql logical condition to query the dataset
+A \code{character(1)} with the sql logical condition to query the dataset.
 }
 \description{
-Given a list of filters, this function builds a logical condition to query database.
-The output is used in \code{\link[=GetAttr]{GetAttr()}}.
+Given a list of filters, this function builds a logical
+condition to query database.
+The output is used in \code{\link[=get_dataset]{get_dataset()}}.
 }
 \examples{
-buil_condition(regulondb, dataset = "GENE",
-        filters = list(name=c("ara"),
-                       strand=c("forward"),
-                       posright=c("2000","40000")),
-        operator= "AND",
-        interval= "posright",
-        partialmatch = "name")
+
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
+
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## Build the condition for ara
+build_condition(
+    e_coli_regulondb,
+    dataset = "GENE",
+    filters = list(
+        name = c("ara"),
+        strand = c("forward"),
+        posright = c("2000", "40000")
+    ),
+    operator = "AND",
+    interval = "posright",
+    partialmatch = "name"
+)
+
 }
 \author{
-Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,
+José Alquicira Hernández, Joselyn Chávez
 }

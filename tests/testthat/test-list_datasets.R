@@ -1,5 +1,5 @@
-context("list_attributes")
-test_that("list_attributes works as expected ", {
+context("list_datasets")
+test_that("function list_dataset works as expected", {
     fileToDb <- file.path(tempdir(), "regulondb_sqlite3.db")
     if (!file.exists(fileToDb))
         download_database(tempdir())
@@ -12,11 +12,8 @@ test_that("list_attributes works as expected ", {
         )
 
     # Returns a character vector
-    expect_type(list_attributes(regdb, dataset = "DNA_OBJECTS"),
-        "character")
+    expect_type(list_datasets(regdb), "character")
 
-    # Test that function fails if not enough arguments are given
-    expect_error(list_attributes(), "")
-    expect_error(list_attributes(regdb), "")
-
+    # Test that function fails if not database is provided
+    expect_error(list_datasets(), "")
 })

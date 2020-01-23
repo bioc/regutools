@@ -22,27 +22,50 @@ A data frame with the following columns:
 }
 }
 \description{
-This function takes the output of \code{\link[=GetGeneRegulation]{GetGeneRegulation()}} with format multirow,
-onerow or table, or a vector with genes and retrieves information about the TFs and their regulated genes
+This function takes the output of \code{\link[=get_gene_regulators]{get_gene_regulators()}} with
+format multirow,
+onerow or table, or a vector with genes and retrieves information about the
+TFs and their regulated genes
 }
 \examples{
-# Retrieve summary of  araC's regulation
-download_database(getwd())
-e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
 
-araC_regulation <- get_gene_regulators(e_coli_regulondb, genes = c("araC"),
-                                    format = "multirow",
-                                    output.type = "TF")
-get_summary(e_coli_regulondb, araC_regulation)
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
 
-# Retrieve summary of genes 'araC' and 'modB'
+## Get the araC regulators
+araC_regulation <-
+    get_gene_regulators(
+        e_coli_regulondb,
+        genes = c("araC"),
+        format = "multirow",
+        output.type = "TF"
+    )
 
-get_summary(e_coli_regulondb, genes = c("araC", "modB"))
+## Summarize the araC regulation
+get_regulatory_summary(e_coli_regulondb, araC_regulation)
 
-get_summary(e_coli_regulondb, genes = c("ECK120000050", "modB"))
+## Retrieve summary of genes 'araC' and 'modB'
+get_regulatory_summary(e_coli_regulondb,
+    gene_regulators = c("araC", "modB"))
+
+## Obtain the summary for 'ECK120000050' and 'modB'
+get_regulatory_summary(e_coli_regulondb,
+    gene_regulators = c("ECK120000050", "modB"))
+
 }
 \author{
-Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,
+José Alquicira Hernández, Joselyn Chávez
 }
 \keyword{networks,}
 \keyword{regulation}

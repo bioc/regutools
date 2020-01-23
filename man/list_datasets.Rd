@@ -10,12 +10,28 @@ list_datasets(regulondb)
 \item{regulondb}{A regulondb class.}
 }
 \description{
-This function returns a vector of all available tables from a regulondb class.
+This function returns a vector of all available tables from a
+regulondb class.
 }
 \examples{
-download_database(getwd())
-e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
-list_datasets( e_coli_regulondb )
+
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
+
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## List the available datasets
+list_datasets(e_coli_regulondb)
+
 }
 \keyword{data}
 \keyword{database,}

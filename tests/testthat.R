@@ -1,4 +1,4 @@
-library(testthat)
-library(regutools)
+library('testthat')
+library('regutools')
 
 test_check("regutools")
