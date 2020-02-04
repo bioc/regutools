@@ -4,7 +4,8 @@
 #' be used as parameter 'values' in [list_attributes()] function.
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,
 #' José Alquicira Hernández, Joselyn Chavez
-#' @keywords data retrieval, attributes,
+#' @keywords data retrieval, attributes
+#' @param regulondb A regulondb object.
 #' @param dataset Dataset of interest. The name should correspond to a table of
 #' the database.
 #' @return A character vector with the field names.
@@ -32,7 +33,7 @@
 #' @export
 #' @importFrom DBI dbListFields
 
-list_attributes <- function(regulondb, dataset) {
+list_attributes <- function(regulondb, dataset){
     if (missing(dataset))
         stop("Parameter 'dataset' is missing, please specify\n")
     stopifnot(validObject(regulondb))

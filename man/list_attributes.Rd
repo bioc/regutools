@@ -7,6 +7,8 @@
 list_attributes(regulondb, dataset)
 }
 \arguments{
+\item{regulondb}{A regulondb object.}
+
 \item{dataset}{Dataset of interest. The name should correspond to a table of
 the database.}
 }
@@ -44,6 +46,6 @@ list_attributes(e_coli_regulondb, "OPERON")
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,
 José Alquicira Hernández, Joselyn Chavez
 }
-\keyword{attributes,}
+\keyword{attributes}
 \keyword{data}
 \keyword{retrieval,}

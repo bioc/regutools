@@ -16,7 +16,6 @@
 #' @export
 #' @import RSQLite
 #' @importFrom methods is new validObject
-
 setClass(
     "regulondb",
     contains = "SQLiteConnection",
@@ -63,10 +62,10 @@ setValidity("regulondb", function(object) {
 #' @description The build_regulondb function is a constructor function of a
 #' regulondb
 #' class.
-#' @slot organism A character vector with the name of the organism of the
-#' database.
-#' @slot genome_version A character vector with the version of the genome build.
-#' @slot database_version A character vector with the version of regulondb
+#' @param database_path A path to the SQLite file.
+#' @param organism A character vector with the name of the organism of the database.
+#' @param genome_version A character vector with the version of the genome build.
+#' @param database_version A character vector with the version of regulondb
 #' build.
 #' @examples
 #'

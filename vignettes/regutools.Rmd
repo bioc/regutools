@@ -30,8 +30,8 @@ author:
     - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus, Baltimore, MD, US
     - &ccb Center for Computational Biology, Johns Hopkins University, Baltimore, MD, US
     email: lcolladotor@gmail.com
-date: "`r doc_date()`"
-package: "`r pkg_ver('regutools')`"
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('regutools')`"
 output: 
   BiocStyle::html_document
 vignette: >

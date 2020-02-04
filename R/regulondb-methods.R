@@ -1,4 +1,9 @@
-#' @export
+#' Methods for regulondb objects
+#' @name show
+#' @aliases show,regulondb-method
+#' @param object A regulondb object
+#' @docType methods
+#' @rdname regulondb-methods
 setMethod("show",
     signature(object = "regulondb"),
     function(object) {

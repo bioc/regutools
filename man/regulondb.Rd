@@ -7,23 +7,21 @@
 \usage{
 regulondb(database_path, organism, genome_version, database_version)
 }
+\arguments{
+\item{database_path}{A path to the SQLite file.}
+
+\item{organism}{A character vector with the name of the organism of the database.}
+
+\item{genome_version}{A character vector with the version of the genome build.}
+
+\item{database_version}{A character vector with the version of regulondb
+build.}
+}
 \description{
 The build_regulondb function is a constructor function of a
 regulondb
 class.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{organism}}{A character vector with the name of the organism of the
-database.}
-
-\item{\code{genome_version}}{A character vector with the version of the genome build.}
-
-\item{\code{database_version}}{A character vector with the version of regulondb
-build.}
-}}
-
 \examples{
 
 ## Download the database if necessary
