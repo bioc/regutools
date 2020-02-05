@@ -1,7 +1,7 @@
 context("GRanges_convert")
 test_that("Results from regulondb queries can be converted to GRanges", {
     fileToDb <- file.path(tempdir(), "regulondb_sqlite3.db")
-    if (!file.exists(fileToDb))
+    if(!file.exists(fileToDb))
         download_database(tempdir())
     regdb <-
         regulondb(
@@ -21,10 +21,15 @@ test_that("Results from regulondb queries can be converted to GRanges", {
     expect_s4_class(convert_to_granges(query[, c("posleft", "posright")]), "GRanges")
     query <- get_dataset(regulondb = regdb,
         dataset = "DNA_OBJECTS")
-    expect_s4_class(convert_to_granges(query), "GRanges")
+    hasNAs <- is.na(query$posleft) | is.na(query$posright)
+    expect_s4_class(convert_to_granges(query[!hasNAs,]), "GRanges")
+    if( sum(hasNAs) > 0 ){
+        expect_warning(convert_to_granges(query))
+    }
     expect_error(convert_to_granges(as.data.frame(query)))
     query <- get_dataset(regulondb = regdb, dataset = "OPERON")
-    rs <- convert_to_granges(query)
+    query$posright
+    rs <- suppressWarnings(convert_to_granges(query))
     expect_s4_class(rs, "GRanges")
     metaSlots <-
         setdiff(slotNames(query), slotNames(as(query, "DataFrame")))
@@ -68,9 +73,15 @@ test_that("Results from regulondb queries can be converted to Biostrings", {
         "BStringSet")
     expect_error(convert_to_biostrings(query, seq_type = "other"))
     query2 <- get_dataset(regdb, dataset = "PROMOTER")
-    rs <- convert_to_biostrings(query2)
+    isNA <- is.na(query2[["promoter_sequence"]])
+    rs <- convert_to_biostrings(query2[!isNA,])
+    if( sum(isNA) > 0 ){
+        expect_warning(convert_to_biostrings(query2))
+    }
     expect_s4_class(rs, "DNAStringSet")
-    expect_equal(length(convert_to_biostrings(query2)), sum(!is.na(query2$promoter_sequence)))
+    expect_equal(
+        length( suppressWarnings( convert_to_biostrings( query2 ) ) ),
+        sum( !is.na( query2$promoter_sequence ) ) )
     query3 <-
         get_dataset(regdb,
             dataset = "NETWORK",
