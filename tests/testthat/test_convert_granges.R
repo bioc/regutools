@@ -8,8 +8,7 @@ test_that("Results from regulondb queries can be converted to GRanges", {
             fileToDb,
             organism = "prueba",
             genome_version = "prueba",
-            database_version = "prueba"
-        )
+            database_version = "prueba")
     query <- get_dataset(
         regdb,
         dataset = "GENE",

@@ -4,28 +4,18 @@
 \alias{get_binding_sites}
 \title{Get the binding sites for a Transcription Factor (TF)}
 \usage{
-get_binding_sites(regulondb, TF, seq.format = "table")
+get_binding_sites(regulondb, transcription_factor, output_format = "GRanges")
 }
 \arguments{
 \item{regulondb}{A regulondb object.}
 
-\item{TF}{name of the transcription factor.}
+\item{transcription_factor}{name of the transcription factor.}
 
-\item{seq.format}{Default: \code{table}. Supported: \code{fasta}, \code{wconsensus}.}
+\item{output_format}{The output object. Can be either a \code{GRanges} (default) or \code{Biostrings}..}
 }
 \value{
-A dataframe with the following columns corresponding to the TFBSs
-associated with the TF.
-If seq.format = "fasta", returns a string with the TFBS sequences with
-breakline character.
-If the transcription factor does not exist, returns \code{NA}.
-\itemize{
-\item ID (identifier)
-\item left position
-\item right position
-\item strand
-\item sequence
-}
+Either a GRanges object or a Biostrings object summarizing information
+about the binding sites of the transcription factors.
 }
 \description{
 Retrieve the binding sites and genome location for a given
@@ -47,12 +37,8 @@ e_coli_regulondb <-
     )
 
 ## Get the binding sites for AraC
-get_binding_sites(e_coli_regulondb, TF = "AraC")
+get_binding_sites(e_coli_regulondb, transcription_factor = "AraC")
 
-## Get the fasta binding sites sequences for AraC
-fasta.seq <- get_binding_sites(e_coli_regulondb,
-    TF = "AraC", seq.format = "fasta")
-cat(fasta.seq)
 
 }
 \author{

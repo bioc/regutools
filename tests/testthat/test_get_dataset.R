@@ -62,4 +62,9 @@ test_that("Function get dataset works as expected", {
         ),
         "BStringSet"
     )
+    expect_warning( get_dataset(
+        regdb,
+        dataset = "GENE",
+        attributes = c("posleft", "posright", "name", "strand"),
+        filters = list(name = c("thisisnotagene"))) )
 })

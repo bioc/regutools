@@ -330,7 +330,7 @@ nrow(
 )
 ```
 
-# Functions with frequently used queries
+# Functions that implement popular queries
 
 The regutools package provides functions that encode the most frequent queries that are submitted to the *RegulonDB* web resource.
 
@@ -353,8 +353,26 @@ But users can also set the parameter `type=` to `"GENE-GENE"` or `"TF-GENE"` to 
 Users can also use the `get_regulatory_summary()` to retrieve a summary of the transcription factor regulated the expression of a set of given genes. The parameter `gene_regulators` can receive either a vector of gene names or the output of a call to the function `get_gene_regulators()`. The resulting output is a *regulondb_result* object in which each row shows a transcription factor, and the columns display information about the number, percentage and regulatory activity exerted to the genes.
 
 ```{r}
-get_regulatory_summary(ecoli_regulondb, gene_regulators = c("araC", "modB"))
+get_regulatory_summary( ecoli_regulondb, 
+                        gene_regulators = c("araC", "modB") )
 ```
+
+## Transcription factor binding sites
+
+Another common request to the *RegulonDB* database is to obtain the genomic coordinates and sequences of the DNA binding sites for a given transcription factor. This query is implemented in the function `get_binding_sites()`, in which the results are formatted according to the parameter `output_format=` as either a *GRanges* object or a *Biostrings* object. 
+
+```{r}
+get_binding_sites( ecoli_regulondb, transcription_factor = "AraC" )
+get_binding_sites( ecoli_regulondb, transcription_factor = "AraC", 
+                   output_format = "Biostrings" )
+```
+
+## Visualizing networks using cytoscape
+
+
+
+# Integration with RSAT
+
 
 # Reproducibility
 
@@ -415,11 +433,6 @@ library('sessioninfo')
 options(width = 120)
 session_info()
 ```
-
-## Visualizing networks using cytoscape
-
-# Integration with RSAT
-
 
 # Bibliography
 
