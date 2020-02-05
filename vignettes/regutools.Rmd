@@ -133,7 +133,7 @@ The package defines the object **regulondb**, which is a data structure that con
 
 The **regulondb** object is an extension of an **SQLiteConnection** class that host a connection to a database with the table structure defined in the *RegulonDb* database. It contains additional slots that especify the organism, genome version and database version. The function `regulondb()` is the constructor function of **regulondb** objects. This function receives as input a file path to the database file as well as information about the annotation as character vectors.
 
-```{r echo = TRUE}
+```{r echo = TRUE, message=FALSE}
 library('regutools')
 
 ## Other packages used
@@ -167,7 +167,7 @@ For each table in the database, users can explore the fields (or attributes) of 
 head(list_attributes(ecoli_regulondb, "GENE"), 8)
 ```
 
-# retrieving data
+# Retrieving data
 
 Since the *regulondb* object is an extension of the *SQLiteConnection*, users can retrieve data from a *regulondb* object using the function `dbGetQuery()`. Additionally, this package provides a wrapper function to build queries to the database. This function is called `get_dataset()` and has a very similar syntax to the `getBM()` function from the biomaRt package. The main arguments of the `get_dataset()` function are a *regulondb* object, a dataset (or table) of the database, the fields of the dataset to retrieve (attributes) and filters to specify what information to get. The code below shows an example where three attributes from the dataset **"GENE"** for the genes *araC*, *crp* and *lacI*. Note that if the `filters=` parameter is empty, the function will retrieve all the hits it find in the database.  
 
@@ -330,7 +330,7 @@ nrow(
 )
 ```
 
-# Functions that implement popular queries
+# Functions with implement popular queries
 
 The regutools package provides functions that encode the most frequent queries that are submitted to the *RegulonDB* web resource.
 
@@ -357,6 +357,14 @@ get_regulatory_summary( ecoli_regulondb,
                         gene_regulators = c("araC", "modB") )
 ```
 
+## Visualizing networks using cytoscape
+
+Software tools such as [Cytoscape](https://cytoscape.org/index.html) are often useful for interactive exploration of data and visualization of networks. The function `get_regulatory_network()` has a parameter `cytograph=` that if set to `TRUE`, it will visualize the network in a cytoscape session. Of note, this feature will only work if the user has Cytoscape open in their computer. 
+
+```{r eval=FALSE}
+get_regulatory_network(ecoli_regulondb, cytograph = TRUE)
+```
+
 ## Transcription factor binding sites
 
 Another common request to the *RegulonDB* database is to obtain the genomic coordinates and sequences of the DNA binding sites for a given transcription factor. This query is implemented in the function `get_binding_sites()`, in which the results are formatted according to the parameter `output_format=` as either a *GRanges* object or a *Biostrings* object. 
@@ -366,8 +374,6 @@ get_binding_sites( ecoli_regulondb, transcription_factor = "AraC" )
 get_binding_sites( ecoli_regulondb, transcription_factor = "AraC", 
                    output_format = "Biostrings" )
 ```
-
-## Visualizing networks using cytoscape
 
 
 
