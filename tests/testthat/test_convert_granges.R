@@ -23,7 +23,11 @@ test_that("Results from regulondb queries can be converted to GRanges", {
     hasNAs <- is.na(query$posleft) | is.na(query$posright)
     expect_s4_class(convert_to_granges(query[!hasNAs,]), "GRanges")
     if( sum(hasNAs) > 0 ){
-        expect_warning(convert_to_granges(query))
+        expect_warning(convert_to_granges(query),
+                       sprintf(
+                           "Dropped %s entries where genomic coordinates were NAs",
+                           sum(hasNAs)
+                       ))
     }
     expect_error(convert_to_granges(as.data.frame(query)))
     query <- get_dataset(regulondb = regdb, dataset = "OPERON")
@@ -75,7 +79,9 @@ test_that("Results from regulondb queries can be converted to Biostrings", {
     isNA <- is.na(query2[["promoter_sequence"]])
     rs <- convert_to_biostrings(query2[!isNA,])
     if( sum(isNA) > 0 ){
-        expect_warning(convert_to_biostrings(query2))
+        expect_warning(convert_to_biostrings(query2),
+                       sprintf("Dropped %s entries where sequence data were NAs",
+                               sum(isNA)) )
     }
     expect_s4_class(rs, "DNAStringSet")
     expect_equal(
