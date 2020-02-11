@@ -7,20 +7,35 @@
 \usage{
 regulondb(database_path, organism, genome_version, database_version)
 }
+\arguments{
+\item{database_path}{A path to the SQLite file.}
+
+\item{organism}{A character vector with the name of the organism of the database.}
+
+\item{genome_version}{A character vector with the version of the genome build.}
+
+\item{database_version}{A character vector with the version of regulondb
+build.}
+}
 \description{
-The build_regulondb function is a constructor function of a regulondb
+The build_regulondb function is a constructor function of a
+regulondb
 class.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{organism}}{A character vector with the name of the organism of the database.}
-
-\item{\code{genome_version}}{A character vector with the version of the genome build.}
-
-\item{\code{database_version}}{A character vector with the version of regulondb build.}
-}}
-
 \examples{
-e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
+
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
+
+## Build a regulondb object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), 'regulondb_sqlite3.db'),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
 }

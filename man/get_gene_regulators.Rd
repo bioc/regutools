@@ -18,19 +18,44 @@ get_gene_regulators(regulondb, genes, format = "multirow", output.type = "TF")
 \description{
 Given a list of genes (name, bnumber or GI),
 get all transcription factors or genes that regulate them.
-The effect of regulators over the gene of interest can be positive (+), negative (-) or dual (+/-)
+The effect of regulators over the gene of interest can be positive (+),
+negative (-) or dual (+/-)
 }
 \examples{
-# Get Transcription factors that regulate araC in one row
-download_database(getwd())
-e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
-get_gene_regulators(e_coli_regulondb, genes = c("araC"),output.type = "TF",format = "onerow")
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
 
-# Get genes that regulate araC in table format
-get_gene_regulators(e_coli_regulondb, genes = c("araC"),output.type = "GENE",format = "table")
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## Get Transcription factors that regulate araC in one row
+get_gene_regulators(
+    e_coli_regulondb,
+    genes = c("araC"),
+    output.type = "TF",
+    format = "onerow"
+)
+
+## Get genes that regulate araC in table format
+get_gene_regulators(
+    e_coli_regulondb,
+    genes = c("araC"),
+    output.type = "GENE",
+    format = "table"
+)
+
 }
 \author{
-Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,
+José Alquicira Hernández, Joselyn Chávez
 }
 \keyword{TFs,}
 \keyword{networks,}

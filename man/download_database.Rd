@@ -4,7 +4,7 @@
 \alias{download_database}
 \title{Download regulondb database}
 \usage{
-download_database(path = ".", overwrite = FALSE)
+download_database(path = tempdir(), overwrite = FALSE)
 }
 \arguments{
 \item{path}{The directory where the database will be downloaded to.}
@@ -16,8 +16,14 @@ file.}
 local file regulondb_sqlite3.db
 }
 \description{
-If the file does not exist, this function downloads regulondb_sqlite3.db into the extdata directory of the regutools package.
+If the file does not exist, this function downloads
+regulondb_sqlite3.db into the extdata directory of the regutools package.
 }
 \examples{
-download_database()
+
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
+
 }

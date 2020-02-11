@@ -15,13 +15,16 @@ build_xml(method, parameters = NULL)
 An XML schema
 }
 \description{
-This function creates an XML schema to be used by \code{POST} function.
+This function creates an XML schema to be used by \code{POST}
+function.
 }
 \examples{
+## Build an XML schema for the supported organisms to use in RSAT
 request <- build_xml("supported_organisms",
-                     parameters = list(return = "name,source",
-                                       source = "ensembl")
-                   )
+    parameters = list(return = "name,source",
+        source = "ensembl"))
+request
+
 }
 \author{
 José Alquicira Hernández & Joselyn Chávez

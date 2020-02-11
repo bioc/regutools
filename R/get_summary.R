@@ -1,6 +1,8 @@
 #' @title Return summary of gene regulation.
-#' @description This function takes the output of [get_gene_regulators()] with format multirow,
-#' onerow or table, or a vector with genes and retrieves information about the TFs and their regulated genes
+#' @description This function takes the output of [get_gene_regulators()] with
+#' format multirow,
+#' onerow or table, or a vector with genes and retrieves information about the
+#' TFs and their regulated genes
 #' @param regulondb A regulondb object
 #' @param gene_regulators Result from [get_gene_regulators()] or vector of genes
 #' @return A data frame with the following columns:
@@ -12,92 +14,131 @@
 #' \item Name(s) of regulated genes
 #' }
 #' @keywords regulation retrieval, summary, networks,
-#' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+#' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,
+#' José Alquicira Hernández, Joselyn Chávez
 #' @examples
-#' # Retrieve summary of  araC's regulation
-#' download_database(getwd())
-#' e_coli_regulondb <- regulondb(database_path=file.path(getwd(),"regulondb_sqlite3.db"), organism = "E.coli", database_version = "1", genome_version = "1")
+#' ## Download the database if necessary
+#' if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+#'     download_database(tempdir())
+#' }
 #'
-#' araC_regulation <- get_gene_regulators(e_coli_regulondb, genes = c("araC"),
-#'                                     format = "multirow",
-#'                                     output.type = "TF")
-#' get_summary(e_coli_regulondb, araC_regulation)
+#' ## Build the regulon db object
+#' e_coli_regulondb <-
+#'     regulondb(
+#'         database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+#'         organism = "E.coli",
+#'         database_version = "1",
+#'         genome_version = "1"
+#'     )
 #'
-#' # Retrieve summary of genes 'araC' and 'modB'
+#' ## Get the araC regulators
+#' araC_regulation <-
+#'     get_gene_regulators(
+#'         e_coli_regulondb,
+#'         genes = c("araC"),
+#'         format = "multirow",
+#'         output.type = "TF"
+#'     )
 #'
-#' get_summary(e_coli_regulondb, genes = c("araC", "modB"))
+#' ## Summarize the araC regulation
+#' get_regulatory_summary(e_coli_regulondb, araC_regulation)
 #'
-#' get_summary(e_coli_regulondb, genes = c("ECK120000050", "modB"))
+#' ## Retrieve summary of genes 'araC' and 'modB'
+#' get_regulatory_summary(e_coli_regulondb,
+#'     gene_regulators = c("araC", "modB"))
+#'
+#' ## Obtain the summary for 'ECK120000050' and 'modB'
+#' get_regulatory_summary(e_coli_regulondb,
+#'     gene_regulators = c("ECK120000050", "modB"))
+#'
 #' @export
 #' @importFrom stats complete.cases
 #' @importFrom data.table melt
 
-get_regulatory_summary<-function(regulondb, gene_regulators){
-  regulation <- gene_regulators
+get_regulatory_summary <- function(regulondb, gene_regulators) {
+    regulation <- gene_regulators
 
-  #Regulation of a gene list
-  if(class(regulation)%in%c("character","vector")){
-    regulation <- get_gene_regulators( regulondb, genes=regulation )
-  }
-
-  if( !metadata( regulation )$format %in% c("multirow","onerow","table")){
-    stop("The parameter gene_regulators must be a regulondb_result object
-    resulting from a call to get_gene_regulators or a vector of genes.", call.=FALSE)
-  }
-
-  # Conver onerow to multirow
-  if( metadata(regulation)$format == "onerow" ){
-    regulation <- get_gene_regulators(regulondb, genes = as.character(regulation$genes))
-  }
-
-  # Convert table to multirow
-  if( metadata(regulation)$format == "table" ) {
-    regulation$genes <- rownames(regulation)
-    regulation <- melt(regulation, id = "genes")
-    colnames(regulation) <- c("genes", "regulators", "effect")
-    regulation <- regulation[complete.cases(regulation), ]
-  }
-
-  TF_counts<-data.frame(table(regulation$regulators), stringsAsFactors=FALSE)
-
-  summary<- apply(TF_counts, 1, function(x){
-
-    #Get rows for a specific TF
-    TF_data <-regulation[regulation[,"regulators"]==x[1],]
-
-    #Count regulated effects
-    effect <- table(TF_data$effect)
-    #Adds regulation +, - or +/- in case their frequency is 0.
-    if(! "+"%in%names(effect)){
-      effect <-c(effect, "+"=0)
-    }
-    if(! "-"%in%names(effect)){
-      effect <-c(effect, "-"=0)
-    }
-    if(! "+/-"%in%names(effect)){
-      effect <-c(effect, "+/-"=0)
+    #Regulation of a gene list
+    if (class(regulation) %in% c("character", "vector")) {
+        regulation <- get_gene_regulators(regulondb, genes = regulation)
     }
 
-    #Concatenates row to include the summary information for each TF
-    summary_row<-c(TF=x[1], #TF name
-                   regulated_number=x[2],#Number of genes regulated per TF
-                   regulated_percentage= (as.numeric(x[2])/length(regulation$genes))*100,#Percent of genes in query regulated per TF
-                   activator= effect["+"],#Frequency of activation interactions
-                   repressor= effect["-"],#Frequency of repression interactions
-                   dual=effect["+/-"] ,#Frequency of dual interactions
-                   regulated= paste(TF_data$genes, collapse=", ")#List of genes regulated per TF
-    )
+    if (!metadata(regulation)$format %in% c("multirow", "onerow", "table")) {
+        stop(
+            "The parameter gene_regulators must be a regulondb_result object
+    resulting from a call to get_gene_regulators or a vector of genes.",
+            call. = FALSE
+        )
+    }
 
-    return(summary_row)
+    # Conver onerow to multirow
+    if (metadata(regulation)$format == "onerow") {
+        regulation <-
+            get_gene_regulators(regulondb, genes = as.character(regulation$genes))
+    }
 
-  })
+    # Convert table to multirow
+    if (metadata(regulation)$format == "table") {
+        regulation$genes <- rownames(regulation)
+        regulation <- melt(regulation, id = "genes")
+        colnames(regulation) <- c("genes", "regulators", "effect")
+        regulation <- regulation[complete.cases(regulation),]
+    }
 
-  summary <- data.frame(t(summary)) #Format summary as a data.frame
-  colnames(summary) <- c("TF", "Regulated_genes_per_TF", "Percent","Activator","Repressor","Dual","Regulated_genes")
+    TF_counts <-
+        data.frame(table(regulation$regulators), stringsAsFactors = FALSE)
 
-  summary <- dataframe_to_dbresult( summary, regulondb, "NETWORK" )
-  return( summary )
+    summary <- apply(TF_counts, 1, function(x) {
+        #Get rows for a specific TF
+        TF_data <- regulation[regulation[, "regulators"] == x[1], ]
+
+        #Count regulated effects
+        effect <- table(TF_data$effect)
+        #Adds regulation +, - or +/- in case their frequency is 0.
+        if (!"+" %in% names(effect)) {
+            effect <- c(effect, "+" = 0)
+        }
+        if (!"-" %in% names(effect)) {
+            effect <- c(effect, "-" = 0)
+        }
+        if (!"+/-" %in% names(effect)) {
+            effect <- c(effect, "+/-" = 0)
+        }
+
+        #Concatenates row to include the summary information for each TF
+        summary_row <- c(
+            TF = x[1],
+            #TF name
+            regulated_number = x[2],
+            #Number of genes regulated per TF
+            regulated_percentage = (as.numeric(x[2]) / length(regulation$genes)) *
+                100,
+            #Percent of genes in query regulated per TF
+            activator = effect["+"],
+            #Frequency of activation interactions
+            repressor = effect["-"],
+            #Frequency of repression interactions
+            dual = effect["+/-"] ,
+            #Frequency of dual interactions
+            regulated = paste(TF_data$genes, collapse = ", ")#List of genes regulated per TF
+        )
+
+        return(summary_row)
+
+    })
+
+    summary <- data.frame(t(summary)) #Format summary as a data.frame
+    colnames(summary) <-
+        c(
+            "TF",
+            "Regulated_genes_per_TF",
+            "Percent",
+            "Activator",
+            "Repressor",
+            "Dual",
+            "Regulated_genes"
+        )
+
+    summary <- dataframe_to_dbresult(summary, regulondb, "NETWORK")
+    return(summary)
 }
-
-
-

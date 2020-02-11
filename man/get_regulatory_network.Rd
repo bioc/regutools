@@ -12,34 +12,58 @@ get_regulatory_network(
 )
 }
 \arguments{
-\item{regulondb}{A regulondb object}
+\item{regulondb}{A regulondb object.}
 
-\item{regulator}{Name of TF or gene that acts as regulator. If NULL, the function retrieves all existent networks in the regulonDB.}
+\item{regulator}{Name of TF or gene that acts as regulator. If \code{NULL}, the
+function retrieves all existent networks in the regulonDB.}
 
 \item{type}{"TF-GENE", "TF-TF", "GENE-GENE"}
 
-\item{cytograph}{If TRUE, displays network in Cytoscape. This option requires previous instalation and launch of Cytoscape.}
+\item{cytograph}{If TRUE, displays network in Cytoscape. This option
+requires previous instalation and launch of Cytoscape.}
 }
 \description{
-This function retrieves all the regulation networks in regulonDB between TF-TF, GENE-GENE or TF-GENE depending on the parameter 'type'
+This function retrieves all the regulation networks in
+regulonDB between TF-TF, GENE-GENE or TF-GENE depending on the parameter
+'type'.
 }
 \examples{
-# Retrieve regulation of 'araC'
-download_database(getwd())
-e_coli_regulondb <- regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
 
-get_regulatory_network(e_coli_regulondb, regulator = "AraC", type="TF-GENE")
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
 
-# Retrieve all GENE-GENE networks
+## Retrieve regulation of 'araC'
+get_regulatory_network(e_coli_regulondb, regulator = "AraC", type = "TF-GENE")
 
+## Retrieve all GENE-GENE networks
 get_regulatory_network(e_coli_regulondb, type = "GENE-GENE")
 
-# Retrieve TF-GENE network of AraC and display in Cytoscape
+## Retrieve TF-GENE network of AraC and display in Cytoscape
+## Note that Cytospace needs to be open for this to work
+cytoscape_present <- try(RCy3::cytoscapePing(), silent = TRUE)
+if(!is(cytoscape_present, 'try-error')) {
+    get_regulatory_network(
+        e_coli_regulondb,
+        regulator = "AraC",
+        type = "TF-GENE",
+        cytograph = TRUE
+    )
+}
 
-get_regulatory_network(e_coli_regulondb, regulator = "AraC", type = "TF-GENE", cytograph = TRUE)
 }
 \author{
-Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,
+José Alquicira Hernández, Joselyn Chávez
 }
 \keyword{TF,}
 \keyword{networks,}

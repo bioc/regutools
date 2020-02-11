@@ -23,57 +23,77 @@ retrieve_seq(
 )
 }
 \arguments{
-\item{organism}{Organism. Words need to be underscore separated (example: Escherichia_coli_K12).}
+\item{organism}{Organism. Words need to be underscore separated
+(example: Escherichia_coli_K12).}
 
 \item{genes}{A list of genes}
 
-\item{all}{Return sequences for all the genes of the organism if TRUE. Incompatible with \code{genes}.}
+\item{all}{Return sequences for all the genes of the organism if \code{TRUE}.
+Incompatible with \code{genes}.}
 
-\item{noorf}{Prevents overlap with upstream open reading frames (ORF) if TRUE.}
+\item{noorf}{Prevents overlap with upstream open reading frames (ORF) if
+\code{TRUE}.}
 
-\item{from}{Inferior limit of the region to retrieve. Default is organism dependant (example: Saccharomyces cerevisiae = -800).}
+\item{from}{Inferior limit of the region to retrieve. Default is organism
+dependant (example: Saccharomyces cerevisiae = -800).}
 
 \item{to}{Superior limit of the region to retrieve. Default is '-1'.}
 
-\item{feattype}{Type of genome features to load. Supported: CDS, mRNA, tRNA, rRNA.}
+\item{feattype}{Type of genome features to load. Supported: CDS, mRNA, tRNA,
+rRNA.}
 
-\item{type}{Sequence type. Supported: 'upstream', 'downstream', 'ORF' (unspliced open reading frame).}
+\item{type}{Sequence type. Supported: 'upstream', 'downstream', 'ORF'
+(unspliced open reading frame).}
 
-\item{format}{Sequence format. Supported: 'IG' (Intelligenetics), 'WC' (wconsensus), 'raw', 'fasta'}
+\item{format}{Sequence format. Supported: 'IG' (Intelligenetics), 'WC'
+(wconsensus), 'raw', 'fasta'}
 
 \item{lw}{Line width (0 for whole sequence on one line).}
 
-\item{label}{Field(s) to be used in the sequence label. Multiple fields can be specified, separated by commas. Supported: 'id', 'name', 'organism_name', 'sequence_type', 'current_from', 'current_to', 'ctg', 'orf_strand', 'reg_left', 'reg_right'. Default: name.}
+\item{label}{Field(s) to be used in the sequence label. Multiple fields can
+be specified, separated by commas. Supported: 'id', 'name', 'organism_name',
+'sequence_type', 'current_from', 'current_to', 'ctg', 'orf_strand',
+'reg_left', 'reg_right'. Default: 'name'.}
 
-\item{label.sep}{Separator between the label fields. Default: '|' (pipe character).}
+\item{label.sep}{Separator between the label fields. Default: '|'
+(pipe character).}
 
-\item{nocom}{No comments are shown if TRUE, only the identifier and the sequence are returned. By default, the comment indicates the ORF and upstream sequence coordinates.}
+\item{nocom}{No comments are shown if \code{TRUE}, only the identifier and the
+sequence are returned. By default, the comment indicates the ORF and
+upstream sequence coordinates.}
 
-\item{repeat.mask}{Use the repeat masked version of the genome if TRUE. Attention: repeated regions are annotated for some genomes only.}
+\item{repeat.mask}{Use the repeat masked version of the genome if \code{TRUE}.
+Attention: repeated regions are annotated for some genomes only.}
 
-\item{imp.pos}{Admit imprecise positions if TRUE.}
+\item{imp.pos}{Admit imprecise positions if \code{TRUE}.}
 }
 \value{
 An string with results retrieved from RSAT
 }
 \description{
-Returns upstream, downstream or coding DNA sequences for list of query genes from RSAT.
+Returns upstream, downstream or coding DNA sequences for list
+of query genes from RSAT.
 }
 \examples{
-# Retrieve sequence for araC gene in E.coli from -70 to +70.
-res <- retrieve_seq(organism = "Escherichia_coli_K12",
-                   genes = "araC",
-                   from = -70,
-                   to = 70,
-                   format = "raw")
+## Retrieve sequence for araC gene in E.coli from -70 to +70.
+res <- retrieve_seq(
+    organism = "Escherichia_coli_K12",
+    genes = "araC",
+    from = -70,
+    to = 70,
+    format = "raw"
+)
 
-# Retrieve sequences for rpoS and rpoE CDS without comments.
-res <- retrieve_seq(organism = "Escherichia_coli_K12",
-                   genes = c("rpoS", "rpoE"),
-                   feattype = "CDS",
-                   format = "fasta",
-                   nocom = TRUE)
+## Retrieve sequences for rpoS and rpoE CDS without comments.
+res <- retrieve_seq(
+    organism = "Escherichia_coli_K12",
+    genes = c("rpoS", "rpoE"),
+    feattype = "CDS",
+    format = "fasta",
+    nocom = TRUE
+)
 cat(res)
+
 }
 \author{
 José Alquicira Hernández and Joselyn Chávez

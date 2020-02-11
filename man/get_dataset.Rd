@@ -18,47 +18,76 @@ get_dataset(
 \arguments{
 \item{regulondb}{A regulondb object.}
 
-\item{dataset}{Dataset of interest. Use the function list_datasets for an overview of valid datasets.}
+\item{dataset}{Dataset of interest. Use the function list_datasets for an
+overview of valid datasets.}
 
 \item{attributes}{Vector of attributes to be retrieved.}
 
-\item{filters}{List of filters to be used. The names should correspond to the attribute and the values correspond to the condition for selection.}
+\item{filters}{List of filters to be used. The names should correspond to
+the attribute and the values correspond to the condition for selection.}
 
-\item{and}{Logical argument. If FALSE, filters will be considered under the "OR" operator}
+\item{and}{Logical argument. If FALSE, filters will be considered under the
+"OR" operator}
 
 \item{interval}{the filters whose values will be considered as interval}
 
-\item{partialmatch}{name of the condition(s) with a string pattern for full or partial match in the query}
+\item{partialmatch}{name of the condition(s) with a string pattern for full
+or partial match in the query}
 
-\item{output_format}{A string specifying the output format. Possible options are "regulondb_result", "GRanges", "DNAStringSet" or "BStringSet".}
+\item{output_format}{A string specifying the output format. Possible options
+are "regulondb_result", "GRanges", "DNAStringSet" or "BStringSet".}
 }
 \value{
-By default, a regulon_results object. If specified in the parameter output_format, it can also return either a GRanges object or a Biostrings object.
+By default, a regulon_results object. If specified in the parameter
+output_format, it can also return either a GRanges object or a Biostrings
+object.
 }
 \description{
-This function retrieves data from RegulonDB. Attributes from datasets can be selected and filtered.
+This function retrieves data from RegulonDB. Attributes from
+datasets can be selected and filtered.
 }
 \examples{
-# Obtain all the information from the "GENE" dataset
-get_dataset(e_coli_regulondb, dataset="GENE")
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
 
-# Get the attributes posright and name from the "GENE" dataset
-get_dataset(e_coli_regulondb, dataset="GENE", attributes=c("posright","name") )
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
 
-# From "GENE" dataset, get the gene name, strand, posright, product name
-# and id of all genes regulated with name like "ara", strand as "forward"
-# with a position rigth between 2000 and 40000
+## Obtain all the information from the "GENE" dataset
+get_dataset(e_coli_regulondb, dataset = "GENE")
 
+## Get the attributes posright and name from the "GENE" dataset
 get_dataset(e_coli_regulondb,
-       dataset = "GENE",
-       attributes = c("name", "strand", "posright", "product_name", "id"),
-       filters = list(name=c("ara"),
-                      strand=c("forward"),
-                      posright=c("2000","40000")),
-       and=TRUE,
-       partialmatch = "name",
-       interval= "posright")
+    dataset = "GENE",
+    attributes = c("posright", "name"))
+
+## From "GENE" dataset, get the gene name, strand, posright, product name
+## and id of all genes regulated with name like "ara", strand as "forward"
+## with a position rigth between 2000 and 40000
+get_dataset(
+    e_coli_regulondb,
+    dataset = "GENE",
+    attributes = c("name", "strand", "posright", "product_name", "id"),
+    filters = list(
+        name = c("ara"),
+        strand = c("forward"),
+        posright = c("2000", "40000")
+    ),
+    and = TRUE,
+    partialmatch = "name",
+    interval = "posright"
+)
+
 }
 \author{
-Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chávez
+Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,
+José Alquicira Hernández, Joselyn Chávez
 }

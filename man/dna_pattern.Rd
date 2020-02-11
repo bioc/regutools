@@ -20,7 +20,8 @@ dna_pattern(
 \arguments{
 \item{sequence}{Input sequence}
 
-\item{format}{Input sequence format. Supported: 'IG' (Intelligenetics), 'WC' (wconsensus), 'raw', 'fasta'. Defaul is 'fasta'.}
+\item{format}{Input sequence format. Supported: 'IG' (Intelligenetics),
+'WC' (wconsensus), 'raw', 'fasta'. Defaul is 'fasta'.}
 
 \item{substitution}{Number of substitutions allowed.}
 
@@ -28,13 +29,16 @@ dna_pattern(
 
 \item{id}{Pattern identifier.}
 
-\item{origin}{Origin for the calculation of positions (0 for end of sequence).}
+\item{origin}{Origin for the calculation of positions (0 for end of
+sequence).}
 
-\item{noov}{No overlapping of oligos allowed if TRUE. Disable the detection of overlapping matches for self-overlapping patterns (e.g. TATATA, GATAGA).}
+\item{noov}{No overlapping of oligos allowed if \code{TRUE}. Disable the detection
+of overlapping matches for self-overlapping patterns (e.g. TATATA, GATAGA).}
 
-\item{both.strand}{Oligonucleotide occurrences found on both stands are summed (TRUE) or not (FALSE). Default is TRUE}
+\item{both.strand}{Oligonucleotide occurrences found on both stands are
+summed (\code{TRUE}) or not (\code{FALSE}). Default is \code{TRUE}.}
 
-\item{sort.oligo}{sort oligomers according to overrepresentation if TRUE.}
+\item{sort.oligo}{sort oligomers according to overrepresentation if \code{TRUE}.}
 
 \item{threshold}{Threshold on match count.}
 }
@@ -55,15 +59,23 @@ A data frame with columns
 Returns position of pattern match in the input sequence .
 }
 \examples{
-# Find pattern in both strands of input sequence
-res <- dna_pattern(sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
-                  format = "raw",
-                  pattern = "TCGCAAT")
-res <- dna_pattern(sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
-                  pattern = "TCGCAAT",
-                  both.strand = FALSE,
-                  id = "patt_1")
-cat(res)
+## Find pattern in both strands of input sequence
+res <-
+    dna_pattern(
+        sequence = "TCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
+        format = "raw",
+        pattern = "TCGCAAT")
+res
+
+res2 <-
+    dna_pattern(
+        sequence = ">seq1\nTCGCAATCTACTTACTATTGCTTACTATTGCTTACTATTGCGAGCGCAGA",
+        pattern = "TCGCAAT",
+        both.strand = FALSE,
+        id = "patt_1"
+    )
+res2
+
 }
 \author{
 Joselyn Chávez

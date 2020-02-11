@@ -7,7 +7,8 @@
 RSAT(method, parameters = NULL)
 }
 \arguments{
-\item{method}{Name of the method to be used from RSAT. See \code{\link[=retrieve_seq]{retrieve_seq()}}, \code{\link[=random_seq]{random_seq()}}}
+\item{method}{Name of the method to be used from RSAT.
+See \code{\link[=retrieve_seq]{retrieve_seq()}}, \code{\link[=random_seq]{random_seq()}}}
 
 \item{parameters}{List of parameters provided to method}
 }
@@ -19,14 +20,20 @@ This function access RSAT via SOAP.
 }
 \examples{
 
-# Get 50 random protein sequences of length 100 in fasta format. Use number 300 as seed.
+## Get 50 random protein sequences of length 100 in fasta format.
+## Use number 300 as seed.
+res <- RSAT(
+    method = "random_seq",
+    parameters = list(
+        sequence_length = 100,
+        repetition = 50,
+        type = "protein",
+        seed = 300,
+        format = "fasta"
+    )
+)
+cat(res)
 
-RSAT(method = "random_seq",
-    parameters = list(sequence_length = 100,
-                      repetition = 50,
-                      type = "protein",
-                      seed = 300,
-                      format = "fasta"))
 }
 \author{
 José Alquicira Hernández & Joselyn Chávez

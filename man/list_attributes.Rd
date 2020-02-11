@@ -7,24 +7,45 @@
 list_attributes(regulondb, dataset)
 }
 \arguments{
-\item{dataset}{Dataset of interest. The name should correspond to a table of the database.}
+\item{regulondb}{A regulondb object.}
+
+\item{dataset}{Dataset of interest. The name should correspond to a table of
+the database.}
 }
 \value{
 A character vector with the field names.
 }
 \description{
-List all attributes and their description of a dataset from RegulonDB. The result of this function may
+List all attributes and their description of a dataset from
+RegulonDB. The result of this function may
 be used as parameter 'values' in \code{\link[=list_attributes]{list_attributes()}} function.
 }
 \examples{
-download_database(getwd())
-e_coli_regulondb <- regulondb( database_path=file.path(getwd(), "regulondb_sqlite3.db"), organism="E.coli", database_version="1", genome_version="1" )
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
+
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## List the transcription factor attributes
 list_attributes(e_coli_regulondb, "TF")
+
+## List the operon attributes
 list_attributes(e_coli_regulondb, "OPERON")
+
 }
 \author{
-Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca, José Alquicira Hernández, Joselyn Chavez
+Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,
+José Alquicira Hernández, Joselyn Chavez
 }
-\keyword{attributes,}
+\keyword{attributes}
 \keyword{data}
 \keyword{retrieval,}

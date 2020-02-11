@@ -1,0 +1,92 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# regutools
+
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/ComunidadBioInfo/regutools.svg?branch=master)](https://travis-ci.org/ComunidadBioInfo/regutools)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Codecov test coverage](https://codecov.io/gh/ComunidadBioInfo/regutools/branch/master/graphs/badge.svg)](https://codecov.io/gh/ComunidadBioInfo/regutools?branch=master)
+<!-- badges: end -->
+
+The goal of `regutools` is to provide an R interface for extracting and processing data from [RegulonDB](http://regulondb.ccg.unam.mx/).
+
+## Installation
+
+You can install the released version of `regutools` from [Bioconductor](http://bioconductor.org/) with:
+
+```{r 'install release', eval = FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("regutools")
+
+## Check that you have a valid Bioconductor installation
+BiocManager::valid()
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+```{r 'install devel', eval = FALSE}
+BiocManager::install("ComunidadBioinfo/regutools")
+```
+
+## Example
+
+This is a basic example which shows you how to use `regutools`. For more details, please check the vignette.
+
+```{r example}
+library('regutools')
+## basic example code
+
+## Download the database if necessary
+if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
+    download_database(tempdir())
+}
+
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## Get the araC regulators
+araC_regulation <-
+    get_gene_regulators(
+        e_coli_regulondb,
+        genes = c("araC"),
+        format = "multirow",
+        output.type = "TF"
+    )
+
+## Summarize the araC regulation
+get_regulatory_summary(e_coli_regulondb, araC_regulation)
+```
+
+# Citation
+
+Below is the citation output from using `citation('regutools')` in R. Please 
+run this yourself to check for any updates on how to cite __regutools__.
+
+```{r 'citation'}
+citation('regutools')
+```
+
+# Testing
+
+Testing on Bioc-devel is feasible thanks to [R Travis](http://docs.travis-ci.com/user/languages/r/).
