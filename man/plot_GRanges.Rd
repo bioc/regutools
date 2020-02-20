@@ -4,10 +4,12 @@
 \alias{plot_GRanges}
 \title{Plot elements within a genome region}
 \usage{
-plot_GRanges(regulondb, from, to, plot_map = TRUE)
+plot_GRanges(regulondb, genome = "eschColi_K12", from, to, plot_map = TRUE)
 }
 \arguments{
 \item{regulondb}{A regulondb object.}
+
+\item{genome}{A valid UCSC genome name.}
 
 \item{from}{left position.}
 
