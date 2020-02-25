@@ -23,18 +23,42 @@
 #'         database_version = "1",
 #'         genome_version = "1"
 #'     )
+#'
+#' ## Plot genes from E. coli using default parameters
+#' plot_GRanges(e_coli_regulondb)
+#'
+#' ## Plot genes providing Genomic Ranges
 #' plot_GRanges(e_coli_regulondb, from = 5000, to = 10000)
+#'
+#' ## Plot aditional elements within Genomic Ranges
+#' plot_GRanges(e_coli_regulondb, from = 5000, to = 10000, elements = c("gene", "promoter"))
 #' @export
-plot_GRanges <- function(regulondb, genome = "eschColi_K12", from, to, plot_map = TRUE) {
+plot_GRanges <- function(regulondb, genome = "eschColi_K12", from = 0, to = 4641628, plot_map = TRUE, elements = "gene") {
     # validate ranges
         if (!is.numeric(from) || !is.numeric(to)) {
         stop("Parameter 'from' and 'to' must be a number", call. = FALSE)
     }
 
+    valid_elements <- c( "-10 promoter box", "-35 promoter box",
+                         "gene", "promoter", "Regulatory Interaction",
+                         "sRNA interaction", "terminator")
+    # Validate elements
+    if (!all(elements %in% valid_elements)) {
+        non.valid.elements.index <- elements %in% valid_elements
+        non.valid.elements <- elements[!non.valid.elements.index]
+        stop(
+            "Element(s) ",
+            paste0('"', paste(non.valid.elements, collapse = ", "), '"'),
+            " are not valid. Please provide any or all of these valid elements: ",
+            paste0('"', paste(valid_elements, collapse = ", "), '"'),
+            call. = FALSE
+        )
+    }
     # search for dna_objects ("-10 promoter box", -35 promoter box", "gene", "promoter", "Regulatory Interaction","sRNA interaction","terminator")
     dna_objects <- regutools::get_dataset(regulondb,
                                dataset = "DNA_OBJECTS",
-                               filters = list(posright = c(from, to)),
+                               filters = list(posright = c(from, to),
+                                              type = elements),
                                interval = "posright",
                                output_format = "GRanges")
 
