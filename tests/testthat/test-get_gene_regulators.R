@@ -23,4 +23,8 @@ test_that("function get_gene_regulators works as expected", {
         "regulondb_result")
 
     expect_error(get_gene_regulators(regdb, genes = "araC", format = ""), "")
+    expect_error(get_gene_regulators(regdb, genes = c(1,2)))
+    expect_error(get_gene_regulators(regdb, genes = "araC", output.type = "matrix"))
+
+    expect_s4_class(get_gene_regulators(regdb, genes = c("araC","ECK120000050","b0064")),"regulondb_result")
 })

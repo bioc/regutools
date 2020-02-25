@@ -66,21 +66,26 @@ get_gene_regulators <-
         }
 
         #Convert GIs to gene names
-        equivalence_table <-
-            as.data.frame(get_dataset(
-                regulondb,
-                dataset = "GENE",
-                attributes = c("id", "name", "bnumber", "gi")
-            ))
-        genes <- lapply(as.list(genes), function(gene) {
-            if (grepl("ECK12", gene)) {
-                return(equivalence_table[equivalence_table[, "id"] %in% as.character(gene), "name"])
+        # Assign id per gene
+        gene_guesses <- sapply(genes, guess_id)
+
+        # Check that guesses are names
+
+        if(!all(gene_guesses == "name")) {
+            split_ids <- split(x  = genes , f = gene_guesses)
+
+            # Get synonyms for each group
+            names_list <- list()
+            for (id in names(split_ids)){
+                names_list[[id]] <- get_gene_synonyms(regulondb,
+                                                      genes = split_ids[[id]],
+                                                      from = id,
+                                                      to = "name")[["name"]]
             }
-            if (grepl("^b[0-9]", gene)) {
-                return(equivalence_table[equivalence_table[, "bnumber"] %in% as.character(gene), "name"])
-            }
-            ifelse(grepl("[a-z]", gene), return(gene), return(equivalence_table[equivalence_table[, "gi"] %in% as.character(gene), "name"]))
-        })
+            # Cat id list
+            genes <- unlist(names_list)
+            names(genes) <- NULL
+        }
 
         #Checks for type of network
         if (output.type == "TF") {
