@@ -57,16 +57,15 @@
 
 get_regulatory_summary <- function(regulondb, gene_regulators) {
     regulation <- gene_regulators
+    # Check that class is regulation or character
 
     #Regulation of a gene list
-    if (class(regulation) %in% c("character", "vector")) {
+    if (class(regulation) ==  "character") {
         regulation <- get_gene_regulators(regulondb, genes = regulation)
-    }
-
-    if (!metadata(regulation)$format %in% c("multirow", "onerow", "table")) {
+    } else if (class(regulation) != "regulondb_result") {
         stop(
             "The parameter gene_regulators must be a regulondb_result object
-    resulting from a call to get_gene_regulators or a vector of genes.",
+            resulting from a call to get_gene_regulators or a vector of genes.",
             call. = FALSE
         )
     }
@@ -79,10 +78,7 @@ get_regulatory_summary <- function(regulondb, gene_regulators) {
 
     # Convert table to multirow
     if (metadata(regulation)$format == "table") {
-        regulation$genes <- rownames(regulation)
-        regulation <- melt(regulation, id = "genes")
-        colnames(regulation) <- c("genes", "regulators", "effect")
-        regulation <- regulation[complete.cases(regulation),]
+        regulation <- get_gene_regulators(regulondb, genes = as.character(rownames(regulation)))
     }
 
     TF_counts <-
