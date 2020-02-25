@@ -14,6 +14,7 @@ test_that("get_gene_synonyms works ", {
     expect_error(get_gene_synonyms(regdb, 2, from = "name"))
     expect_error(get_gene_synonyms(regdb, "araC", from = "namez"))
     expect_error(get_gene_synonyms(regdb, "araC", from = "name", to = "namez"))
+    expect_error(get_gene_synonyms(regdb, "araC", from = c("name","id")))
 
 
 })
