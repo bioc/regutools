@@ -77,29 +77,30 @@ plot_dna_objects <-
             output_format = "GRanges"
         )
 
-        # construct tracks
+        # set dna_object 'gene' as first element
         dna_objects_type <- unique(sort(dna_objects$type))
         if (grep("gene", dna_objects_type) > 0) {
             dna_objects_type <-
                 c("gene", dna_objects_type[!dna_objects_type == "gene"])
         }
 
-        list_dna_annotation <- list()
-        for (i in dna_objects_type) {
-            list_dna_annotation[i] <-
-                Gviz::AnnotationTrack(
-                    dna_objects[dna_objects$type == i, ],
-                    genome,
-                    chromosome = "chr",
-                    name = i,
-                    options(ucscChromosomeNames =
-                            TRUE),
-                    transcriptAnnotation = "name",
-                    background.panel = "#FFFEDB",
-                    background.title = "brown",
-                    fontsize = 10
-                )
+        # build tracks
+        build_track <- function(x) {
+            # select data with type == element
+            object_filtered <- dna_objects[dna_objects$type == x]
+            #build track
+            Gviz::AnnotationTrack(object_filtered,
+                                  genome,
+                                  chromosome = "chr",
+                                  name = x,
+                                  options(ucscChromosomeNames = TRUE),
+                                  transcriptAnnotation = "name",
+                                  background.panel = "#FFFEDB",
+                                  background.title = "brown",
+                                  fontsize = 10)
         }
+
+        list_dna_annotation <- lapply(dna_objects_type, build_track)
 
         # plot
         Gviz::plotTracks(c(Gviz::GenomeAxisTrack(),
