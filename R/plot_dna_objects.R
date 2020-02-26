@@ -1,11 +1,9 @@
-#' Plot genomic elements from regulonDB
+#' Plot annotation elements within genomic region
 #'
 #' @param regulondb A [regulondb()] object.
 #' @param genome A valid UCSC genome name.
 #' @param from A `integer(1)` specifying the left position.
 #' @param to A `integer(1)` specifying the right position.
-#' @param plot_map A `logical(1)`. By default `TRUE`, if `FALSE` returns a
-#' [GenomicRanges::GRanges-class()] object with the elements found.
 #' @param elements A character vector specifying which annotation elements to
 #' plot. It can be any from: `"-10 promoter box"`, `"-35 promoter box"`,
 #' `"gene"`, `"promoter"`, `"Regulatory Interaction"`, `"sRNA interaction"`,
@@ -42,7 +40,6 @@ plot_dna_objects <-
         genome = "eschColi_K12",
         from = 0,
         to = 5000,
-        plot_map = TRUE,
         elements = "gene") {
         # validate ranges
         if (!is.numeric(from) || !is.numeric(to)) {
@@ -79,12 +76,6 @@ plot_dna_objects <-
             interval = "posright",
             output_format = "GRanges"
         )
-
-        # optional: return GRanges result
-        if (plot_map == FALSE) {
-            return(dna_objects)
-            stop()
-        }
 
         # construct tracks
         dna_objects_type <- unique(sort(dna_objects$type))

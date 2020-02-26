@@ -2,14 +2,13 @@
 % Please edit documentation in R/plot_dna_objects.R
 \name{plot_dna_objects}
 \alias{plot_dna_objects}
-\title{Plot genomic elements from regulonDB}
+\title{Plot annotation elements within genomic region}
 \usage{
 plot_dna_objects(
   regulondb,
   genome = "eschColi_K12",
   from = 0,
   to = 5000,
-  plot_map = TRUE,
   elements = "gene"
 )
 }
@@ -22,9 +21,6 @@ plot_dna_objects(
 
 \item{to}{A \code{integer(1)} specifying the right position.}
 
-\item{plot_map}{A \code{logical(1)}. By default \code{TRUE}, if \code{FALSE} returns a
-\code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object with the elements found.}
-
 \item{elements}{A character vector specifying which annotation elements to
 plot. It can be any from: \code{"-10 promoter box"}, \code{"-35 promoter box"},
 \code{"gene"}, \code{"promoter"}, \code{"Regulatory Interaction"}, \code{"sRNA interaction"},
@@ -35,7 +31,7 @@ A plot with genomic elements found within a genome region,
 including genes and regulators.
 }
 \description{
-Plot genomic elements from regulonDB
+Plot annotation elements within genomic region
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
