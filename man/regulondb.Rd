@@ -5,10 +5,12 @@
 \alias{build_regulondb}
 \title{Constructor function of a regulondb class}
 \usage{
-regulondb(database_path, organism, genome_version, database_version)
+regulondb(database_conn, organism, genome_version, database_version)
 }
 \arguments{
-\item{database_path}{A path to the SQLite file.}
+\item{database_conn}{A
+\link[RSQLite:SQLiteConnection-class]{SQLiteConnection-class} connection to
+the RegulonDB database made with \code{\link[=connect_database]{connect_database()}}.}
 
 \item{organism}{A character vector with the name of the organism of the database.}
 
@@ -24,15 +26,13 @@ class.
 }
 \examples{
 
-## Download the database if necessary
-if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
-    download_database(tempdir())
-}
+## Connect to the RegulonDB database if necessary
+if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
 
 ## Build a regulondb object
 e_coli_regulondb <-
     regulondb(
-        database_path = file.path(tempdir(), 'regulondb_sqlite3.db'),
+        database_conn = regulondb_conn,
         organism = "E.coli",
         database_version = "1",
         genome_version = "1"

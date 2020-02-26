@@ -62,22 +62,22 @@ setValidity("regulondb", function(object) {
 #' @description The build_regulondb function is a constructor function of a
 #' regulondb
 #' class.
-#' @param database_path A path to the SQLite file.
+#' @param database_conn A
+#' [SQLiteConnection-class][RSQLite::SQLiteConnection-class] connection to
+#' the RegulonDB database made with [connect_database()].
 #' @param organism A character vector with the name of the organism of the database.
 #' @param genome_version A character vector with the version of the genome build.
 #' @param database_version A character vector with the version of regulondb
 #' build.
 #' @examples
 #'
-#' ## Download the database if necessary
-#' if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
-#'     download_database(tempdir())
-#' }
+#' ## Connect to the RegulonDB database if necessary
+#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
 #'
 #' ## Build a regulondb object
 #' e_coli_regulondb <-
 #'     regulondb(
-#'         database_path = file.path(tempdir(), 'regulondb_sqlite3.db'),
+#'         database_conn = regulondb_conn,
 #'         organism = "E.coli",
 #'         database_version = "1",
 #'         genome_version = "1"
@@ -85,18 +85,17 @@ setValidity("regulondb", function(object) {
 #'
 #' @export
 regulondb <-
-    function(database_path,
+    function(database_conn,
         organism,
         genome_version,
         database_version) {
-        stopifnot(file.exists(database_path))
+        stopifnot(is(database_conn, 'SQLiteConnection'))
         stopifnot(is(class(organism), "character"))
         stopifnot(is(class(genome_version), "character"))
         stopifnot(is(class(database_version), "character"))
-        dbconn <- dbConnect(SQLite(), database_path)
         new(
             "regulondb",
-            dbconn,
+            database_conn,
             organism = organism,
             genome_version = genome_version,
             database_version = database_version

@@ -1,12 +1,14 @@
 context("build_condition")
 
 test_that("existing_intervals returns an expected value", {
-    fileToDb <- file.path(tempdir(), "regulondb_sqlite3.db")
-    if (!file.exists(fileToDb))
-        download_database(tempdir())
+    ## Connect to the RegulonDB database if necessary
+    if (!exists('regulondb_conn'))
+        regulondb_conn <- connect_database()
+
+    ## Build a regulondb object
     regdb <-
         regulondb(
-            fileToDb,
+            database_conn = regulondb_conn,
             organism = "prueba",
             genome_version = "prueba",
             database_version = "prueba"

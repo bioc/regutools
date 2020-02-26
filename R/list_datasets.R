@@ -5,15 +5,13 @@
 #' @keywords data retrieval, datasets, database,
 #' @examples
 #'
-#' ## Download the database if necessary
-#' if(!file.exists(file.path(tempdir(), 'regulondb_sqlite3.db'))) {
-#'     download_database(tempdir())
-#' }
+#' ## Connect to the RegulonDB database if necessary
+#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
 #'     regulondb(
-#'         database_path = file.path(tempdir(), "regulondb_sqlite3.db"),
+#'         database_conn = regulondb_conn,
 #'         organism = "E.coli",
 #'         database_version = "1",
 #'         genome_version = "1"

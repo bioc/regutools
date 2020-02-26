@@ -6,7 +6,11 @@
 \alias{regutools-package}
 \title{regutools: regutools: an R package for data extraction from RegulonDB}
 \description{
-Extracts and processes data from RegulonDB.
+This package provides an interface to the RegulonDB
+    http://regulondb.ccg.unam.mx/ database such that you can query it using
+    R and easily work with Bioconductor packages. This package was created
+    as a collaboration by members of the Community of Bioinformatics
+    Software Developers (CDSB in Spanish) https://comunidadbioinfo.github.io/.
 }
 \seealso{
 Useful links:
@@ -23,10 +27,14 @@ Authors:
 \itemize{
   \item Carmina Barberena-Jonas \email{car.barjon@gmail.com}
   \item Jesus E. Sotelo-Fonseca \email{jemilianosf@gmail.com}
-  \item Jose Alquicira-Hernandez \email{joseah@lcg.unam.mx} (\href{https://orcid.org/0000-0002-9049-7780}{ORCID})
-  \item Heladia Salgado \email{heladia@ccg.unam.mx} (\href{https://orcid.org/0000-0002-3166-5801}{ORCID})
-  \item Alejandro Reyes \email{alejandro.reyes.ds@gmail.com} (\href{https://orcid.org/0000-0001-8717-6612}{ORCID})
   \item Leonardo Collado-Torres \email{lcolladotor@gmail.com} (\href{https://orcid.org/0000-0003-2140-308X}{ORCID})
+  \item Alejandro Reyes \email{alejandro.reyes.ds@gmail.com} (\href{https://orcid.org/0000-0001-8717-6612}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Jose Alquicira-Hernandez \email{joseah@lcg.unam.mx} (\href{https://orcid.org/0000-0002-9049-7780}{ORCID}) [contributor]
+  \item Heladia Salgado \email{heladia@ccg.unam.mx} (\href{https://orcid.org/0000-0002-3166-5801}{ORCID}) [contributor]
 }
 
 }

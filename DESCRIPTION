@@ -1,20 +1,35 @@
 Package: regutools
 Title: regutools: an R package for data extraction from RegulonDB
 Version: 0.99.0
-Date: 2020-01-16
+Date: 2020-02-26
 Authors@R: c(
-    person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591")),
-    person("Carmina", "Barberena-Jonas", email = "car.barjon@gmail.com", role = c("aut")),
-    person(c("Jesus", "E."), "Sotelo-Fonseca", email = "jemilianosf@gmail.com", role = c("aut")),
-    person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx", role = c("aut"), comment = c(ORCID = "0000-0002-9049-7780")),
-    person("Heladia", "Salgado", email = "heladia@ccg.unam.mx", role = c("aut"), comment = c(ORCID = "0000-0002-3166-5801")),
-    person("Alejandro", "Reyes", email = "alejandro.reyes.ds@gmail.com", role = c("aut"), comment = c(ORCID = "0000-0001-8717-6612")),
-    person("Leonardo", "Collado-Torres", role = c("aut"), email = "lcolladotor@gmail.com", comment = c(ORCID = "0000-0003-2140-308X")))
-Description: Extracts and processes data from RegulonDB.
+    person("Carmina", "Barberena-Jonas", email = "car.barjon@gmail.com",
+        role = c("aut")),
+    person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com",
+        role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591")),
+    person(c("Jesus", "E."), "Sotelo-Fonseca", email = "jemilianosf@gmail.com",
+        role = c("aut")),
+    person("Jose", "Alquicira-Hernandez", email = "joseah@lcg.unam.mx",
+        role = c("ctb"), comment = c(ORCID = "0000-0002-9049-7780")),
+    person("Heladia", "Salgado", email = "heladia@ccg.unam.mx",
+        role = c("ctb"), comment = c(ORCID = "0000-0002-3166-5801")),
+    person("Leonardo", "Collado-Torres", role = c("aut"),
+        email = "lcolladotor@gmail.com",
+        comment = c(ORCID = "0000-0003-2140-308X")),
+    person("Alejandro", "Reyes", email = "alejandro.reyes.ds@gmail.com",
+        role = c("aut"), comment = c(ORCID = "0000-0001-8717-6612"))
+    )
+Description: This package provides an interface to the RegulonDB
+    http://regulondb.ccg.unam.mx/ database such that you can query it using
+    R and easily work with Bioconductor packages. This package was created
+    as a collaboration by members of the Community of Bioinformatics
+    Software Developers (CDSB in Spanish) https://comunidadbioinfo.github.io/.
 License: Artistic-2.0
 Encoding: UTF-8
 Depends: R (>= 3.6.0)
 Imports:
+    AnnotationDbi,
+    AnnotationHub,
     Biostrings,
     data.table,
     DBI,
@@ -41,6 +56,7 @@ Suggests:
     testthat (>= 2.1.0)
 URL: https://github.com/ComunidadBioInfo/regutools
 BugReports: https://github.com/ComunidadBioInfo/regutools/issues
-biocViews: software
+biocViews: AnnotationData, AnnotationHub, Escherichia_coli,
+    FunctionalAnnotation, CustomDBSchema
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

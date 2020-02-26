@@ -1,14 +1,17 @@
 context("GRanges_convert")
 test_that("Results from regulondb queries can be converted to GRanges", {
-    fileToDb <- file.path(tempdir(), "regulondb_sqlite3.db")
-    if(!file.exists(fileToDb))
-        download_database(tempdir())
+    ## Connect to the RegulonDB database if necessary
+    if (!exists('regulondb_conn'))
+        regulondb_conn <- connect_database()
+
+    ## Build a regulondb object
     regdb <-
         regulondb(
-            fileToDb,
+            database_conn = regulondb_conn,
             organism = "prueba",
             genome_version = "prueba",
-            database_version = "prueba")
+            database_version = "prueba"
+        )
     query <- get_dataset(
         regdb,
         dataset = "GENE",
@@ -22,12 +25,14 @@ test_that("Results from regulondb queries can be converted to GRanges", {
         dataset = "DNA_OBJECTS")
     hasNAs <- is.na(query$posleft) | is.na(query$posright)
     expect_s4_class(convert_to_granges(query[!hasNAs,]), "GRanges")
-    if( sum(hasNAs) > 0 ){
-        expect_warning(convert_to_granges(query),
-                       sprintf(
-                           "Dropped %s entries where genomic coordinates were NAs",
-                           sum(hasNAs)
-                       ))
+    if (sum(hasNAs) > 0) {
+        expect_warning(
+            convert_to_granges(query),
+            sprintf(
+                "Dropped %s entries where genomic coordinates were NAs",
+                sum(hasNAs)
+            )
+        )
     }
     expect_error(convert_to_granges(as.data.frame(query)))
     query <- get_dataset(regulondb = regdb, dataset = "OPERON")
@@ -49,11 +54,14 @@ test_that("Results from regulondb queries can be converted to GRanges", {
 })
 
 test_that("Results from regulondb queries can be converted to Biostrings", {
-    download_database(tempdir())
-    fileToDb <- file.path(tempdir(), "regulondb_sqlite3.db")
+    ## Connect to the RegulonDB database if necessary
+    if (!exists('regulondb_conn'))
+        regulondb_conn <- connect_database()
+
+    ## Build a regulondb object
     regdb <-
         regulondb(
-            fileToDb,
+            database_conn = regulondb_conn,
             organism = "prueba",
             genome_version = "prueba",
             database_version = "prueba"
@@ -78,15 +86,18 @@ test_that("Results from regulondb queries can be converted to Biostrings", {
     query2 <- get_dataset(regdb, dataset = "PROMOTER")
     isNA <- is.na(query2[["promoter_sequence"]])
     rs <- convert_to_biostrings(query2[!isNA,])
-    if( sum(isNA) > 0 ){
-        expect_warning(convert_to_biostrings(query2),
-                       sprintf("Dropped %s entries where sequence data were NAs",
-                               sum(isNA)) )
+    if (sum(isNA) > 0) {
+        expect_warning(
+            convert_to_biostrings(query2),
+            sprintf(
+                "Dropped %s entries where sequence data were NAs",
+                sum(isNA)
+            )
+        )
     }
     expect_s4_class(rs, "DNAStringSet")
-    expect_equal(
-        length( suppressWarnings( convert_to_biostrings( query2 ) ) ),
-        sum( !is.na( query2$promoter_sequence ) ) )
+    expect_equal(length(suppressWarnings(convert_to_biostrings(query2))),
+        sum(!is.na(query2$promoter_sequence)))
     query3 <-
         get_dataset(regdb,
             dataset = "NETWORK",
