@@ -80,7 +80,6 @@ bib <- c(
     GenomicRanges = citation('GenomicRanges'),
     Gviz = citation('Gviz'),
     IRanges = citation('IRanges'),
-    httr = citation('httr'),
     knitcitations = citation('knitcitations'),
     knitr = citation('knitr')[3],
     RCy3 = citation('RCy3'),
@@ -90,9 +89,7 @@ bib <- c(
     RSQLite = citation('RSQLite'),
     S4Vectors = citation('S4Vectors'),
     sessioninfo = citation('sessioninfo'),
-    testthat = citation('testthat'),
-    XML = citation('XML'),
-    xml2 = citation('xml2')
+    testthat = citation('testthat')
 )
 ```
 
@@ -392,7 +389,7 @@ get_binding_sites(e_coli_regulondb,
 
 This was a project accomplished by members of the [Community of Bioinformatics Software Developers](https://comunidadbioinfo.github.io/) (CDSB in Spanish). In part CDSB was formed to help R users in Latin America become R/[Bioconductor](http://bioconductor.org/) developers. For more information about CDSB, the CDSB workshops or its online community, please check the [CDSB website](https://comunidadbioinfo.github.io/) which is available in both Spanish and English.
 
-<img src="https://comunidadbioinfo.github.io/img/Logo_texto-768x107.png">
+<a href="https://comunidadbioinfo.github.io/"><img src="https://comunidadbioinfo.github.io/img/Logo_texto-768x107.png"></a>
 
 # Reproducibility
 
@@ -406,9 +403,8 @@ The `r Biocpkg('regutools')` package `r citep(bib[['regutools']])` was made poss
 * `r CRANpkg('data.table')` `r citep(bib[['data.table']])`
 * `r CRANpkg('DBI')` `r citep(bib[['DBI']])`
 * `r Biocpkg('GenomicRanges')` `r citep(bib[['GenomicRanges']])`
-* `r Biocpkg('Gviz')` `r citep(bib[['Givz']])`
+* `r Biocpkg('Gviz')` `r citep(bib[['Gviz']])`
 * `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`
-* `r CRANpkg('httr')` `r citep(bib[['httr']])`
 * `r CRANpkg('knitcitations')` `r citep(bib[['knitcitations']])`
 * `r CRANpkg('knitr')` `r citep(bib[['knitr']])`
 * `r Biocpkg('RCy3')` `r citep(bib[['RCy3']])`
@@ -417,8 +413,6 @@ The `r Biocpkg('regutools')` package `r citep(bib[['regutools']])` was made poss
 * `r Biocpkg('S4Vectors')` `r citep(bib[['S4Vectors']])`
 * `r CRANpkg('sessioninfo')` `r citep(bib[['sessioninfo']])`
 * `r CRANpkg('testthat')` `r citep(bib[['testthat']])`
-* `r CRANpkg('XML')` `r citep(bib[['XML']])`
-* `r CRANpkg('xml2')` `r citep(bib[['xml2']])`
 
 Code for creating the vignette
 

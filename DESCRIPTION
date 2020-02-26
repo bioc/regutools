@@ -36,12 +36,9 @@ Imports:
     GenomicRanges,
     Gviz,
     IRanges,
-    httr,
     RCy3,
     RSQLite,
     S4Vectors,
-    XML,
-    xml2,
     methods,
     stats,
     utils

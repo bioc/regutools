@@ -11,10 +11,20 @@ status](https://travis-ci.org/ComunidadBioInfo/regutools.svg?branch=master)](htt
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Codecov test
 coverage](https://codecov.io/gh/ComunidadBioInfo/regutools/branch/master/graphs/badge.svg)](https://codecov.io/gh/ComunidadBioInfo/regutools?branch=master)
+[![BioC
+status](http://www.bioconductor.org/shields/build/release/bioc/regutools.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/regutools)
 <!-- badges: end -->
 
 The goal of `regutools` is to provide an R interface for extracting and
-processing data from [RegulonDB](http://regulondb.ccg.unam.mx/).
+processing data from [RegulonDB](http://regulondb.ccg.unam.mx/). This
+package was created as a collaboration by members of the [Community of
+Bioinformatics Software Developers](https://comunidadbioinfo.github.io/)
+(CDSB in Spanish).
+
+For more details, please check the [documentation
+website](http://comunidadbioinfo.github.io/regutools) or the
+Bioconductor package landing page
+[here](https://bioconductor.org/packages/regutools).
 
 ## Installation
 
@@ -48,6 +58,7 @@ library('regutools')
 
 ## Connect to the RegulonDB database if necessary
 if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#> snapshotDate(): 2019-10-29
 
 ## Build a regulondb object
 e_coli_regulondb <-
@@ -91,26 +102,40 @@ Please run this yourself to check for any updates on how to cite
 ``` r
 citation('regutools')
 #> 
-#> To cite package 'regutools' in publications use:
+#> Barberena-Jonas C, Chavez J, Sotelo-Fonseca JE, Alquicira-Hernandez J,
+#> Salgado H, Collado-Torres L, Reyes A (2020). _regutools: an R package
+#> for data extraction from RegulonDB_. doi: 10.18129/B9.bioc.regutools
+#> (URL: https://doi.org/10.18129/B9.bioc.regutools),
+#> https://github.com/comunidadbioinfo/regutools - R package version
+#> 0.99.0, <URL: http://www.bioconductor.org/packages/regutools>.
 #> 
-#>   Joselyn Chavez, Carmina Barberena-Jonas, Jesus E. Sotelo-Fonseca,
-#>   Jose Alquicira-Hernandez, Heladia Salgado, Alejandro Reyes and
-#>   Leonardo Collado-Torres (2020). regutools: regutools: an R package
-#>   for data extraction from RegulonDB. R package version 0.99.0.
-#>   https://github.com/ComunidadBioInfo/regutools
+#> Barberena-Jonas C, Chavez J, Sotelo-Fonseca JE, Alquicira-Hernandez J,
+#> Salgado H, Collado-Torres L, Reyes A (2020). "Programmatic access to
+#> bacterial regulatory networks with regutools." _bioRxiv_. doi:
+#> 10.1101/xxxyyy (URL: https://doi.org/10.1101/xxxyyy), <URL:
+#> https://doi.org/10.1101/xxxyyy>.
 #> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {regutools: regutools: an R package for data extraction from RegulonDB},
-#>     author = {Joselyn Chavez and Carmina Barberena-Jonas and Jesus E. Sotelo-Fonseca and Jose Alquicira-Hernandez and Heladia Salgado and Alejandro Reyes and Leonardo Collado-Torres},
-#>     year = {2020},
-#>     note = {R package version 0.99.0},
-#>     url = {https://github.com/ComunidadBioInfo/regutools},
-#>   }
+#> To see these entries in BibTeX format, use 'print(<citation>,
+#> bibtex=TRUE)', 'toBibtex(.)', or set
+#> 'options(citation.bibtex.max=999)'.
 ```
 
-# Testing
+# Development tools
 
-Testing on Bioc-devel is feasible thanks to [R
-Travis](http://docs.travis-ci.com/user/languages/r/).
+  - Testing on Bioc-devel is possible thanks to [R
+    Travis](http://docs.travis-ci.com/user/languages/r/).
+  - Code coverage assessment is possible thanks to
+    [codecov](https://codecov.io/gh).
+  - The [documentation
+    website](http://comunidadbioinfo.github.io/regutools) is
+    automatically updated thanks to
+    *[pkgdown](https://CRAN.R-project.org/package=pkgdown)* and
+    *[travis](https://github.com/ropenscilabs/travis)*.
+
+# RegulonDB
+
+<a href="http://regulondb.ccg.unam.mx/"><img src="http://regulondb.ccg.unam.mx/img/logo.jpg"></a>
+
+# A CDSB community project
+
+<a href="https://comunidadbioinfo.github.io/"><img src="https://comunidadbioinfo.github.io/img/Logo_texto-768x107.png"></a>
