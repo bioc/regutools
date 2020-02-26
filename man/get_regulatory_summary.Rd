@@ -7,7 +7,7 @@
 get_regulatory_summary(regulondb, gene_regulators)
 }
 \arguments{
-\item{regulondb}{A regulondb object}
+\item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 
 \item{gene_regulators}{Result from \code{\link[=get_gene_regulators]{get_gene_regulators()}} or vector of genes}
 }

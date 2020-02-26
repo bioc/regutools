@@ -7,7 +7,7 @@
 get_binding_sites(regulondb, transcription_factor, output_format = "GRanges")
 }
 \arguments{
-\item{regulondb}{A regulondb object.}
+\item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 
 \item{transcription_factor}{name of the transcription factor.}
 

@@ -67,7 +67,7 @@ get_gene_regulators <-
 
         #Convert GIs to gene names
         # Assign id per gene
-        gene_guesses <- sapply(genes, guess_id)
+        gene_guesses <- sapply(genes, guess_id, regulondb = regulondb)
 
         # Check that guesses are names
 

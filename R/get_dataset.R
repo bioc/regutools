@@ -1,7 +1,7 @@
 #' @title Extract data from RegulonDB
 #' @description This function retrieves data from RegulonDB. Attributes from
 #' datasets can be selected and filtered.
-#' @param regulondb A regulondb object.
+#' @param regulondb A [regulondb()] object.
 #' @param dataset Dataset of interest. Use the function list_datasets for an
 #' overview of valid datasets.
 #' @param attributes Vector of attributes to be retrieved.

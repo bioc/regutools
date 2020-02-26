@@ -2,7 +2,7 @@
 #' @description Retrieve the binding sites and genome location for a given
 #' transcription factor.
 #' @author José Alquicira Hernández, Jacques van Helden, Joselyn Chávez
-#' @param regulondb A regulondb object.
+#' @param regulondb A [regulondb()] object.
 #' @param transcription_factor name of the transcription factor.
 #' @param output_format The output object. Can be either a `GRanges` (default) or `Biostrings`..
 #' @return Either a GRanges object or a Biostrings object summarizing information

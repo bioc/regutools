@@ -1,35 +1,35 @@
 ---
 title: "regutools: an R package for the extraction of gene regulatory networks from RegulonDB"
 author:
-  - name: Jose Alquicira Hernandez
+  - name: Carmina Barberena Jonas
     affiliation:
-    - &ccg Centro de Ciencias Genómicas, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
-    - University of Queensland, Brisbane, QLD, AU
+    - &langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
+    email: car.barjon@gmail.com
   - name: Joselyn Chávez
     affiliation:
     - &ibt Instituto de Biotecnología, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
     email: joselynchavezf@gmail.com
-  - name: Carmina Barberena Jonas
-    affiliation:
-    - TODO
-    email: car.barjon@gmail.com
   - name: Jesus Emiliano Sotelo Fonseca
     affiliation:
-    - LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
+    - *lanbebio 
     email: jesus.sotelo@cinvestav.mx
+  - name: Jose Alquicira Hernandez
+    affiliation:
+    - &ccg Centro de Ciencias Genómicas, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
+    - University of Queensland, Brisbane, QLD, AU
   - name: Heladia Salgado
     affiliation:
     - *ccg
     email: heladia@ccg.unam.mx
-  - name: Alejandro Reyes
-    affiliation:
-    - Dana Farber Cancer Institute, Boston, MA, US
-    email: alejandro.reyes.ds@gmail.com
   - name: Leonardo Collado-Torres
     affiliation:
     - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus, Baltimore, MD, US
     - &ccb Center for Computational Biology, Johns Hopkins University, Baltimore, MD, US
     email: lcolladotor@gmail.com
+  - name: Alejandro Reyes
+    affiliation:
+    - Dana Farber Cancer Institute, Boston, MA, US
+    email: alejandro.reyes.ds@gmail.com
 date: "`r BiocStyle::doc_date()`"
 package: "`r BiocStyle::pkg_ver('regutools')`"
 output: 
@@ -67,22 +67,23 @@ cite_options(hyperlink = 'to.doc', citation_format = 'text', style = 'html')
 bib <- c(
     R = citation(),
     BiocStyle = citation('BiocStyle'),
+    Biostrings = citation('Biostrings'),
+    data.table = citation('data.table'),
+    DBI = citation('DBI'),
+    GenomicRanges = citation('GenomicRanges'),
+    Gviz = citation('Gviz'),
+    IRanges = citation('IRanges'),
+    httr = citation('httr'),
     knitcitations = citation('knitcitations'),
     knitr = citation('knitr')[3],
+    RCy3 = citation('RCy3'),
     rmarkdown = citation('rmarkdown')[1],
+    RSQLite = citation('RSQLite'),
+    S4Vectors = citation('S4Vectors'),
     sessioninfo = citation('sessioninfo'),
     testthat = citation('testthat'),
-    RSQLite = citation('RSQLite'),
-    httr = citation('httr'),
     XML = citation('XML'),
-    data.table = citation('data.table'),
-    RCy3 = citation('RCy3'),
-    Biostrings = citation('Biostrings'),
-    S4Vectors = citation('S4Vectors'),
-    GenomicRanges = citation('GenomicRanges'),
-    IRanges = citation('IRanges'),
-    xml2 = citation('xml2'),
-    DBI = citation('DBI')
+    xml2 = citation('xml2')
 )
 ```
 
@@ -125,15 +126,15 @@ citation('regutools')
 
 *Escherichia coli K-12 (E-coli)* is the best bacterial organism studied to date. Thousands of papers have been published using *E-coli* as a model system asking how genes are regulated. The throughput of these experiments range from single-gene studies to whole-genome approaches. Twenty years ago, the database *RegulonDB* started collecting, curating and organizing this information into a centralized resource. Thanks to this huge efforts, researchers have had an easy way to access all these data in a database, facilitating the advancements of complete fields, such as *systems biology*. 
 
-The analysis of high-thoughput experiments -such as RNA-seq or ChIP-seq- often requires the integration of databases such as *RegulonDB* in order to give biological interpretations to these data. The *regutools* package is designed to facilitate such integration by providing programatic access to *RegulonDB* within the R environment. The package retrieves information from the *RegulonDB* database into *Bioconductor* objects, ready for downstream analyses. 
+The analysis of high-throughput experiments -such as RNA-seq or ChIP-seq- often requires the integration of databases such as *RegulonDB* in order to give biological interpretations to these data. The *regutools* package is designed to facilitate such integration by providing programmatic access to *RegulonDB* within the R environment. The package retrieves information from the *RegulonDB* database into *Bioconductor* objects, ready for downstream analyses. 
 
 The package defines the object **regulondb**, which is a data structure that contains the path to a *SQLite* database retrieved from *RegulonDB* along with metadata such as database version and reference genome. The function `download_database()` will retrieve the latest version of the database. The *regutools* package contains functions with the most popular queries to *regutools*, such as retrieving information of which gene targets are regulated by a transcription factor. But users can also design queries that are specific to their analyses. This vignette describes how to use the provided functions and how to design programmatic queries to *regutools*. The general syntax of the function calls of this package is `result <- functionCalled( regulondb, arguments )`. 
 
 # The **regulondb** object
 
-The **regulondb** object is an extension of an **SQLiteConnection** class that host a connection to a database with the table structure defined in the *RegulonDb* database. It contains additional slots that especify the organism, genome version and database version. The function `regulondb()` is the constructor function of **regulondb** objects. This function receives as input a file path to the database file as well as information about the annotation as character vectors.
+The **regulondb** object is an extension of an **SQLiteConnection** class that host a connection to a database with the table structure defined in the *RegulonDB* database. It contains additional slots that specify the organism, genome version and database version. The function `regulondb()` is the constructor function of **regulondb** objects. This function receives as input a file path to the database file as well as information about the annotation as character vectors.
 
-```{r echo = TRUE, message=FALSE}
+```{r 'download_db', echo = TRUE, message=FALSE}
 library('regutools')
 
 ## Other packages used
@@ -157,13 +158,13 @@ ecoli_regulondb
 
 In order to get an overview of the tables present in a *regulondb* object, we can use the function `list_datasets()`. This function will output all the available tables (datasets) that can be used to build queries. 
 
-```{r echo = TRUE}
+```{r 'list_datasets', echo = TRUE}
 list_datasets(ecoli_regulondb)
 ```
 
 For each table in the database, users can explore the fields (or attributes) of each table using the function `list_attributes`.
 
-```{r}
+```{r 'list_attr'}
 head(list_attributes(ecoli_regulondb, "GENE"), 8)
 ```
 
@@ -171,21 +172,18 @@ head(list_attributes(ecoli_regulondb, "GENE"), 8)
 
 Since the *regulondb* object is an extension of the *SQLiteConnection*, users can retrieve data from a *regulondb* object using the function `dbGetQuery()`. Additionally, this package provides a wrapper function to build queries to the database. This function is called `get_dataset()` and has a very similar syntax to the `getBM()` function from the biomaRt package. The main arguments of the `get_dataset()` function are a *regulondb* object, a dataset (or table) of the database, the fields of the dataset to retrieve (attributes) and filters to specify what information to get. The code below shows an example where three attributes from the dataset **"GENE"** for the genes *araC*, *crp* and *lacI*. Note that if the `filters=` parameter is empty, the function will retrieve all the hits it find in the database.  
 
-```{r echo = TRUE}
-
-
+```{r 'get_dataset', echo = TRUE}
 get_dataset(
     regulondb = ecoli_regulondb,
     dataset = "GENE",
     attributes = c("posleft", "posright", "strand", "name"),
     filters = list("name" = c("araC", "crp", "lacI"))
 )
-
 ```
 
 Some of the filters, such as *posright* or *posleft*, can be filtered by specifying intervals. For example, the code below indicates that all the start positions *posright" should be between position 1 and position 5000 of the genome. The parameter `inverval=` is used to specify that the filter for that field will be defined by an interval rather than a exact match.
 
-```{r echo = TRUE}
+```{r 'get_dataset_interval', echo = TRUE}
 get_dataset(
     ecoli_regulondb,
     attributes = c("posright", "name"),
@@ -199,7 +197,7 @@ get_dataset(
 
 By default, the function `get_dataset()` outputs a **regulondb_result** object, which is an extension of a **DataFrame** that stores information about the query used to generate this object. This additional information includes the organism name, the database and genome versions, and the table (or dataset) of the *regulondb* object that was queried by `get_dataset()`.
 
-```{r}
+```{r 'get_dataset_DF'}
 res <- get_dataset(
     regulondb = ecoli_regulondb,
     dataset = "GENE",
@@ -211,13 +209,13 @@ slotNames(res)
 
 To enable integration with other Bioconductor packages, we provide the function `convert_to_granges()` which converts a **regulondb_result** object into a **GRanges** object whenever possible. For example, the result stored in the variable `res` has genomic coordinates and it is thus possible convert `res` into a **GRanges** object. 
 
-```{r}
+```{r 'convert_granges'}
 convert_to_granges(res)
 ```
 
 An alternative way to get to the same result is to use the parameter `output_format=` directly in the function `get_dataset()`. 
 
-```{r}
+```{r 'get_dataset_GRanges'}
 get_dataset(
     regulondb = ecoli_regulondb,
     dataset = "GENE",
@@ -229,7 +227,7 @@ get_dataset(
 
 In a similar manner, the function `convert_to_biostrings()` converts **regulondb** objects into objects from the `r BiocStyle::Biocpkg("Biostrings")` package. Possible outputs of `convert_to_biostrings()` are **DNAStringSet** objects if `seq_type="DNA"` or a **BStringSet** if `seq_type="product"`. 
 
-```{r}
+```{r 'dnastring_res'}
 res_dnastring <- get_dataset( regulondb=ecoli_regulondb, 
             dataset="GENE",
             attributes=c("posleft", "posright", "strand", "name", "dna_sequence"), 
@@ -239,7 +237,7 @@ res_dnastring
 mcols(res_dnastring)
 ```
 
-```{r}
+```{r 'product_seq'}
 res_prodstring <- get_dataset( regulondb=ecoli_regulondb, 
             dataset="GENE",
             attributes=c("posleft", "posright", "strand", "name", "product_sequence"), 
@@ -248,17 +246,17 @@ res_prodstring <- convert_to_biostrings( res_prodstring, seq_type="product" )
 mcols( res_prodstring )
 ```
 
-As with the **GRanges** output mentioned above, it is possible for the output of `get_dataset()` to be a **DNAStringSet** object by specifying the parameter `output_format="DNAStringSet"` or a **BStringSet** object by specifying `output_format="BStringSet"`. Note that the functions to convert **regulondb_result** objects will throw errors if there is insufficient information for the coersion to occur. For example, we will get an error if we try to convert into a **GRanges** object when genomic coordinates are missing from the **regulondb_result** object.
+As with the **GRanges** output mentioned above, it is possible for the output of `get_dataset()` to be a **DNAStringSet** object by specifying the parameter `output_format="DNAStringSet"` or a **BStringSet** object by specifying `output_format="BStringSet"`. Note that the functions to convert **regulondb_result** objects will throw errors if there is insufficient information for the coercion to occur. For example, we will get an error if we try to convert into a **GRanges** object when genomic coordinates are missing from the **regulondb_result** object.
 
 # Building your own queries
 
-In the *regutools* package, we have implemented features that are commonly used when quering data from databases: filtering results by partial matching, filtering by numeric intervals, and building complex queries.
+In the *regutools* package, we have implemented features that are commonly used when querying data from databases: filtering results by partial matching, filtering by numeric intervals, and building complex queries.
 
 ## Partial matching
 
 The code below illustrates the concept of partial matching, in which by setting the parameter `partialmatch=` to `"name"`, the query returns all the gene name in which the word *ara* is contained. 
 
-```{r echo = TRUE}
+```{r 'partial_match', echo = TRUE}
 get_dataset(
     ecoli_regulondb,
     attributes = c("posright", "name"),
@@ -274,13 +272,13 @@ Note that setting the parameter `partialmatch=` to `NULL` will only return genes
 
 In addition to partial matching, queries can be filtered by numeric intervals. For example, in the code below, the parameter `interv=` is set to `"posright"`. By doing this assignment, we are specifying that the values for `"posright"` must lie between the values of `posright` specified in the `filter=` parameter. Thus, the result of this query will be genes whose right positions lie between the coordinates 2000 and 4000000. Note that the use of the `interv=` parameter in the code below is equivalent to setting the parameter `output_format=` to `"GRanges"` and further subsetting the *GRanges* object using the function `subsetByOverlaps()`. 
 
-```{r echo = TRUE}
+```{r 'position_interval', echo = TRUE}
 get_dataset(
     ecoli_regulondb,
     attributes = c("name", "strand", "posright", "product_name"),
     dataset = "GENE",
     filters = list(posright = c("2000", "4000000")),
-    interv = "posright"
+    interval = "posright"
 )
 ```
 
@@ -290,7 +288,7 @@ The examples so far have considered queries in which the results are filtered ac
 
 For example, the code below extracts the genes where either `name` or `product_name` contain the word *Ara* or *Ara*, respectively, if the gene is in the forward strand or if the right position of the gene is between 2000 and 40000000. 
 
-```{r}
+```{r 'complex_filter'}
 nrow(
     get_dataset(
         ecoli_regulondb,
@@ -304,14 +302,14 @@ nrow(
         ),
         and = FALSE,
         partialmatch = c("name", "product_name") ,
-        interv = "posright"
+        interval = "posright"
     )
 )
 ```
 
 The query below, which is identical to the query above except the `and=` is set to `TRUE`, returns the genes where all of the specified conditions are satisfied. 
 
-```{r}
+```{r 'complex_filter_2'}
 nrow(
     get_dataset(
         ecoli_regulondb,
@@ -325,7 +323,7 @@ nrow(
         ),
         and = TRUE,
         partialmatch = c("name", "product_name") ,
-        interv = "posright"
+        interval = "posright"
     )
 )
 ```
@@ -338,13 +336,13 @@ The regutools package provides functions that encode the most frequent queries t
 
 One of the most important information that the *RegulonDB* database contains are manually curated regulatory networks. The *regutools* package exports the function `get_gene_regulators()`, which inputs a vector of gene names and outputs information about what are the transcription factors that regulate such genes together with the regulatory effect (activator, repressor or dual).
 
-```{r echo = TRUE}
+```{r 'gene_regulators', echo = TRUE}
 get_gene_regulators(ecoli_regulondb, c("araC", "fis", "crp"))
 ```
 
 Similarly, the `get_regulatory_network()` function retrieves all the regulatory network from a **regulondb** object. By default, the output will be a list of transcription factor-gene pairs, indicating which transcription factor regulates which gene.
 
-```{r echo = TRUE}
+```{r 'regulatory_network', echo = TRUE}
 head(get_regulatory_network(ecoli_regulondb))
 ```
 
@@ -352,16 +350,16 @@ But users can also set the parameter `type=` to `"GENE-GENE"` or `"TF-GENE"` to 
 
 Users can also use the `get_regulatory_summary()` to retrieve a summary of the transcription factor regulated the expression of a set of given genes. The parameter `gene_regulators` can receive either a vector of gene names or the output of a call to the function `get_gene_regulators()`. The resulting output is a *regulondb_result* object in which each row shows a transcription factor, and the columns display information about the number, percentage and regulatory activity exerted to the genes.
 
-```{r}
-get_regulatory_summary( ecoli_regulondb, 
-                        gene_regulators = c("araC", "modB") )
+```{r 'regulatory_summary'}
+get_regulatory_summary(ecoli_regulondb,
+    gene_regulators = c("araC", "modB"))
 ```
 
 ## Visualizing networks using cytoscape
 
 Software tools such as [Cytoscape](https://cytoscape.org/index.html) are often useful for interactive exploration of data and visualization of networks. The function `get_regulatory_network()` has a parameter `cytograph=` that if set to `TRUE`, it will visualize the network in a cytoscape session. Of note, this feature will only work if the user has Cytoscape open in their computer. 
 
-```{r eval=FALSE}
+```{r 'prep_cyto', eval=FALSE}
 get_regulatory_network(ecoli_regulondb, cytograph = TRUE)
 ```
 
@@ -369,16 +367,18 @@ get_regulatory_network(ecoli_regulondb, cytograph = TRUE)
 
 Another common request to the *RegulonDB* database is to obtain the genomic coordinates and sequences of the DNA binding sites for a given transcription factor. This query is implemented in the function `get_binding_sites()`, in which the results are formatted according to the parameter `output_format=` as either a *GRanges* object or a *Biostrings* object. 
 
-```{r}
-get_binding_sites( ecoli_regulondb, transcription_factor = "AraC" )
-get_binding_sites( ecoli_regulondb, transcription_factor = "AraC", 
-                   output_format = "Biostrings" )
+```{r 'binding_sites'}
+get_binding_sites(ecoli_regulondb, transcription_factor = "AraC")
+get_binding_sites(ecoli_regulondb,
+    transcription_factor = "AraC",
+    output_format = "Biostrings")
 ```
 
+# A note about CDSB
 
+This was a project accomplished by members of the [Community of Bioinformatics Software Developers](https://comunidadbioinfo.github.io/) (CDSB in Spanish). In part CDSB was formed to help R users in Latin America become R/[Bioconductor](http://bioconductor.org/) developers. For more information about CDSB, the CDSB workshops or its online community, please check the [CDSB website](https://comunidadbioinfo.github.io/) which is available in both Spanish and English.
 
-# Integration with RSAT
-
+<img src="https://comunidadbioinfo.github.io/img/Logo_texto-768x107.png">
 
 # Reproducibility
 
@@ -386,23 +386,24 @@ The `r Biocpkg('regutools')` package `r citep(bib[['regutools']])` was made poss
 
 * R `r citep(bib[['R']])`
 * `r Biocpkg('BiocStyle')` `r citep(bib[['BiocStyle']])`
+* `r Biocpkg('Biostrings')` `r citep(bib[['Biostrings']])`
+* `r CRANpkg('data.table')` `r citep(bib[['data.table']])`
+* `r CRANpkg('DBI')` `r citep(bib[['DBI']])`
+* `r Biocpkg('GenomicRanges')` `r citep(bib[['GenomicRanges']])`
+* `r Biocpkg('Gviz')` `r citep(bib[['Givz']])`
+* `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`
+* `r CRANpkg('httr')` `r citep(bib[['httr']])`
 * `r CRANpkg('knitcitations')` `r citep(bib[['knitcitations']])`
 * `r CRANpkg('knitr')` `r citep(bib[['knitr']])`
+* `r Biocpkg('RCy3')` `r citep(bib[['RCy3']])`
 * `r CRANpkg('rmarkdown')` `r citep(bib[['rmarkdown']])`
+* `r CRANpkg('RSQLite')` `r citep(bib[['RSQLite']])`
+* `r Biocpkg('S4Vectors')` `r citep(bib[['S4Vectors']])`
 * `r CRANpkg('sessioninfo')` `r citep(bib[['sessioninfo']])`
 * `r CRANpkg('testthat')` `r citep(bib[['testthat']])`
-* `r CRANpkg('RSQLite')` `r citep(bib[['RSQLite']])`
-* `r CRANpkg('httr')` `r citep(bib[['httr']])`
 * `r CRANpkg('XML')` `r citep(bib[['XML']])`
-* `r CRANpkg('data.table')` `r citep(bib[['data.table']])`
-* `r Biocpkg('RCy3')` `r citep(bib[['RCy3']])`
-* `r Biocpkg('Biostrings')` `r citep(bib[['Biostrings']])`
-* `r Biocpkg('S4Vectors')` `r citep(bib[['S4Vectors']])`
-* `r Biocpkg('GenomicRanges')` `r citep(bib[['GenomicRanges']])`
-* `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`
 * `r CRANpkg('xml2')` `r citep(bib[['xml2']])`
-* `r CRANpkg('DBI')` `r citep(bib[['DBI']])`
-    
+
 Code for creating the vignette
 
 ```{r createVignette, eval=FALSE}

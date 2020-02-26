@@ -11,7 +11,7 @@
 #' @param operator A string indicating if all the filters (AND) or some of them
 #' (OR) should be met
 #' @param interval the filters with values considered as interval
-#' @param regulondb A regulondb object.
+#' @param regulondb A [regulondb()] object.
 #' @param partialmatch name of the condition(s) with a string pattern for full
 #' or partial match in the query
 #'

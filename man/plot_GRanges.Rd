@@ -4,21 +4,35 @@
 \alias{plot_GRanges}
 \title{Plot elements within a genome region}
 \usage{
-plot_GRanges(regulondb, genome = "eschColi_K12", from, to, plot_map = TRUE)
+plot_GRanges(
+  regulondb,
+  genome = "eschColi_K12",
+  from = 0,
+  to = 5000,
+  plot_map = TRUE,
+  elements = "gene"
+)
 }
 \arguments{
-\item{regulondb}{A regulondb object.}
+\item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 
 \item{genome}{A valid UCSC genome name.}
 
-\item{from}{left position.}
+\item{from}{A \code{integer(1)} specifying the left position.}
 
-\item{to}{right position}
+\item{to}{A \code{integer(1)} specifying the right position.}
 
-\item{plot_map}{By default TRUE, if FALSE returns a GRanges object with the elements found.}
+\item{plot_map}{A \code{logical(1)}. By default \code{TRUE}, if \code{FALSE} returns a
+\code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object with the elements found.}
+
+\item{elements}{A character vector specifying which annotation elements to
+plot. It can be any from: \code{"-10 promoter box"}, \code{"-35 promoter box"},
+\code{"gene"}, \code{"promoter"}, \code{"Regulatory Interaction"}, \code{"sRNA interaction"},
+or \code{"terminator"}.}
 }
 \value{
-A plot with genomic elements found within a genome region, including genes and regulators.
+A plot with genomic elements found within a genome region,
+including genes and regulators.
 }
 \description{
 Plot elements within a genome region
@@ -37,7 +51,15 @@ e_coli_regulondb <-
         database_version = "1",
         genome_version = "1"
     )
+
+## Plot genes from E. coli using default parameters
+plot_GRanges(e_coli_regulondb)
+
+## Plot genes providing Genomic Ranges
 plot_GRanges(e_coli_regulondb, from = 5000, to = 10000)
+
+## Plot aditional elements within Genomic Ranges
+plot_GRanges(e_coli_regulondb, from = 5000, to = 10000, elements = c("gene", "promoter"))
 }
 \author{
 Joselyn Chavez

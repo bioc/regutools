@@ -16,7 +16,7 @@ get_dataset(
 )
 }
 \arguments{
-\item{regulondb}{A regulondb object.}
+\item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 
 \item{dataset}{Dataset of interest. Use the function list_datasets for an
 overview of valid datasets.}

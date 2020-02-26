@@ -22,7 +22,7 @@ Useful links:
 Authors:
 \itemize{
   \item Carmina Barberena-Jonas \email{car.barjon@gmail.com}
-  \item Jesus E. Sotelo-Fonseca \email{jesus.sotelo@cinvestav.mx}
+  \item Jesus E. Sotelo-Fonseca \email{jemilianosf@gmail.com}
   \item Jose Alquicira-Hernandez \email{joseah@lcg.unam.mx} (\href{https://orcid.org/0000-0002-9049-7780}{ORCID})
   \item Heladia Salgado \email{heladia@ccg.unam.mx} (\href{https://orcid.org/0000-0002-3166-5801}{ORCID})
   \item Alejandro Reyes \email{alejandro.reyes.ds@gmail.com} (\href{https://orcid.org/0000-0001-8717-6612}{ORCID})

@@ -2,7 +2,7 @@
 #' @description This function retrieves all the regulation networks in
 #' regulonDB between TF-TF, GENE-GENE or TF-GENE depending on the parameter
 #' 'type'.
-#' @param regulondb A regulondb object.
+#' @param regulondb A [regulondb()] object.
 #' @param regulator Name of TF or gene that acts as regulator. If `NULL`, the
 #' function retrieves all existent networks in the regulonDB.
 #' @param type "TF-GENE", "TF-TF", "GENE-GENE"
@@ -29,7 +29,8 @@
 #'     )
 #'
 #' ## Retrieve regulation of 'araC'
-#' get_regulatory_network(e_coli_regulondb, regulator = "AraC", type = "TF-GENE")
+#' get_regulatory_network(e_coli_regulondb, regulator = "AraC",
+#'     type = "TF-GENE")
 #'
 #' ## Retrieve all GENE-GENE networks
 #' get_regulatory_network(e_coli_regulondb, type = "GENE-GENE")
@@ -47,7 +48,8 @@
 #' }
 #'
 #' @export
-#' @importFrom RCy3 cytoscapePing createNetworkFromDataFrames setEdgeColorMapping setVisualStyle
+#' @importFrom RCy3 cytoscapePing createNetworkFromDataFrames
+#' setEdgeColorMapping setVisualStyle
 
 get_regulatory_network <-
     function(regulondb,

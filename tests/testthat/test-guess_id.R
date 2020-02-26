@@ -10,10 +10,10 @@ test_that("guess_id works ", {
             database_version = "prueba"
         )
 
-    expect_error(guess_id(1))
-    expect_error(guess_id(c("araC","araG")))
-    expect_length(guess_id("araC"), 1)
-    expect_length(guess_id("b0064"), 1)
-    expect_length(guess_id("ECK120000050"), 1)
+    expect_error(guess_id(1, regdb))
+    expect_error(guess_id(c("araC","araG"), regdb))
+    expect_length(guess_id("araC", regdb), 1)
+    expect_length(guess_id("b0064", regdb), 1)
+    expect_length(guess_id("ECK120000050", regdb), 1)
 
 })

@@ -7,7 +7,7 @@
 build_condition(regulondb, dataset, filters, operator, interval, partialmatch)
 }
 \arguments{
-\item{regulondb}{A regulondb object.}
+\item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 
 \item{dataset}{dataset of interest}
 

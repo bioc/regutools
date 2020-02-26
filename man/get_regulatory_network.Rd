@@ -12,7 +12,7 @@ get_regulatory_network(
 )
 }
 \arguments{
-\item{regulondb}{A regulondb object.}
+\item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 
 \item{regulator}{Name of TF or gene that acts as regulator. If \code{NULL}, the
 function retrieves all existent networks in the regulonDB.}
@@ -43,7 +43,8 @@ e_coli_regulondb <-
     )
 
 ## Retrieve regulation of 'araC'
-get_regulatory_network(e_coli_regulondb, regulator = "AraC", type = "TF-GENE")
+get_regulatory_network(e_coli_regulondb, regulator = "AraC",
+    type = "TF-GENE")
 
 ## Retrieve all GENE-GENE networks
 get_regulatory_network(e_coli_regulondb, type = "GENE-GENE")

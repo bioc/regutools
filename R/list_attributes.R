@@ -5,7 +5,7 @@
 #' @author Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,
 #' José Alquicira Hernández, Joselyn Chavez
 #' @keywords data retrieval, attributes
-#' @param regulondb A regulondb object.
+#' @param regulondb A [regulondb()] object.
 #' @param dataset Dataset of interest. The name should correspond to a table of
 #' the database.
 #' @return A character vector with the field names.
