@@ -31,14 +31,14 @@
 #' ## Get genes providing Genomic Ranges
 #' get_dna_objects(e_coli_regulondb, from = 5000, to = 10000)
 #'
-#' ## Get aditional elements within Genomic Ranges
+#' ## Get aditional elements within genomic positions
 #' get_dna_objects(e_coli_regulondb, from = 5000, to = 10000, elements = c("gene", "promoter"))
 #' @export
 get_dna_objects <-
     function(regulondb,
              genome = "eschColi_K12",
              from = 0,
-             to = 5000,
+             to = 4641628,
              elements = "gene") {
         # validate ranges
         if (!is.numeric(from) || !is.numeric(to)) {
