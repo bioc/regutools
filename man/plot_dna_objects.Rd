@@ -46,13 +46,13 @@ e_coli_regulondb <-
         genome_version = "1"
     )
 
-## Plot genes from E. coli using default parameters
+## Plot some genes from E. coli using default parameters
 plot_dna_objects(e_coli_regulondb)
 
 ## Plot genes providing Genomic Ranges
 plot_dna_objects(e_coli_regulondb, from = 5000, to = 10000)
 
-## Plot aditional elements within Genomic Ranges
+## Plot aditional elements within genomic positions
 plot_dna_objects(e_coli_regulondb, from = 5000, to = 10000, elements = c("gene", "promoter"))
 }
 \author{
