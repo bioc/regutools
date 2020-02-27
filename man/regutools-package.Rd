@@ -25,8 +25,8 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Carmina Barberena-Jonas \email{car.barjon@gmail.com}
-  \item Jesus E. Sotelo-Fonseca \email{jemilianosf@gmail.com}
+  \item Carmina Barberena-Jonas \email{car.barjon@gmail.com} (\href{https://orcid.org/0000-0001-7413-638X}{ORCID})
+  \item Jesus E. Sotelo-Fonseca \email{jemilianosf@gmail.com} (\href{https://orcid.org/0000-0003-1600-2396}{ORCID})
   \item Leonardo Collado-Torres \email{lcolladotor@gmail.com} (\href{https://orcid.org/0000-0003-2140-308X}{ORCID})
   \item Alejandro Reyes \email{alejandro.reyes.ds@gmail.com} (\href{https://orcid.org/0000-0001-8717-6612}{ORCID})
 }

@@ -51,7 +51,6 @@
 #'
 #' @export
 #' @importFrom stats complete.cases
-#' @importFrom data.table melt
 
 get_regulatory_summary <- function(regulondb, gene_regulators) {
     regulation <- gene_regulators
