@@ -13,7 +13,7 @@ author:
     email: joselynchavezf@gmail.com
   - name: Jesus Emiliano Sotelo-Fonseca
     affiliation:
-    - *langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
+    - &langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
     - *first
     email: jemiliano@gmail.com
   - name: Jose Alquicira Hernandez
