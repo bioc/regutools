@@ -4,7 +4,7 @@ Version: 0.99.0
 Date: 2020-02-26
 Authors@R: c(
     person("Carmina", "Barberena-Jonas", email = "car.barjon@gmail.com",
-        role = c("aut")),
+        role = c("aut"), comment = c(ORCID = "0000-0001-7413-638X")),
     person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com",
         role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591")),
     person(c("Jesus", "E."), "Sotelo-Fonseca", email = "jemilianosf@gmail.com",
