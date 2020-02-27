@@ -1,5 +1,5 @@
-context("plot_granges")
-test_that("output with plot_map = FALSE is a GRanges", {
+context("plot_dna_objects")
+test_that("plot_dna_objects output is a GRanges object", {
     ## Connect to the RegulonDB database if necessary
     if (!exists('regulondb_conn'))
         regulondb_conn <- connect_database()
@@ -13,29 +13,18 @@ test_that("output with plot_map = FALSE is a GRanges", {
             database_version = "prueba"
         )
     reg_result <-
-        plot_GRanges(regdb,
+        plot_dna_objects(regdb,
             from = 5000,
-            to = 10000,
-            plot_map = FALSE)
+            to = 10000,)
     expect_equivalent(class(reg_result), "GRanges")
 })
 
 
-test_that("function with plot_map = NULL causes error", {
-    expect_error(plot_GRanges(
-        e_coli_regulondb,
-        from = 5000,
-        to = 10000,
-        plot_map = NULL
-    ))
-})
-
 test_that("non-valid genomic elements causes error ", {
-    expect_error(plot_GRanges(
+    expect_error(plot_dna_objects(
         regdb,
         from = 5000,
         to - 10000,
-        plot_map = FALSE,
         elements = c("gene", "promotr")
     ))
 })
