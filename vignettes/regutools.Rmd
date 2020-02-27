@@ -11,11 +11,11 @@ author:
     - &ibt Instituto de Biotecnología, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
     - *first
     email: joselynchavezf@gmail.com
-  - name: Jesus Emiliano Sotelo Fonseca
+  - name: Jesus Emiliano Sotelo-Fonseca
     affiliation:
-    - *lanbebio 
+    - *lanbebio Unidad de Genómica Avanzada, Laboratorio Nacional de Genómica para la Biodiversidad (Langebio), Centro de Investigación y de Estudios Avanzados del IPN, Irapuato, Guanajuato, Mexico.
     - *first
-    email: jesus.sotelo@cinvestav.mx
+    email: jemiliano@gmail.com
   - name: Jose Alquicira Hernandez
     affiliation:
     - &ccg Centro de Ciencias Genómicas, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
