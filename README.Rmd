@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 # regutools
 
 <!-- badges: start -->
@@ -21,6 +22,8 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/ComunidadBioInfo/regutools/branch/master/graphs/badge.svg)](https://codecov.io/gh/ComunidadBioInfo/regutools?branch=master)
 [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/regutools.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/regutools)
 <!-- badges: end -->
+
+<img src="man/figures/logo.png" align="right" /> 
 
 The goal of `regutools` is to provide an R interface for extracting and processing data from [RegulonDB](http://regulondb.ccg.unam.mx/). This package was created as a collaboration by members of the [Community of Bioinformatics Software Developers](https://comunidadbioinfo.github.io/) (CDSB in Spanish).
 
