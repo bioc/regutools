@@ -13,7 +13,7 @@ author:
     email: joselynchavezf@gmail.com
   - name: Jesus Emiliano Sotelo-Fonseca
     affiliation:
-    - *lanbebio Unidad de Genómica Avanzada, Laboratorio Nacional de Genómica para la Biodiversidad (Langebio), Centro de Investigación y de Estudios Avanzados del IPN, Irapuato, Guanajuato, Mexico.
+    - *langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
     - *first
     email: jemiliano@gmail.com
   - name: Jose Alquicira Hernandez
