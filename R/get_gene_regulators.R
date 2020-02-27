@@ -73,13 +73,12 @@ get_gene_regulators <-
             split_ids <- split(x  = genes , f = gene_guesses)
 
             # Get synonyms for each group
-            names_list <- list()
-            for (id in names(split_ids)){
-                names_list[[id]] <- get_gene_synonyms(regulondb,
-                                                      genes = split_ids[[id]],
-                                                      from = id,
-                                                      to = "name")[["name"]]
-            }
+            names_list <- lapply(names(split_ids),function(id) {
+                get_gene_synonyms(regulondb,
+                                  genes = split_ids[[id]],
+                                  from = id,
+                                  to = "name")[["name"]]
+            } )
             # Cat id list
             genes <- unlist(names_list)
             names(genes) <- NULL
