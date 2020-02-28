@@ -7,8 +7,7 @@
 get_dna_objects(
   regulondb,
   genome = "eschColi_K12",
-  from = 0,
-  to = 4641628,
+  grange = GRanges("chr", IRanges(1, 5000)),
   elements = "gene"
 )
 }
@@ -17,14 +16,14 @@ get_dna_objects(
 
 \item{genome}{A valid UCSC genome name.}
 
-\item{from}{A \code{integer(1)} specifying the left position.}
-
-\item{to}{A \code{integer(1)} specifying the right position.}
-
 \item{elements}{A character vector specifying which annotation elements to
 plot. It can be any from: \code{"-10 promoter box"}, \code{"-35 promoter box"},
 \code{"gene"}, \code{"promoter"}, \code{"Regulatory Interaction"}, \code{"sRNA interaction"},
 or \code{"terminator"}.}
+
+\item{from}{A \code{integer(1)} specifying the left position.}
+
+\item{to}{A \code{integer(1)} specifying the right position.}
 }
 \value{
 \code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object with the elements found.

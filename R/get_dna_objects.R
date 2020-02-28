@@ -37,13 +37,12 @@
 get_dna_objects <-
     function(regulondb,
              genome = "eschColi_K12",
-             from = 0,
-             to = 4641628,
+             grange = GRanges("chr", IRanges(1, 5000) ),
              elements = "gene") {
         # validate ranges
-        if (!is.numeric(from) || !is.numeric(to)) {
-            stop("Parameter 'from' and 'to' must be a number", call. = FALSE)
-        }
+        # if (!is.numeric(from) || !is.numeric(to)) {
+        #     stop("Parameter 'from' and 'to' must be a number", call. = FALSE)
+        # }
 
         valid_elements <- c(
             "-10 promoter box",
@@ -70,7 +69,7 @@ get_dna_objects <-
         dna_objects <- regutools::get_dataset(
             regulondb,
             dataset = "DNA_OBJECTS",
-            filters = list(posright = c(from, to),
+            filters = list(posright = c(grange@ranges@start, grange@ranges@start + grange@ranges@width),
                            type = elements),
             interval = "posright",
             output_format = "GRanges"

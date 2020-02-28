@@ -6,6 +6,8 @@
 \alias{regutools-package}
 \title{regutools: regutools: an R package for data extraction from RegulonDB}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 This package provides an interface to the RegulonDB
     http://regulondb.ccg.unam.mx/ database such that you can query it using
     R and easily work with Bioconductor packages. This package was created
