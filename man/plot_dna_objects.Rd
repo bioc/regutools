@@ -7,8 +7,7 @@
 plot_dna_objects(
   regulondb,
   genome = "eschColi_K12",
-  from = 0,
-  to = 5000,
+  grange = GRanges("chr", IRanges(1, 5000)),
   elements = "gene"
 )
 }
@@ -17,9 +16,7 @@ plot_dna_objects(
 
 \item{genome}{A valid UCSC genome name.}
 
-\item{from}{A \code{integer(1)} specifying the left position.}
-
-\item{to}{A \code{integer(1)} specifying the right position.}
+\item{grange}{A \code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object indicating position left and right.}
 
 \item{elements}{A character vector specifying which annotation elements to
 plot. It can be any from: \code{"-10 promoter box"}, \code{"-35 promoter box"},
@@ -50,10 +47,10 @@ e_coli_regulondb <-
 plot_dna_objects(e_coli_regulondb)
 
 ## Plot genes providing Genomic Ranges
-plot_dna_objects(e_coli_regulondb, from = 5000, to = 10000)
+plot_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)) )
 
 ## Plot aditional elements within genomic positions
-plot_dna_objects(e_coli_regulondb, from = 5000, to = 10000, elements = c("gene", "promoter"))
+plot_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)), elements = c("gene", "promoter"))
 }
 \author{
 Joselyn Chavez
