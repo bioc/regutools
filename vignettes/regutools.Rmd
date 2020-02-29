@@ -292,6 +292,46 @@ get_dataset(
 )
 ```
 
+## Retrieving genomic elements
+
+Based on genomic coordinates, the code below retrieves all genomic elements whose positions lie between the coordinates provided as a *GRanges* object. If no aditional parameters are provided, the result will retrieve genes that relies within the first 5000pb from the E. coli genome. 
+
+```{r 'genomic_elements', echo = TRUE }
+get_dna_objects(e_coli_regulondb)
+```
+
+Especific genomic positions can be provided within the parameter `grange`. It is important to provide a genomic range that covers as minimal the length of one genomic element.
+
+```{r 'especific_ranges', echo = TRUE }
+grange = GenomicRanges::GRanges("chr", 
+                                IRanges::IRanges(5000, 10000))
+get_dna_objects(e_coli_regulondb,  grange)
+```
+
+Aditional genomic elements such as "-35 promoter box", "gene", "promoter", "Regulatory Interaction", "sRNA interaction", or "terminator" can be selected.
+
+```{r 'aditional_elements', echo = TRUE}
+grange = GenomicRanges::GRanges("chr", 
+                                IRanges::IRanges(5000, 10000))
+get_dna_objects(e_coli_regulondb, grange , elements = c("gene", "promoter"))
+```
+
+Evenmore, the genomic elements retrieved can be observed in a Genome Browser-like plot. The genomic elements are annotated using a UCSC genome as reference, it is important to provide a valid chromosome name for annotation purpose.
+
+```{r 'plot_elements', echo = TRUE}
+e_coli_regulondb <-
+    regulondb(
+        database_conn = regulondb_conn,
+        organism = "chr",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000))
+plot_dna_objects(e_coli_regulondb, grange, elements = c("gene", "promoter"))
+
+```
+
 ## Complex filters
 
 The examples so far have considered queries in which the results are filtered according to single fields from tables. In order to build queries with filters from more than one field, several filters names can be passed as a list to the `filters=` argument. Additionally the `and=` argument is used to specify whether the filtering conditions of the result of the query must be satisfied (`and=TRUE`) or if satisfying a single condition is enough (`and=FALSE`). 
