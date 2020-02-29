@@ -75,7 +75,6 @@ bib <- c(
     AnnotationHub = citation('AnnotationHub'),
     BiocStyle = citation('BiocStyle'),
     Biostrings = citation('Biostrings'),
-    data.table = citation('data.table'),
     DBI = citation('DBI'),
     GenomicRanges = citation('GenomicRanges'),
     Gviz = citation('Gviz'),
