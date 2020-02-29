@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_dna_objects.R
 \name{get_dna_objects}
 \alias{get_dna_objects}
-\title{Plot genomic elements from regulonDB}
+\title{Retrieve genomic elements from regulonDB}
 \usage{
 get_dna_objects(
   regulondb,
@@ -27,7 +27,7 @@ or \code{"terminator"}.}
 \code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object with the elements found.
 }
 \description{
-Plot genomic elements from regulonDB
+Retrieve genomic elements from regulonDB
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
@@ -46,10 +46,10 @@ e_coli_regulondb <-
 get_dna_objects(e_coli_regulondb)
 
 ## Get genes providing Genomic Ranges
-get_dna_objects(e_coli_regulondb, grange = GRanges("chr", IRanges(5000, 10000)) )
+get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges(5000, 10000)) )
 
 ## Get aditional elements within genomic positions
-get_dna_objects(e_coli_regulondb, grange = GRanges("chr", IRanges(5000, 10000)), elements = c("gene", "promoter"))
+get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges(5000, 10000)), elements = c("gene", "promoter"))
 }
 \author{
 Joselyn Chavez
