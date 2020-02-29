@@ -14,8 +14,15 @@ test_that("non-valid genomic elements causes error", {
         )
     expect_error(plot_dna_objects(
         regdb,
-        from = 5000,
-        to - 10000,
         elements = c("gene", "promotr")
     ))
 })
+
+
+test_that("non-valid granges causes error", {
+    expect_error(plot_dna_objects(
+        regdb,
+        grange = GRanges("chr", IRanges(5000, "a"))
+    ))
+})
+
