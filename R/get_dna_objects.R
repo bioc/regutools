@@ -39,10 +39,6 @@ get_dna_objects <-
              genome = "eschColi_K12",
              grange = GRanges("chr", IRanges(1, 5000) ),
              elements = "gene") {
-        # validate ranges
-        # if (!is.numeric(from) || !is.numeric(to)) {
-        #     stop("Parameter 'from' and 'to' must be a number", call. = FALSE)
-        # }
 
         valid_elements <- c(
             "-10 promoter box",
