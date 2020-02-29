@@ -16,14 +16,12 @@ get_dna_objects(
 
 \item{genome}{A valid UCSC genome name.}
 
+\item{grange}{A \code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object indicating position left and right.}
+
 \item{elements}{A character vector specifying which annotation elements to
 plot. It can be any from: \code{"-10 promoter box"}, \code{"-35 promoter box"},
 \code{"gene"}, \code{"promoter"}, \code{"Regulatory Interaction"}, \code{"sRNA interaction"},
 or \code{"terminator"}.}
-
-\item{from}{A \code{integer(1)} specifying the left position.}
-
-\item{to}{A \code{integer(1)} specifying the right position.}
 }
 \value{
 \code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object with the elements found.
