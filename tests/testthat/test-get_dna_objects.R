@@ -24,3 +24,11 @@ test_that("non-valid genomic elements causes error", {
         elements = c("gene", "promotr")
     ))
 })
+
+
+test_that("non-valid granges causes error", {
+    expect_error(get_dna_objects(
+        regdb,
+        grange = GRanges("chr", IRanges(5000, "a"))
+    ))
+})
