@@ -11,6 +11,7 @@
 #' @return [GenomicRanges::GRanges-class()] object with the elements found.
 #' @importFrom Gviz GeneRegionTrack plotTracks GenomeAxisTrack AnnotationTrack
 #' @importFrom GenomicRanges GRanges
+#' @importFrom IRanges IRanges
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
 #' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
@@ -28,10 +29,10 @@
 #' get_dna_objects(e_coli_regulondb)
 #'
 #' ## Get genes providing Genomic Ranges
-#' get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges(5000, 10000)) )
+#' get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)) )
 #'
 #' ## Get aditional elements within genomic positions
-#' get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges(5000, 10000)), elements = c("gene", "promoter"))
+#' get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)), elements = c("gene", "promoter"))
 #' @export
 get_dna_objects <-
     function(regulondb,
