@@ -9,8 +9,8 @@ c(
     bibentry(bibtype="manual",
         title = "regutools: an R package for data extraction from RegulonDB",
         author = personList(
+            as.person("Joselyn Chávez"),
             as.person("Carmina Barberena-Jonas"),
-            as.person("Joselyn Chavez"),
             as.person("Jesus Emiliano Sotelo-Fonseca"),
             as.person("Jose Alquicira-Hernandez"),
             as.person("Heladia Salgado"),

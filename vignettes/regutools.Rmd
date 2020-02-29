@@ -1,16 +1,16 @@
 ---
 title: "regutools: an R package for the extraction of gene regulatory networks from RegulonDB"
 author:
-  - name: Carmina Barberena Jonas
-    affiliation:
-    - &langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
-    - &first Equal contribution
-    email: car.barjon@gmail.com
   - name: Joselyn Chávez
     affiliation:
     - &ibt Instituto de Biotecnología, Universidad Nacional Autónoma de México, Cuernavaca, Morelos, MX
-    - *first
+    - &first Equal contribution
     email: joselynchavezf@gmail.com
+  - name: Carmina Barberena Jonas
+    affiliation:
+    - &langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
+    - *first
+    email: car.barjon@gmail.com
   - name: Jesus Emiliano Sotelo-Fonseca
     affiliation:
     - &langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
