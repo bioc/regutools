@@ -31,7 +31,6 @@ Imports:
     AnnotationDbi,
     AnnotationHub,
     Biostrings,
-    data.table,
     DBI,
     GenomicRanges,
     Gviz,
