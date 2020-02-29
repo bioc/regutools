@@ -102,14 +102,14 @@ Please run this yourself to check for any updates on how to cite
 ``` r
 citation('regutools')
 #> 
-#> Barberena-Jonas C, Chavez J, Sotelo-Fonseca JE, Alquicira-Hernandez J,
+#> Chávez J, Barberena-Jonas C, Sotelo-Fonseca JE, Alquicira-Hernandez J,
 #> Salgado H, Collado-Torres L, Reyes A (2020). _regutools: an R package
 #> for data extraction from RegulonDB_. doi: 10.18129/B9.bioc.regutools
 #> (URL: https://doi.org/10.18129/B9.bioc.regutools),
 #> https://github.com/comunidadbioinfo/regutools - R package version
 #> 0.99.0, <URL: http://www.bioconductor.org/packages/regutools>.
 #> 
-#> Barberena-Jonas C, Chavez J, Sotelo-Fonseca JE, Alquicira-Hernandez J,
+#> Chávez J, Barberena-Jonas C, Sotelo-Fonseca JE, Alquicira-Hernandez J,
 #> Salgado H, Collado-Torres L, Reyes A (2020). "Programmatic access to
 #> bacterial regulatory networks with regutools." _bioRxiv_. doi:
 #> 10.1101/xxxyyy (URL: https://doi.org/10.1101/xxxyyy), <URL:

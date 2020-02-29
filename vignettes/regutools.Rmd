@@ -13,7 +13,7 @@ author:
     email: car.barjon@gmail.com
   - name: Jesus Emiliano Sotelo-Fonseca
     affiliation:
-    - &langebio LANGEBIO, Cinvestav, Irapuato, Guanajuato, MX
+    - *langebio
     - *first
     email: jemiliano@gmail.com
   - name: Jose Alquicira Hernandez
@@ -439,7 +439,6 @@ The `r Biocpkg('regutools')` package `r citep(bib[['regutools']])` was made poss
 * `r Biocpkg('AnnotationHub')` `r citep(bib[['AnnotationHub']])`
 * `r Biocpkg('BiocStyle')` `r citep(bib[['BiocStyle']])`
 * `r Biocpkg('Biostrings')` `r citep(bib[['Biostrings']])`
-* `r CRANpkg('data.table')` `r citep(bib[['data.table']])`
 * `r CRANpkg('DBI')` `r citep(bib[['DBI']])`
 * `r Biocpkg('GenomicRanges')` `r citep(bib[['GenomicRanges']])`
 * `r Biocpkg('Gviz')` `r citep(bib[['Gviz']])`
