@@ -10,6 +10,7 @@
 #' @author Joselyn Chavez
 #' @return [GenomicRanges::GRanges-class()] object with the elements found.
 #' @importFrom Gviz GeneRegionTrack plotTracks GenomeAxisTrack AnnotationTrack
+#' @importFrom GenomicRanges GRanges
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
 #' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
