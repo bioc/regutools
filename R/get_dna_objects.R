@@ -29,10 +29,10 @@
 #' get_dna_objects(e_coli_regulondb)
 #'
 #' ## Get genes providing Genomic Ranges
-#' get_dna_objects(e_coli_regulondb, from = 5000, to = 10000)
+#' get_dna_objects(e_coli_regulondb, grange = GRanges("chr", IRanges(5000, 10000)) )
 #'
 #' ## Get aditional elements within genomic positions
-#' get_dna_objects(e_coli_regulondb, from = 5000, to = 10000, elements = c("gene", "promoter"))
+#' get_dna_objects(e_coli_regulondb, grange = GRanges("chr", IRanges(5000, 10000)), elements = c("gene", "promoter"))
 #' @export
 get_dna_objects <-
     function(regulondb,

@@ -12,7 +12,7 @@ test_that("output is a GRanges object", {
             genome_version = "prueba",
             database_version = "prueba"
         )
-    reg_result <- get_dna_objects(regdb, from = 5000, to = 10000)
+    reg_result <- get_dna_objects(regdb)
 
     expect_equivalent(class(reg_result), "GRanges")
 
@@ -21,8 +21,6 @@ test_that("output is a GRanges object", {
 test_that("non-valid genomic elements causes error", {
     expect_error(get_dna_objects(
         regdb,
-        from = 5000,
-        to - 10000,
         elements = c("gene", "promotr")
     ))
 })
