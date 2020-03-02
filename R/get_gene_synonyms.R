@@ -43,7 +43,7 @@ get_gene_synonyms <-
             stop("'from' should be only one of name, bnumber or GI.", call. = FALSE)
         }
 
-        if (class(genes) != "character") {
+        if(!is( genes, "character") ){
             stop("'genes' should be a character vector of gene identifiers.",
                 call. = FALSE)
         }

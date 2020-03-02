@@ -90,9 +90,9 @@ regulondb <-
         genome_version,
         database_version) {
         stopifnot(is(database_conn, 'SQLiteConnection'))
-        stopifnot(is(class(organism), "character"))
-        stopifnot(is(class(genome_version), "character"))
-        stopifnot(is(class(database_version), "character"))
+        stopifnot(is(organism, "character"))
+        stopifnot(is(genome_version, "character"))
+        stopifnot(is(database_version, "character"))
         new(
             "regulondb",
             database_conn,

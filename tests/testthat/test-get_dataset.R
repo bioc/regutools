@@ -33,7 +33,7 @@ test_that("Function get dataset works as expected", {
             regdb,
             dataset = "GENE",
             attributes = c("posleft", "posright", "name", "strand"),
-            and = F,
+            and = FALSE,
             output_format = "GRanges"
         )
     ),

@@ -53,7 +53,7 @@ build_condition <-
         operator,
         interval,
         partialmatch) {
-        if (class(filters) == "list") {
+        if (is(filters, "list")) {
             if (!all(names(filters) %in% list_attributes(regulondb, dataset))) {
                 non.existing.attrs.index <-
                     names(filters) %in% list_attributes(regulondb, dataset)

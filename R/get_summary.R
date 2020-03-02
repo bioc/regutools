@@ -57,9 +57,9 @@ get_regulatory_summary <- function(regulondb, gene_regulators) {
     # Check that class is regulation or character
 
     #Regulation of a gene list
-    if (class(regulation) ==  "character") {
+    if (is(regulation,  "character")) {
         regulation <- get_gene_regulators(regulondb, genes = regulation)
-    } else if (class(regulation) != "regulondb_result") {
+    } else if (!is(regulation, "regulondb_result")) {
         stop(
             "The parameter gene_regulators must be a regulondb_result object
             resulting from a call to get_gene_regulators or a vector of genes.",

@@ -48,7 +48,8 @@ get_gene_regulators <-
         output.type = "TF") {
         stopifnot(validObject(regulondb))
         #Check genes parameter class
-        if (!class(genes) %in% c("vector", "list", "character")) {
+##        if (!class(genes) %in% c("vector", "list", "character")) {
+        if (!( is( genes, "vector" ) | is( genes, "list" ) | is( genes, "character" ) ) ){
             stop("Parameter 'genes' must be a character vector or list.",
                 call. = FALSE)
         }

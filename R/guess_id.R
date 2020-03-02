@@ -33,7 +33,7 @@ guess_id <- function(gene, regulondb) {
     # Function checks
     stopifnot(validObject(regulondb))
 
-    if (class(gene) != "character") {
+    if(!is(gene, "character")) {
         stop("'genes' should be a character vector of gene identifiers.",
             call. = FALSE)
     }

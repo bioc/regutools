@@ -40,7 +40,7 @@ existing_intervals <-
             if (length(x) > 2) {
                 warning("Only the first two values of interval will be considered.",
                     call. = FALSE)
-                x[1:2]
+                x[seq_len(2L)]
 
             } else if (length(x) == 1) {
                 stop("Two values in the interval filter are required. ",
