@@ -14,7 +14,8 @@
 #' @importFrom IRanges IRanges
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if(!exists('regulondb_conn'))
+#' regulondb_conn <- connect_database()
 #'
 #' ## Build the regulondb object
 #' e_coli_regulondb <-
@@ -29,10 +30,16 @@
 #' get_dna_objects(e_coli_regulondb)
 #'
 #' ## Get genes providing Genomic Ranges
-#' get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)) )
+#' grange <- GenomicRanges::GRanges("chr",
+#'             IRanges::IRanges(5000, 10000)
+#'             )
+#' get_dna_objects(e_coli_regulondb, grange)
 #'
 #' ## Get aditional elements within genomic positions
-#' get_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)), elements = c("gene", "promoter"))
+#' get_dna_objects(e_coli_regulondb,
+#'                 grange,
+#'                 elements = c("gene", "promoter")
+#'                 )
 #' @export
 get_dna_objects <-
     function(regulondb,

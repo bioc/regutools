@@ -11,9 +11,6 @@ guess_id(gene, regulondb)
 
 \item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 }
-\value{
-A character vector with the gene_id type
-}
 \description{
 Given a gene identifier, return the most likely gene_id type.
 }

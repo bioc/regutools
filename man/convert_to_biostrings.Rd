@@ -11,7 +11,6 @@ convert_to_biostrings(regulondb_result, seq_type = "DNA")
 
 \item{seq_type}{A character string with either DNA or protein, specyfing what}
 }
-\value{A Biostrings object}
 \description{
 This function converts, when possible, a regulon_result object into a Biostrings object.
 }

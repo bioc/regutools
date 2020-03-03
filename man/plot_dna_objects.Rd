@@ -32,7 +32,8 @@ Plot annotation elements within genomic region
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if(!exists('regulondb_conn'))
+regulondb_conn <- connect_database()
 
 ## Build the regulondb object
 e_coli_regulondb <-
@@ -47,10 +48,16 @@ e_coli_regulondb <-
 plot_dna_objects(e_coli_regulondb)
 
 ## Plot genes providing Genomic Ranges
-plot_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)) )
+grange <- GenomicRanges::GRanges("chr",
+            IRanges::IRanges(5000, 10000)
+            )
+plot_dna_objects(e_coli_regulondb, grange)
 
 ## Plot aditional elements within genomic positions
-plot_dna_objects(e_coli_regulondb, grange = GenomicRanges::GRanges("chr", IRanges::IRanges(5000, 10000)), elements = c("gene", "promoter"))
+plot_dna_objects(e_coli_regulondb,
+                 grange,
+                 elements = c("gene", "promoter")
+                 )
 }
 \author{
 Joselyn Chavez

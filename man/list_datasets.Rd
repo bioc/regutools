@@ -9,9 +9,6 @@ list_datasets(regulondb)
 \arguments{
 \item{regulondb}{A regulondb class.}
 }
-\value{
-A character vector with the available tables.
-}
 \description{
 This function returns a vector of all available tables from a
 regulondb class.
