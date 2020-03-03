@@ -9,6 +9,7 @@ convert_to_granges(regulondb_result)
 \arguments{
 \item{regulondb_result}{A regulon_result object.}
 }
+\value{A GRanges object}
 \description{
 This function converts, when possible, a regulon_result object into a GRanges object.
 }
