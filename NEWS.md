@@ -1,3 +1,9 @@
+# regutools 0.99.2
+
+* Removed the regutools.Rproj file (you can still have it, but it's not
+version controlled).
+* Bump R depends to 4.0 as required by BiocCheck. We'll see if it breaks.
+
 # regutools 0.99.1
 
 * Address as many errors, warnings and notes as possible from
