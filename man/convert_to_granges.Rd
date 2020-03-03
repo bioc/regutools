@@ -9,8 +9,28 @@ convert_to_granges(regulondb_result)
 \arguments{
 \item{regulondb_result}{A regulon_result object.}
 }
+\value{
+A \link[GenomicRanges:GRanges-class]{GRanges} object.
+}
 \description{
 This function converts, when possible, a regulon_result object into a GRanges object.
+}
+\examples{
+## Connect to the RegulonDB database if necessary
+if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_conn = regulondb_conn,
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## Obtain all the information from the "GENE" dataset
+convert_to_granges(get_dataset(e_coli_regulondb, dataset = "GENE"))
+
 }
 \author{
 Alejandro Reyes

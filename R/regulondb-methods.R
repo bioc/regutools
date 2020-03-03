@@ -4,6 +4,7 @@
 #' @param object A regulondb object
 #' @docType methods
 #' @rdname regulondb-methods
+#' @return A [regulondb][regutools::regulondb] object.
 setMethod("show",
     signature(object = "regulondb"),
     function(object) {

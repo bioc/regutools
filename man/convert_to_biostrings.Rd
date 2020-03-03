@@ -11,8 +11,28 @@ convert_to_biostrings(regulondb_result, seq_type = "DNA")
 
 \item{seq_type}{A character string with either DNA or protein, specyfing what}
 }
+\value{
+A \link[Biostrings:XStringSet-class]{XStringSet} object.
+}
 \description{
 This function converts, when possible, a regulon_result object into a Biostrings object.
+}
+\examples{
+## Connect to the RegulonDB database if necessary
+if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+
+## Build the regulon db object
+e_coli_regulondb <-
+    regulondb(
+        database_conn = regulondb_conn,
+        organism = "E.coli",
+        database_version = "1",
+        genome_version = "1"
+    )
+
+## Obtain all the information from the "GENE" dataset
+convert_to_biostrings(get_dataset(e_coli_regulondb, dataset = "GENE"))
+
 }
 \author{
 Alejandro Reyes

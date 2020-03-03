@@ -12,6 +12,7 @@
 #' @keywords regulation retrieval, TF, networks,
 #' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,
 #' José Alquicira Hernández, Joselyn Chávez
+#' @return A [regulondb_result][regutools::regulondb_result-class] object.
 #' @examples
 
 #' ## Connect to the RegulonDB database if necessary
@@ -93,8 +94,10 @@ get_regulatory_network <-
                     )
                 }
             )
-            colnames(network) <- c("source", "target", "interaction")
-            my_new_network <- createNetworkFromDataFrames(edges =  network)
+            colnames(network) <-
+                c("source", "target", "interaction")
+            my_new_network <-
+                createNetworkFromDataFrames(edges =  network)
             setVisualStyle('Sample1')
             setEdgeColorMapping(
                 'interaction',

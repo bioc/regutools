@@ -4,6 +4,7 @@
 #' @param regulondb A [regulondb()] object.
 #' @keywords geneid, bnumber, gi, synonyms
 #' @author Jesús Emiliano Sotelo Fonseca
+#' @return A `character(1)` vector with the name column guessed value.
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
 #' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()

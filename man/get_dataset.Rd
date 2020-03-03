@@ -69,7 +69,7 @@ get_dataset(e_coli_regulondb,
 
 ## From "GENE" dataset, get the gene name, strand, posright, product name
 ## and id of all genes regulated with name like "ara", strand as "forward"
-## with a position rigth between 2000 and 40000
+## with a position right between 2000 and 40000
 get_dataset(
     e_coli_regulondb,
     dataset = "GENE",

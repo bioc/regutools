@@ -69,6 +69,7 @@ setValidity("regulondb", function(object) {
 #' @param genome_version A character vector with the version of the genome build.
 #' @param database_version A character vector with the version of regulondb
 #' build.
+#' @return A [regulondb][regutools::regulondb] object.
 #' @examples
 #'
 #' ## Connect to the RegulonDB database if necessary

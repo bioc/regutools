@@ -1,7 +1,7 @@
 Package: regutools
 Title: regutools: an R package for data extraction from RegulonDB
-Version: 0.99.0
-Date: 2020-02-26
+Version: 0.99.1
+Date: 2020-03-03
 Authors@R: c(
     person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com",
         role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591")),
@@ -53,6 +53,6 @@ Suggests:
 URL: https://github.com/ComunidadBioInfo/regutools
 BugReports: https://github.com/ComunidadBioInfo/regutools/issues
 biocViews: AnnotationData, AnnotationHub, Escherichia_coli,
-    FunctionalAnnotation, CustomDBSchema
+    FunctionalAnnotation, CustomDBSchema, Organism, OrganismDb
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

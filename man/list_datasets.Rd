@@ -9,6 +9,9 @@ list_datasets(regulondb)
 \arguments{
 \item{regulondb}{A regulondb class.}
 }
+\value{
+A \code{character()} with the names of the available datasets.
+}
 \description{
 This function returns a vector of all available tables from a
 regulondb class.
@@ -32,6 +35,6 @@ list_datasets(e_coli_regulondb)
 
 }
 \keyword{data}
-\keyword{database,}
-\keyword{datasets,}
-\keyword{retrieval,}
+\keyword{database}
+\keyword{datasets}
+\keyword{retrieval}

@@ -19,6 +19,9 @@ the RegulonDB database made with \code{\link[=connect_database]{connect_database
 \item{database_version}{A character vector with the version of regulondb
 build.}
 }
+\value{
+A \link[regutools:regulondb]{regulondb} object.
+}
 \description{
 The build_regulondb function is a constructor function of a
 regulondb

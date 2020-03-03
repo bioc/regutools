@@ -22,6 +22,9 @@ function retrieves all existent networks in the regulonDB.}
 \item{cytograph}{If TRUE, displays network in Cytoscape. This option
 requires previous instalation and launch of Cytoscape.}
 }
+\value{
+A \link[regutools:regulondb_result-class]{regulondb_result} object.
+}
 \description{
 This function retrieves all the regulation networks in
 regulonDB between TF-TF, GENE-GENE or TF-GENE depending on the parameter

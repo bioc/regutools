@@ -7,6 +7,7 @@
 #' @param to A `character()` specifying one or more of: id, name, bnumber of gi
 #' @keywords geneid, bnumber, gi, synonyms
 #' @author Jesús Emiliano Sotelo Fonseca
+#' @return A [regulondb_result][regutools::regulondb_result-class] object.
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
 #' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()

@@ -2,7 +2,8 @@
 #' @description  This function returns a vector of all available tables from a
 #' regulondb class.
 #' @param regulondb A regulondb class.
-#' @keywords data retrieval, datasets, database,
+#' @keywords data retrieval datasets database
+#' @return A `character()` with the names of the available datasets.
 #' @examples
 #'
 #' ## Connect to the RegulonDB database if necessary

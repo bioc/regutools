@@ -10,6 +10,7 @@
 #' @keywords regulation retrieval, TFs, networks,
 #' @author Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,
 #' José Alquicira Hernández, Joselyn Chávez
+#' @return A [regulondb_result][regutools::regulondb_result-class] object.
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
 #' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()

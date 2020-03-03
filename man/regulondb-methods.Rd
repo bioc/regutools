@@ -11,6 +11,9 @@
 \arguments{
 \item{object}{A regulondb object}
 }
+\value{
+A \link[regutools:regulondb]{regulondb} object.
+}
 \description{
 Methods for regulondb objects
 }

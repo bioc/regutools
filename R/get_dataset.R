@@ -44,7 +44,7 @@
 #'
 #' ## From "GENE" dataset, get the gene name, strand, posright, product name
 #' ## and id of all genes regulated with name like "ara", strand as "forward"
-#' ## with a position rigth between 2000 and 40000
+#' ## with a position right between 2000 and 40000
 #' get_dataset(
 #'     e_coli_regulondb,
 #'     dataset = "GENE",
@@ -100,7 +100,8 @@ get_dataset <-
         if (!all(attributes %in% list_attributes(regulondb, dataset))) {
             non.existing.attrs.index <-
                 attributes %in% list_attributes(regulondb, dataset)
-            non.existing.attrs <- attributes[!non.existing.attrs.index]
+            non.existing.attrs <-
+                attributes[!non.existing.attrs.index]
             stop(
                 "Attribute(s) ",
                 paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
@@ -114,7 +115,8 @@ get_dataset <-
         if (!all(partialmatch %in% list_attributes(regulondb, dataset))) {
             non.existing.attrs.index <-
                 partialmatch %in% list_attributes(regulondb, dataset)
-            non.existing.attrs <- partialmatch[!non.existing.attrs.index]
+            non.existing.attrs <-
+                partialmatch[!non.existing.attrs.index]
             stop("Partialmatch ",
                 paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
                 " do not exist.",
@@ -123,7 +125,8 @@ get_dataset <-
 
         if (!all(partialmatch %in% names(filters))) {
             non.existing.attrs.index <- partialmatch %in% names(filters)
-            non.existing.attrs <- partialmatch[!non.existing.attrs.index]
+            non.existing.attrs <-
+                partialmatch[!non.existing.attrs.index]
             stop("Partialmatch ",
                 paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
                 " not defined in 'filters' ",
@@ -147,7 +150,8 @@ get_dataset <-
                     operator,
                     interval,
                     partialmatch)
-            query <- paste0("SELECT * FROM ", dataset, " WHERE ", cond, ";")
+            query <-
+                paste0("SELECT * FROM ", dataset, " WHERE ", cond, ";")
         } else if (!is.null(attributes) & is.null(filters)) {
             query <-
                 paste0("SELECT ",
@@ -207,7 +211,24 @@ get_dataset <-
 #' @author Alejandro Reyes
 #' @importFrom GenomicRanges GRanges
 #' @importFrom S4Vectors metadata "metadata<-"
+#' @return A [GRanges][GenomicRanges::GRanges-class] object.
 #' @export
+#' @examples
+#' ## Connect to the RegulonDB database if necessary
+#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#'
+#' ## Build the regulon db object
+#' e_coli_regulondb <-
+#'     regulondb(
+#'         database_conn = regulondb_conn,
+#'         organism = "E.coli",
+#'         database_version = "1",
+#'         genome_version = "1"
+#'     )
+#'
+#' ## Obtain all the information from the "GENE" dataset
+#' convert_to_granges(get_dataset(e_coli_regulondb, dataset = "GENE"))
+#'
 convert_to_granges <- function(regulondb_result) {
     if (!is(regulondb_result, "regulondb_result"))
         stop("The input is not a 'regulondb_result' object.")
@@ -246,8 +267,9 @@ convert_to_granges <- function(regulondb_result) {
             stnd[which(is.na(stnd))] <- "*"
             strand(grdata) <- stnd
         }
-        mcols(grdata) <- DataFrame(regulondb_result[keep, !colnames(regulondb_result) %in% c(posLeft, posRight, "strand"), drop =
-                FALSE])
+        mcols(grdata) <-
+            DataFrame(regulondb_result[keep, !colnames(regulondb_result) %in% c(posLeft, posRight, "strand"), drop =
+                    FALSE])
         if (sum(!keep) > 0)
             warning(sprintf(
                 "Dropped %s entries where genomic coordinates were NAs",
@@ -281,7 +303,24 @@ convert_to_granges <- function(regulondb_result) {
 #' @param seq_type A character string with either DNA or protein, specyfing what
 #' @author Alejandro Reyes
 #' @importFrom Biostrings DNAStringSet AAStringSet
+#' @return A [XStringSet][Biostrings::XStringSet-class] object.
 #' @export
+#' @examples
+#' ## Connect to the RegulonDB database if necessary
+#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#'
+#' ## Build the regulon db object
+#' e_coli_regulondb <-
+#'     regulondb(
+#'         database_conn = regulondb_conn,
+#'         organism = "E.coli",
+#'         database_version = "1",
+#'         genome_version = "1"
+#'     )
+#'
+#' ## Obtain all the information from the "GENE" dataset
+#' convert_to_biostrings(get_dataset(e_coli_regulondb, dataset = "GENE"))
+#'
 convert_to_biostrings <-
     function(regulondb_result, seq_type = "DNA") {
         if (!is(regulondb_result, "regulondb_result"))
@@ -291,14 +330,14 @@ convert_to_biostrings <-
         dataset <- regulondb_result@dataset
         if (dataset == "GENE") {
             if (seq_type == "DNA") {
-                func <- DNAStringSet
+                func <- Biostrings::DNAStringSet
                 col_name <- "dna_sequence"
             } else{
-                func <- BStringSet
+                func <- Biostrings::BStringSet
                 col_name <- "product_sequence"
             }
         } else if (dataset == "PROMOTER") {
-            func <- DNAStringSet
+            func <- Biostrings::DNAStringSet
             col_name <- "promoter_sequence"
         } else{
             stop(
@@ -316,7 +355,8 @@ convert_to_biostrings <-
                 )
             )
         }
-        seq_character <- gsub("\\*$", "", regulondb_result[[col_name]])
+        seq_character <-
+            gsub("\\*$", "", regulondb_result[[col_name]])
         keep <- !is.na(seq_character)
         rs <- func(seq_character[which(keep)])
         mcols(rs) <-

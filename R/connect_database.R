@@ -25,8 +25,7 @@
 connect_database <-
     function(path = tempdir(),
         overwrite = FALSE,
-        ah = AnnotationHub::AnnotationHub()
-        ) {
+        ah = AnnotationHub::AnnotationHub()) {
         if (!is.null(ah)) {
             ## Check input
             stopifnot(methods::is(ah, 'AnnotationHub'))
@@ -55,14 +54,14 @@ connect_database <-
         e <- simpleError("Download error")
         if (overwrite) {
             tryCatch(
-                download.file(url = url, destfile),
+                download.file(url = url, destfile, mode = 'wb'),
                 error = function(e)
                     e
             )
         } else {
             if (!file.exists(destfile)) {
                 tryCatch(
-                    download.file(url = url, destfile),
+                    download.file(url = url, destfile, mode = 'wb'),
                     error = function(e)
                         e
                 )

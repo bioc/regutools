@@ -26,6 +26,8 @@
 #'
 #' @export
 get_binding_sites <- function( regulondb, transcription_factor, output_format = "GRanges" ){
+    ## For a BiocCheck NOTE
+    left <- right <- NULL
     if(!output_format %in% c("GRanges", "Biostrings")){
         stop("The parameter 'output_format' must be either 'GRanges' or 'Biostrings'")
     }
