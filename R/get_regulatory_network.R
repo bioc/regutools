@@ -78,7 +78,7 @@ get_regulatory_network <-
                 as.data.frame(get_dataset(
                     regulondb,
                     attributes = c("regulator_name", "regulated_name", "effect"),
-                    filters = list("network_type" = c(type)),
+                    filters = list("network_type" = type),
                     dataset = "NETWORK"
                 ))
         }
@@ -98,11 +98,16 @@ get_regulatory_network <-
                 c("source", "target", "interaction")
             my_new_network <-
                 createNetworkFromDataFrames(edges =  network)
-            setVisualStyle('Sample1')
-            setEdgeColorMapping(
-                'interaction',
-                c('activator', 'repressor', 'dual'),
-                c('#339900', '#CC3300', '#0033CC')
+            # set visual parameters
+            RCy3::setNodeShapeDefault(new.shape = "ELLIPSE")
+            RCy3::setNodeSizeDefault(35)
+            RCy3::setNodeColorDefault(new.color = "#ACE7F9")
+            RCy3::setEdgeLabelMapping(table.column = 'interaction')
+            RCy3::setEdgeColorMapping(
+                table.column = 'interaction',
+                table.column.values = c('activator', 'repressor', 'dual'),
+                colors = c('#339900', '#CC3300', '#0033CC'),
+                mapping.type = "d"
             )
         } else {
             colnames(network) <- c("regulator", "regulated", "effect")
