@@ -82,15 +82,18 @@ build_condition <-
                 }
 
                 condition_intervals <-
-                    existing_intervals(filters, interval, operator, partialmatch)
+                    existing_intervals(filters, interval,
+                                       operator, partialmatch)
                 if ((length(filters) == length(interval))) {
                     condition_intervals <-
-                        existing_intervals(filters, interval, operator, partialmatch)
+                        existing_intervals(filters, interval,
+                                           operator, partialmatch)
                     return(condition_intervals)
                 } else{
                     # non-equal case
                     conditions_nonintervals <-
-                        non_existing_intervals(filters, interval, operator, partialmatch)
+                        non_existing_intervals(filters, interval,
+                                               operator, partialmatch)
                     conditionall <-
                         paste(condition_intervals,
                             conditions_nonintervals,
@@ -100,7 +103,8 @@ build_condition <-
             } else {
                 #NULL case
                 conditions_nonintervals <-
-                    non_existing_intervals(filters, interval, operator, partialmatch)
+                    non_existing_intervals(filters, interval,
+                                           operator, partialmatch)
                 return(conditions_nonintervals)
             }
         } else{
