@@ -103,8 +103,7 @@ build_condition <-
             } else {
                 #NULL case
                 conditions_nonintervals <-
-                    non_existing_intervals(filters, interval,
-                                           operator, partialmatch)
+                    non_existing_intervals(filters, interval, operator, partialmatch)
                 return(conditions_nonintervals)
             }
         } else{
