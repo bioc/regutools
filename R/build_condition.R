@@ -82,8 +82,7 @@ build_condition <-
                 }
 
                 condition_intervals <-
-                    existing_intervals(filters, interval,
-                                       operator, partialmatch)
+                    existing_intervals(filters, interval, operator, partialmatch)
                 if ((length(filters) == length(interval))) {
                     condition_intervals <-
                         existing_intervals(filters, interval,
