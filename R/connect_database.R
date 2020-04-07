@@ -50,7 +50,7 @@ connect_database <-
         destfile <-
             file.path(path, "regulondb_sqlite3_v10.6.2_DM.db")
         url <-
-            "https://www.dropbox.com/s/eod8vdq4fthvjcr/regulondb_v10.6.2_DM_sqlite3.db?dl=1"
+"https://www.dropbox.com/s/eod8vdq4fthvjcr/regulondb_v10.6.2_DM_sqlite3.db?dl=1"
         e <- simpleError("Download error")
         if (overwrite) {
             tryCatch(

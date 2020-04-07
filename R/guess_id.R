@@ -39,7 +39,8 @@ guess_id <- function(gene, regulondb) {
             call. = FALSE)
     }
     if (length(gene) > 1) {
-        stop("'genes' should be a character vector of length one", call. = FALSE)
+        stop("'genes' should be a character vector of length one",
+            call. = FALSE)
     }
 
     gene_id_type <- "name"

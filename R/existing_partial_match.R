@@ -30,7 +30,8 @@ existing_partial_match <-
         existing.partialmatch.index <- names(filters) %in% partialmatch
         existing.partialmatch <- filters[existing.partialmatch.index]
         condition.format.partialmatch <-
-            mapply(paste0, filters[existing.partialmatch.index], "%'", SIMPLIFY = FALSE)
+            mapply(paste0, filters[existing.partialmatch.index], "%'",
+                SIMPLIFY = FALSE)
         condition.format.partialmatch <-
             mapply(
                 paste,

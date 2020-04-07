@@ -22,7 +22,8 @@ non_existing_intervals <-
     function(filters, interval, operator, partialmatch) {
         if (!(length(partialmatch) + length(interval) == length(filters))) {
             non.interv.index <-
-                !((names(filters) %in% interval) | (names(filters) %in% partialmatch))
+                !((names(filters) %in% interval) | (names(filters) %in%
+                                                        partialmatch))
             non.interv <- filters[non.interv.index]
             condition.format.non.interv <-
                 mapply(paste0, filters[non.interv.index], "'", SIMPLIFY = FALSE)

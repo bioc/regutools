@@ -70,12 +70,14 @@ get_regulatory_summary <- function(regulondb, gene_regulators) {
     # Conver onerow to multirow
     if (metadata(regulation)$format == "onerow") {
         regulation <-
-            get_gene_regulators(regulondb, genes = as.character(regulation$genes))
+            get_gene_regulators(regulondb,
+                                genes = as.character(regulation$genes))
     }
 
     # Convert table to multirow
     if (metadata(regulation)$format == "table") {
-        regulation <- get_gene_regulators(regulondb, genes = as.character(rownames(regulation)))
+        regulation <- get_gene_regulators(regulondb,
+                                    genes = as.character(rownames(regulation)))
     }
 
     TF_counts <-
@@ -104,8 +106,8 @@ get_regulatory_summary <- function(regulondb, gene_regulators) {
             #TF name
             regulated_number = x[2],
             #Number of genes regulated per TF
-            regulated_percentage = (as.numeric(x[2]) / length(regulation$genes)) *
-                100,
+            regulated_percentage =
+                (as.numeric(x[2]) / length(regulation$genes)) * 100,
             #Percent of genes in query regulated per TF
             activator = effect["+"],
             #Frequency of activation interactions
@@ -113,7 +115,8 @@ get_regulatory_summary <- function(regulondb, gene_regulators) {
             #Frequency of repression interactions
             dual = effect["+/-"] ,
             #Frequency of dual interactions
-            regulated = paste(TF_data$genes, collapse = ", ")#List of genes regulated per TF
+            regulated = paste(TF_data$genes,
+                            collapse = ", ")#List of genes regulated per TF
         )
 
         return(summary_row)

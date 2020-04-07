@@ -38,7 +38,7 @@ existing_intervals <-
         #If they are more than two, then drop the remaining
         existing.interv <- lapply(existing.interv, function(x) {
             if (length(x) > 2) {
-                warning("Only the first two values of interval will be considered.",
+            warning("Only the first two values of interval will be considered.",
                         call. = FALSE)
                 x[seq_len(2L)]
 

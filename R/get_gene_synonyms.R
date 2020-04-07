@@ -41,7 +41,8 @@ get_gene_synonyms <-
         stopifnot(validObject(regulondb))
 
         if (length(from) > 1) {
-            stop("'from' should be only one of name, bnumber or GI.", call. = FALSE)
+            stop("'from' should be only one of name, bnumber or GI.",
+                call. = FALSE)
         }
 
         if(!is( genes, "character") ){
@@ -55,7 +56,8 @@ get_gene_synonyms <-
         }
 
         if (!from %in% c("id", "name", "bnumber", "gi")) {
-            stop("'from' should be one or more of name, bnumber or GI.", call. = FALSE)
+            stop("'from' should be one or more of name, bnumber or GI.",
+                call. = FALSE)
         }
 
         gene_filter <- list(genes)

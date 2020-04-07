@@ -50,7 +50,8 @@ get_gene_regulators <-
         stopifnot(validObject(regulondb))
         #Check genes parameter class
         ##        if (!class(genes) %in% c("vector", "list", "character")) {
-        if (!( is( genes, "vector" ) | is( genes, "list" ) | is( genes, "character" ) ) ){
+        if (!( is(genes,"vector") | is(genes, "list") | is(genes, "character" )
+            ) ){
             stop("Parameter 'genes' must be a character vector or list.",
                 call. = FALSE)
         }
@@ -67,7 +68,8 @@ get_gene_regulators <-
 
         #Convert GIs to gene names
         # Assign id per gene
-        gene_guesses <- vapply(genes, guess_id, regulondb = regulondb, FUN.VALUE = character(1))
+        gene_guesses <- vapply(genes, guess_id, regulondb = regulondb,
+                                FUN.VALUE = character(1))
 
         # Check that guesses are names
 
@@ -98,7 +100,8 @@ get_gene_regulators <-
             as.data.frame(get_dataset(
                 regulondb,
                 attributes = c("regulated_name", "regulator_name", "effect"),
-                filters = list("regulated_name" = genes, "network_type" = network.type),
+                filters = list("regulated_name" = genes,
+                                "network_type" = network.type),
                 dataset = "NETWORK"
             ))
         colnames(regulation) <- c("genes", "regulators", "effect")

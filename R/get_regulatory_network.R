@@ -66,7 +66,8 @@ get_regulatory_network <-
             network <-
                 as.data.frame(get_dataset(
                     regulondb,
-                    attributes = c("regulator_name", "regulated_name", "effect"),
+                    attributes = c("regulator_name", "regulated_name",
+                                "effect"),
                     filters = list(
                         "network_type" = type,
                         "regulator_name" = regulator
@@ -77,7 +78,8 @@ get_regulatory_network <-
             network <-
                 as.data.frame(get_dataset(
                     regulondb,
-                    attributes = c("regulator_name", "regulated_name", "effect"),
+                    attributes = c("regulator_name", "regulated_name",
+                                "effect"),
                     filters = list("network_type" = type),
                     dataset = "NETWORK"
                 ))

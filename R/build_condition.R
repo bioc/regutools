@@ -54,7 +54,8 @@ build_condition <-
             interval,
             partialmatch) {
         if (is(filters, "list")) {
-            if (!all(names(filters) %in% list_attributes(regulondb, dataset))) {
+            if (!all(names(filters) %in% list_attributes(regulondb, dataset)))
+                {
                 non.existing.attrs.index <-
                     names(filters) %in% list_attributes(regulondb, dataset)
                 non.existing.attrs <-
@@ -66,7 +67,8 @@ build_condition <-
             }
             if (!is.null(interval)) {
                 if (!all(interval %in% names(filters))) {
-                    non.existing.interv.index <- !(interval %in% names(filters))
+                    non.existing.interv.index <-
+                        !(interval %in% names(filters))
                     non.existing.interv <-
                         (interval[non.existing.interv.index])
                     stop(
@@ -82,15 +84,18 @@ build_condition <-
                 }
 
                 condition_intervals <-
-                    existing_intervals(filters, interval, operator, partialmatch)
+                    existing_intervals(filters, interval,
+                                        operator, partialmatch)
                 if ((length(filters) == length(interval))) {
                     condition_intervals <-
-                        existing_intervals(filters, interval, operator, partialmatch)
+                        existing_intervals(filters, interval,
+                                            operator, partialmatch)
                     return(condition_intervals)
                 } else{
                     # non-equal case
                     conditions_nonintervals <-
-                        non_existing_intervals(filters, interval, operator, partialmatch)
+                        non_existing_intervals(filters, interval,
+                                                operator, partialmatch)
                     conditionall <-
                         paste(condition_intervals,
                             conditions_nonintervals,
@@ -100,7 +105,8 @@ build_condition <-
             } else {
                 #NULL case
                 conditions_nonintervals <-
-                    non_existing_intervals(filters, interval, operator, partialmatch)
+                    non_existing_intervals(filters, interval,
+                                        operator, partialmatch)
                 return(conditions_nonintervals)
             }
         } else{

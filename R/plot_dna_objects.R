@@ -70,11 +70,15 @@ plot_dna_objects <-
                 call. = FALSE
             )
         }
-        # search for dna_objects ("-10 promoter box", -35 promoter box", "gene", "promoter", "Regulatory Interaction","sRNA interaction","terminator")
+        # search for dna_objects ("-10 promoter box", -35 promoter box",
+        #"gene", "promoter", "Regulatory Interaction","sRNA interaction",
+        #"terminator")
         dna_objects <- regutools::get_dataset(
             regulondb,
             dataset = "DNA_OBJECTS",
-            filters = list(posright = c(grange@ranges@start, grange@ranges@start + grange@ranges@width),
+            filters = list(posright = c(grange@ranges@start,
+                                        grange@ranges@start +
+                                            grange@ranges@width),
                         type = elements),
             interval = "posright",
             output_format = "GRanges"
