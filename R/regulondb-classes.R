@@ -110,7 +110,7 @@ regulondb <-
 #' results.
 #' @slot organism A character string with the name of the organism of the
 #' database.
-#' @slot genome_version A character string with the version of the genome build
+#' @slot genome_version A character string with the version of the genome build.
 #' @slot database_version A character string with the version of regulondb
 #' build.
 #' @slot dataset A character string with the name of the table used for the

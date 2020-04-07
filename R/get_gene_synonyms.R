@@ -51,7 +51,9 @@ get_gene_synonyms <-
         }
 
         if (!all(to %in% c("id", "name", "bnumber", "gi"))) {
-            stop("'to' should be a character vector with one or more of name, bnumber or GI.",
+            stop(
+                paste("'to' should be a character vector with one or more",
+                "of name, bnumber or GI."),
                 call. = FALSE)
         }
 

@@ -91,7 +91,9 @@ get_regulatory_network <-
                 cytoscapePing(),
                 error = function(e) {
                     stop(
-                        "To use integration with Cytoscape, please launch Cytoscape before running get_regulatory_network()",
+                        paste("To use integration with Cytoscape,",
+                        "please launch Cytoscape before running",
+                        "get_regulatory_network()"),
                         call. = FALSE
                     )
                 }

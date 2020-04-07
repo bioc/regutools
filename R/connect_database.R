@@ -35,7 +35,8 @@ connect_database <-
                 AnnotationHub::query(
                     ah,
                     pattern = c(
-                        'RegulonDB SQLite database version v10.6.2_DM for the regutools Bioconductor package',
+                        paste('RegulonDB SQLite database version v10.6.2_DM',
+                        'for the regutools Bioconductor package'),
                         'regutools;RegulonDB;v10.6.2_DM'
                     )
                 )

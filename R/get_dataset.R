@@ -77,7 +77,8 @@ get_dataset <-
                                 "DNAStringSet",
                                 "BStringSet")) {
             stop(
-                "Output format must be one of the following: regulondb_result, GRanges, DNAStringSet or BStringSet",
+                paste("Output format must be one of the following:",
+                "regulondb_result, GRanges, DNAStringSet or BStringSet"),
                 call. = FALSE
             )
         }
@@ -242,7 +243,8 @@ convert_to_granges <- function(regulondb_result) {
     } else{
         stop(
             sprintf(
-                "Can not coerse 'regulondb_result' from dataset %s into a GRanges object\n",
+                paste("Can not coerse 'regulondb_result' from dataset %s",
+                "into a GRanges object\n"),
                 dataset
             )
         )
@@ -263,12 +265,14 @@ convert_to_granges <- function(regulondb_result) {
         )
         if ("strand" %in% names(regulondb_result)) {
             stnd <-
-                ifelse(regulondb_result$strand[which(keep)] == "forward", "+", "-")
+                ifelse(regulondb_result$strand[which(keep)] == "forward",
+                        "+", "-")
             stnd[which(is.na(stnd))] <- "*"
             strand(grdata) <- stnd
         }
         mcols(grdata) <-
-            DataFrame(regulondb_result[keep, !colnames(regulondb_result) %in% c(posLeft, posRight, "strand"), drop = FALSE])
+            DataFrame(regulondb_result[keep, !colnames(regulondb_result) %in%
+                                c(posLeft, posRight, "strand"), drop = FALSE])
         if (sum(!keep) > 0)
             warning(sprintf(
                 "Dropped %s entries where genomic coordinates were NAs",
@@ -278,7 +282,9 @@ convert_to_granges <- function(regulondb_result) {
     } else{
         stop(
             sprintf(
-                "Not enough information to convert into a GRanges object. Please make sure that the input the following columns: \n\t%s",
+                paste("Not enough information to convert into a GRanges",
+                "object. Please make sure that the input the following",
+                "columns: \n\t%s"),
                 paste(c(posLeft, posRight), collapse = "\n\t")
             ),
             call. = FALSE
@@ -341,7 +347,8 @@ convert_to_biostrings <-
         } else{
             stop(
                 sprintf(
-                    "Can not coerse 'regulondb_result' from dataset %s into a Biostrings object\n",
+                    paste("Can not coerse 'regulondb_result' from dataset %s",
+                    "into a Biostrings object\n"),
                     dataset
                 )
             )
@@ -349,7 +356,9 @@ convert_to_biostrings <-
         if (!col_name %in% colnames(regulondb_result)) {
             stop(
                 sprintf(
-                    "Not enough information to convert to a Biostrings object.\nPlease add the following column to the regulondb_result object: \n\t%s\n",
+                    paste("Not enough information to convert to a Biostrings",
+                    "object.\nPlease add the following column to the",
+                    "regulondb_result object: \n\t%s\n"),
                     col_name
                 )
             )
@@ -359,7 +368,8 @@ convert_to_biostrings <-
         keep <- !is.na(seq_character)
         rs <- func(seq_character[which(keep)])
         mcols(rs) <-
-            regulondb_result[which(keep), !colnames(regulondb_result) %in% col_name, drop = FALSE]
+            regulondb_result[which(keep), !colnames(regulondb_result) %in%
+                            col_name, drop = FALSE]
         if (sum(!keep)) {
             warning(sprintf(
                 "Dropped %s entries where sequence data were NAs",

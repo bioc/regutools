@@ -61,8 +61,9 @@ get_regulatory_summary <- function(regulondb, gene_regulators) {
         regulation <- get_gene_regulators(regulondb, genes = regulation)
     } else if (!is(regulation, "regulondb_result")) {
         stop(
-            "The parameter gene_regulators must be a regulondb_result object
-            resulting from a call to get_gene_regulators or a vector of genes.",
+            paste("The parameter gene_regulators must be a regulondb_result",
+                "object resulting from a call to get_gene_regulators",
+                "or a vector of genes."),
             call. = FALSE
         )
     }

@@ -63,7 +63,8 @@ get_dna_objects <-
             stop(
                 "Element(s) ",
                 paste0('"', paste(non.valid.elements, collapse = ", "), '"'),
-                " are not valid. Please provide any or all of these valid elements: ",
+                paste(" are not valid. Please provide any or all of these",
+                "valid elements: "),
                 paste0('"', paste(valid_elements, collapse = ", "), '"'),
                 call. = FALSE
             )

@@ -10,7 +10,8 @@ setMethod("show",
         function(object) {
             cat(
                 sprintf(
-                    "regulondb object\n  organism: %s\n  genome_build: %s\n  database_version: %s\n  database_conn: %s\n",
+                    paste("regulondb object\n  organism: %s\n  genome_build:",
+                    "%s\n  database_version: %s\n  database_conn: %s\n"),
                     object@organism,
                     object@genome_version,
                     object@database_version,
