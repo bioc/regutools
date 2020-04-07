@@ -45,9 +45,9 @@
 #' @export
 plot_dna_objects <-
     function(regulondb,
-        genome = "eschColi_K12",
-        grange = GRanges("chr", IRanges(1, 5000) ),
-        elements = "gene") {
+             genome = "eschColi_K12",
+             grange = GRanges("chr", IRanges(1, 5000) ),
+             elements = "gene") {
 
         valid_elements <- c(
             "-10 promoter box",
@@ -75,7 +75,7 @@ plot_dna_objects <-
             regulondb,
             dataset = "DNA_OBJECTS",
             filters = list(posright = c(grange@ranges@start, grange@ranges@start + grange@ranges@width),
-                type = elements),
+                           type = elements),
             interval = "posright",
             output_format = "GRanges"
         )
@@ -107,5 +107,5 @@ plot_dna_objects <-
 
         # plot
         Gviz::plotTracks(c(Gviz::GenomeAxisTrack(),
-            list_dna_annotation))
+                           list_dna_annotation))
     }

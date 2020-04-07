@@ -45,6 +45,6 @@ existing_partial_match <-
             })
         condition.partialmatch <-
             paste(unlist(condition.format.partialmatch),
-                collapse = paste0(" ", operator, " "))
+                  collapse = paste0(" ", operator, " "))
         return(condition.partialmatch)
     }

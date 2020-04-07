@@ -34,9 +34,9 @@
 
 get_gene_synonyms <-
     function(regulondb,
-        genes,
-        from = "name",
-        to = c("id", "name", "bnumber", "gi")) {
+             genes,
+             from = "name",
+             to = c("id", "name", "bnumber", "gi")) {
         # Function checks
         stopifnot(validObject(regulondb))
 
@@ -46,12 +46,12 @@ get_gene_synonyms <-
 
         if(!is( genes, "character") ){
             stop("'genes' should be a character vector of gene identifiers.",
-                call. = FALSE)
+                 call. = FALSE)
         }
 
         if (!all(to %in% c("id", "name", "bnumber", "gi"))) {
             stop("'to' should be a character vector with one or more of name, bnumber or GI.",
-                call. = FALSE)
+                 call. = FALSE)
         }
 
         if (!from %in% c("id", "name", "bnumber", "gi")) {

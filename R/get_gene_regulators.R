@@ -44,25 +44,25 @@
 
 get_gene_regulators <-
     function(regulondb,
-        genes,
-        format = "multirow",
-        output.type = "TF") {
+             genes,
+             format = "multirow",
+             output.type = "TF") {
         stopifnot(validObject(regulondb))
         #Check genes parameter class
-##        if (!class(genes) %in% c("vector", "list", "character")) {
+        ##        if (!class(genes) %in% c("vector", "list", "character")) {
         if (!( is( genes, "vector" ) | is( genes, "list" ) | is( genes, "character" ) ) ){
             stop("Parameter 'genes' must be a character vector or list.",
-                call. = FALSE)
+                 call. = FALSE)
         }
         #Check format parameter
         if (!format %in% c("multirow", "onerow", "table")) {
             stop("Parameter 'format' must be multirow, onerow, or table.",
-                call. = FALSE)
+                 call. = FALSE)
         }
         #Check output.type
         if (!output.type %in% c("TF", "GENE")) {
             stop("Parameter 'output.type' must be either 'TF' or 'GENE'",
-                call. = FALSE)
+                 call. = FALSE)
         }
 
         #Convert GIs to gene names

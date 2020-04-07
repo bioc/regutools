@@ -48,11 +48,11 @@
 
 build_condition <-
     function(regulondb,
-        dataset,
-        filters,
-        operator,
-        interval,
-        partialmatch) {
+             dataset,
+             filters,
+             operator,
+             interval,
+             partialmatch) {
         if (is(filters, "list")) {
             if (!all(names(filters) %in% list_attributes(regulondb, dataset))) {
                 non.existing.attrs.index <-
@@ -60,9 +60,9 @@ build_condition <-
                 non.existing.attrs <-
                     names(filters)[!non.existing.attrs.index]
                 stop("Attribute(s) ",
-                    non.existing.attrs ,
-                    " do not exist.",
-                    call. = FALSE)
+                     non.existing.attrs ,
+                     " do not exist.",
+                     call. = FALSE)
             }
             if (!is.null(interval)) {
                 if (!all(interval %in% names(filters))) {
@@ -82,29 +82,25 @@ build_condition <-
                 }
 
                 condition_intervals <-
-                    existing_intervals(filters, interval,
-                                       operator, partialmatch)
+                    existing_intervals(filters, interval, operator, partialmatch)
                 if ((length(filters) == length(interval))) {
                     condition_intervals <-
-                        existing_intervals(filters, interval,
-                                           operator, partialmatch)
+                        existing_intervals(filters, interval, operator, partialmatch)
                     return(condition_intervals)
                 } else{
                     # non-equal case
                     conditions_nonintervals <-
-                        non_existing_intervals(filters, interval,
-                                               operator, partialmatch)
+                        non_existing_intervals(filters, interval, operator, partialmatch)
                     conditionall <-
                         paste(condition_intervals,
-                            conditions_nonintervals,
-                            sep = " AND ")
+                              conditions_nonintervals,
+                              sep = " AND ")
                     return(conditionall)
                 }
             } else {
                 #NULL case
                 conditions_nonintervals <-
-                    non_existing_intervals(filters, interval,
-                                           operator, partialmatch)
+                    non_existing_intervals(filters, interval, operator, partialmatch)
                 return(conditions_nonintervals)
             }
         } else{
