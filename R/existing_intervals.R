@@ -44,7 +44,7 @@ existing_intervals <-
 
             } else if (length(x) == 1) {
                 stop("Two values in the interval filter are required. ",
-                     call. = FALSE)
+                    call. = FALSE)
             } else {
                 x
             }
@@ -71,7 +71,7 @@ existing_intervals <-
             })
         condition.interv <-
             paste(unlist(condition.format.interv),
-                  collapse = paste0(" ", operator, " "))
+                collapse = paste0(" ", operator, " "))
         if (!is.null(partialmatch)) {
             condition.partialmatch <-
                 existing_partial_match(filters, partialmatch, operator)

@@ -64,18 +64,18 @@
 #' @importFrom Biostrings DNAStringSet BStringSet
 get_dataset <-
     function(regulondb,
-             dataset = NULL,
-             attributes = NULL,
-             filters = NULL,
-             and = TRUE,
-             interval = NULL,
-             partialmatch = NULL,
-             output_format = "regulondb_result") {
+            dataset = NULL,
+            attributes = NULL,
+            filters = NULL,
+            and = TRUE,
+            interval = NULL,
+            partialmatch = NULL,
+            output_format = "regulondb_result") {
         # Check if format specification is valid
         if (!output_format %in% c("regulondb_result",
-                                  "GRanges",
-                                  "DNAStringSet",
-                                  "BStringSet")) {
+                                "GRanges",
+                                "DNAStringSet",
+                                "BStringSet")) {
             stop(
                 "Output format must be one of the following: regulondb_result, GRanges, DNAStringSet or BStringSet",
                 call. = FALSE
@@ -93,7 +93,7 @@ get_dataset <-
         }
         if (!all(dataset %in% list_datasets(regulondb))) {
             stop("Invalid dataset. See valid datasets in list_datasets()",
-                 call. = FALSE)
+                call. = FALSE)
         }
 
         # Validate attributes
@@ -118,9 +118,9 @@ get_dataset <-
             non.existing.attrs <-
                 partialmatch[!non.existing.attrs.index]
             stop("Partialmatch ",
-                 paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
-                 " do not exist.",
-                 call. = FALSE)
+                paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
+                " do not exist.",
+                call. = FALSE)
         }
 
         if (!all(partialmatch %in% names(filters))) {
@@ -128,9 +128,9 @@ get_dataset <-
             non.existing.attrs <-
                 partialmatch[!non.existing.attrs.index]
             stop("Partialmatch ",
-                 paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
-                 " not defined in 'filters' ",
-                 call. = FALSE)
+                paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
+                " not defined in 'filters' ",
+                call. = FALSE)
         }
 
         # Sets logical operator
@@ -155,10 +155,10 @@ get_dataset <-
         } else if (!is.null(attributes) & is.null(filters)) {
             query <-
                 paste0("SELECT ",
-                       paste(attributes, collapse = " , "),
-                       " FROM ",
-                       dataset,
-                       ";")
+                    paste(attributes, collapse = " , "),
+                    " FROM ",
+                    dataset,
+                    ";")
         } else {
             cond <-
                 build_condition(regulondb,
@@ -254,7 +254,7 @@ convert_to_granges <- function(regulondb_result) {
             regulondb_result[[posRight]] == 0
         keep <-
             !(is.na(regulondb_result[[posLeft]]) |
-                  is.na(regulondb_result[[posRight]]))
+                is.na(regulondb_result[[posRight]]))
         keep <- keep & !nopos
         grdata <- GRanges(
             regulondb_result@organism,
@@ -268,8 +268,7 @@ convert_to_granges <- function(regulondb_result) {
             strand(grdata) <- stnd
         }
         mcols(grdata) <-
-            DataFrame(regulondb_result[keep, !colnames(regulondb_result) %in% c(posLeft, posRight, "strand"), drop =
-                                           FALSE])
+            DataFrame(regulondb_result[keep, !colnames(regulondb_result) %in% c(posLeft, posRight, "strand"), drop = FALSE])
         if (sum(!keep) > 0)
             warning(sprintf(
                 "Dropped %s entries where genomic coordinates were NAs",
@@ -360,8 +359,7 @@ convert_to_biostrings <-
         keep <- !is.na(seq_character)
         rs <- func(seq_character[which(keep)])
         mcols(rs) <-
-            regulondb_result[which(keep), !colnames(regulondb_result) %in% col_name, drop =
-                                 FALSE]
+            regulondb_result[which(keep), !colnames(regulondb_result) %in% col_name, drop = FALSE]
         if (sum(!keep)) {
             warning(sprintf(
                 "Dropped %s entries where sequence data were NAs",

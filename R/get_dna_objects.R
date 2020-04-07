@@ -43,9 +43,9 @@
 #' @export
 get_dna_objects <-
     function(regulondb,
-             genome = "eschColi_K12",
-             grange = GRanges("chr", IRanges(1, 5000) ),
-             elements = "gene") {
+            genome = "eschColi_K12",
+            grange = GRanges("chr", IRanges(1, 5000) ),
+            elements = "gene") {
 
         valid_elements <- c(
             "-10 promoter box",
@@ -73,7 +73,7 @@ get_dna_objects <-
             regulondb,
             dataset = "DNA_OBJECTS",
             filters = list(posright = c(grange@ranges@start, grange@ranges@start + grange@ranges@width),
-                           type = elements),
+                    type = elements),
             interval = "posright",
             output_format = "GRanges"
         )

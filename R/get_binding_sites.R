@@ -56,9 +56,9 @@ get_binding_sites <- function( regulondb, transcription_factor, output_format = 
     tfbs_table$strand[is.na(tfbs_table$strand)] <- "*"
     if( output_format == "GRanges" ){
         res <- with( tfbs_table,
-                     GRanges(tfbs_raw@organism,
-                             IRanges( start=left, end=right ),
-                             strand=strand ) )
+                    GRanges(tfbs_raw@organism,
+                            IRanges( start=left, end=right ),
+                            strand=strand ) )
         names(res) <- as.character(tfbs_table$ID)
         mcols(res)$sequence <- as.character(tfbs_table$sequence)
         res
@@ -66,9 +66,9 @@ get_binding_sites <- function( regulondb, transcription_factor, output_format = 
         res <- DNAStringSet( as.character(tfbs_table$sequence) )
         names( res ) <- as.character( tfbs_table$ID )
         mcols( res )$granges <- with(tfbs_table,
-                                     GRanges(tfbs_raw@organism,
-                                             IRanges( start=left, end=right ),
-                                             strand=strand ) )
+                                    GRanges(tfbs_raw@organism,
+                                            IRanges( start=left, end=right ),
+                                            strand=strand ) )
         res
     }
 }

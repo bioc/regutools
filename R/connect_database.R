@@ -24,8 +24,8 @@
 #'
 connect_database <-
     function(path = tempdir(),
-             overwrite = FALSE,
-             ah = AnnotationHub::AnnotationHub()) {
+            overwrite = FALSE,
+            ah = AnnotationHub::AnnotationHub()) {
         if (!is.null(ah)) {
             ## Check input
             stopifnot(methods::is(ah, 'AnnotationHub'))

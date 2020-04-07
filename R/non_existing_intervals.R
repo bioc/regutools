@@ -40,7 +40,7 @@ non_existing_intervals <-
                 })
             condition.non.interv <-
                 paste(unlist(condition.format.non.interv),
-                      collapse = paste0(" ", operator, " "))
+                    collapse = paste0(" ", operator, " "))
         }
         if (!is.null(partialmatch)) {
             condition.partialmatch <-

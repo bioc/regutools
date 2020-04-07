@@ -45,9 +45,9 @@
 #' @export
 plot_dna_objects <-
     function(regulondb,
-             genome = "eschColi_K12",
-             grange = GRanges("chr", IRanges(1, 5000) ),
-             elements = "gene") {
+            genome = "eschColi_K12",
+            grange = GRanges("chr", IRanges(1, 5000) ),
+            elements = "gene") {
 
         valid_elements <- c(
             "-10 promoter box",
@@ -75,7 +75,7 @@ plot_dna_objects <-
             regulondb,
             dataset = "DNA_OBJECTS",
             filters = list(posright = c(grange@ranges@start, grange@ranges@start + grange@ranges@width),
-                           type = elements),
+                        type = elements),
             interval = "posright",
             output_format = "GRanges"
         )
@@ -93,19 +93,19 @@ plot_dna_objects <-
             object_filtered <- dna_objects[dna_objects$type == x]
             #build track
             Gviz::AnnotationTrack(object_filtered,
-                                  genome,
-                                  chromosome = "chr",
-                                  name = x,
-                                  options(ucscChromosomeNames = TRUE),
-                                  transcriptAnnotation = "name",
-                                  background.panel = "#FFFEDB",
-                                  background.title = "brown",
-                                  fontsize = 10)
+                                genome,
+                                chromosome = "chr",
+                                name = x,
+                                options(ucscChromosomeNames = TRUE),
+                                transcriptAnnotation = "name",
+                                background.panel = "#FFFEDB",
+                                background.title = "brown",
+                                fontsize = 10)
         }
 
         list_dna_annotation <- lapply(dna_objects_type, build_track)
 
         # plot
         Gviz::plotTracks(c(Gviz::GenomeAxisTrack(),
-                           list_dna_annotation))
+                        list_dna_annotation))
     }

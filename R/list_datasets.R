@@ -23,6 +23,6 @@
 #'
 #' @export
 list_datasets <- function(regulondb) {
-  stopifnot(validObject(regulondb))
-  dbListTables(regulondb)
+    stopifnot(validObject(regulondb))
+    dbListTables(regulondb)
 }
