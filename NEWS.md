@@ -1,3 +1,7 @@
+# regutools 0.99.6
+
+* Manual adjust for some lines > 80 characters
+
 # regutools 0.99.5
 
 * Reindent lines and try line-wrapping for lines > 80 characters
