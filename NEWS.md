@@ -1,3 +1,12 @@
+# regutools 0.99.7
+
+BUG FIXES
+
+* Fix a bug in pkgdown that is currently resolved by
+`Rscript -e 'remotes::install_github("r-lib/pkgdown#1276")'`. 
+Details at https://github.com/r-lib/pkgdown/pull/1276 and
+related issues.
+
 # regutools 0.99.6
 
 * Manual adjust for some lines > 80 characters

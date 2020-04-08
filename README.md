@@ -107,7 +107,7 @@ citation('regutools')
 #> for data extraction from RegulonDB_. doi: 10.18129/B9.bioc.regutools
 #> (URL: https://doi.org/10.18129/B9.bioc.regutools),
 #> https://github.com/comunidadbioinfo/regutools - R package version
-#> 0.99.2, <URL: http://www.bioconductor.org/packages/regutools>.
+#> 0.99.7, <URL: http://www.bioconductor.org/packages/regutools>.
 #> 
 #> Chávez J, Barberena-Jonas C, Sotelo-Fonseca JE, Alquicira-Hernandez J,
 #> Salgado H, Collado-Torres L, Reyes A (2020). "Programmatic access to

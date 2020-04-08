@@ -15,6 +15,8 @@ deploy:
 r_packages:
   - covr
   - pkgdown
+before_cache:
+  Rscript -e 'remotes::install_github("r-lib/pkgdown#1276")'
 
 r_build_args: "--no-manual --no-resave-data"
 r_check_args: "--no-build-vignettes --no-manual --timings"
