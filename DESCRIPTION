@@ -62,6 +62,6 @@ Suggests:
 URL: https://github.com/ComunidadBioInfo/regutools
 BugReports: https://github.com/ComunidadBioInfo/regutools/issues
 biocViews: GeneRegulation, GeneExpression, SystemsBiology, 
-          Network,NetworkInference,Visualization
+          Network,NetworkInference,Visualization, Transcription
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
