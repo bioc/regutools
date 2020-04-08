@@ -1,3 +1,8 @@
+# regutools 0.99.8
+
+* Change biocViews from AnnotationData to Software 
+
+
 # regutools 0.99.7
 
 BUG FIXES
