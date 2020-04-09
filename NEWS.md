@@ -1,3 +1,7 @@
+# regutools 0.99.9
+
+* Add a suggested biocView `Transcription`.
+
 # regutools 0.99.8
 
 * Change biocViews from AnnotationData to Software 
