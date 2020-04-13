@@ -1,3 +1,7 @@
+# regutools 0.99.11
+
+* Manual adjust lines > 80 chr in parameters description.
+
 # regutools 0.99.10
 
 * Bump Version to run R CMD check
