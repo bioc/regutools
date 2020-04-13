@@ -1,3 +1,7 @@
+# regutools 0.99.10
+
+* Bump Version to run R CMD check
+
 # regutools 0.99.9
 
 * Add a suggested biocView `Transcription`.
