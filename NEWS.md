@@ -1,6 +1,6 @@
 # regutools 0.99.11
 
-* Manual adjust lines > 80 chr in parameters description.
+* Manual adjustment for lines > 80 chr in parameters description.
 
 # regutools 0.99.10
 
