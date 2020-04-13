@@ -2,7 +2,8 @@
 #'
 #' @param regulondb A [regulondb()] object.
 #' @param genome A valid UCSC genome name.
-#' @param grange A [GenomicRanges::GRanges-class()] object indicating position left and right.
+#' @param grange A [GenomicRanges::GRanges-class()] object indicating position
+#'  left and right.
 #' @param elements A character vector specifying which annotation elements to
 #' plot. It can be any from: `"-10 promoter box"`, `"-35 promoter box"`,
 #' `"gene"`, `"promoter"`, `"Regulatory Interaction"`, `"sRNA interaction"`,

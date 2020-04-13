@@ -15,7 +15,8 @@
 #' @param partialmatch name of the condition(s) with a string pattern for full
 #' or partial match in the query
 #'
-#' @return A `character(1)` with the sql logical condition to query the dataset.
+#' @return A `character(1)` with the sql logical condition to query the dataset
+#' .
 #' @examples
 #'
 #' ## Connect to the RegulonDB database if necessary

@@ -60,13 +60,14 @@ setValidity("regulondb", function(object) {
 #' Constructor function of a regulondb class
 #' @aliases build_regulondb
 #' @description The build_regulondb function is a constructor function of a
-#' regulondb
-#' class.
+#' regulondb class.
 #' @param database_conn A
 #' [SQLiteConnection-class][RSQLite::SQLiteConnection-class] connection to
 #' the RegulonDB database made with [connect_database()].
-#' @param organism A character vector with the name of the organism of the database.
-#' @param genome_version A character vector with the version of the genome build.
+#' @param organism A character vector with the name of the organism of the
+#' database.
+#' @param genome_version A character vector with the version of the genome
+#' build.
 #' @param database_version A character vector with the version of regulondb
 #' build.
 #' @return A [regulondb][regutools::regulondb] object.
@@ -110,7 +111,8 @@ regulondb <-
 #' results.
 #' @slot organism A character string with the name of the organism of the
 #' database.
-#' @slot genome_version A character string with the version of the genome build.
+#' @slot genome_version A character string with the version of the genome
+#' build.
 #' @slot database_version A character string with the version of regulondb
 #' build.
 #' @slot dataset A character string with the name of the table used for the
