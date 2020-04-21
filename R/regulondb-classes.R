@@ -52,7 +52,7 @@ setValidity("regulondb", function(object) {
         "The slot 'database_version' must be a character vector"
     } else if (!is(object@genome_version, "character")) {
         "The slot 'genome_version' name must be a character vector"
-    } else{
+    } else {
         TRUE
     }
 })
@@ -74,7 +74,7 @@ setValidity("regulondb", function(object) {
 #' @examples
 #'
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build a regulondb object
 #' e_coli_regulondb <-
@@ -84,14 +84,13 @@ setValidity("regulondb", function(object) {
 #'         database_version = "1",
 #'         genome_version = "1"
 #'     )
-#'
 #' @export
 regulondb <-
     function(database_conn,
-            organism,
-            genome_version,
-            database_version) {
-        stopifnot(is(database_conn, 'SQLiteConnection'))
+    organism,
+    genome_version,
+    database_version) {
+        stopifnot(is(database_conn, "SQLiteConnection"))
         stopifnot(is(organism, "character"))
         stopifnot(is(genome_version, "character"))
         stopifnot(is(database_version, "character"))
@@ -139,7 +138,7 @@ setValidity("regulondb_result", function(object) {
         "The slot 'genome_version' name must be a character vector"
     } else if (!is(object@dataset, "character")) {
         "The slot 'dataset' name must be a character vector"
-    } else{
+    } else {
         TRUE
     }
 })

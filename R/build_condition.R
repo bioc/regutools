@@ -20,7 +20,7 @@
 #' @examples
 #'
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -44,27 +44,26 @@
 #'     interval = "posright",
 #'     partialmatch = "name"
 #' )
-#'
 #' @export
 
 build_condition <-
     function(regulondb,
-            dataset,
-            filters,
-            operator,
-            interval,
-            partialmatch) {
+    dataset,
+    filters,
+    operator,
+    interval,
+    partialmatch) {
         if (is(filters, "list")) {
-            if (!all(names(filters) %in% list_attributes(regulondb, dataset)))
-                {
+            if (!all(names(filters) %in% list_attributes(regulondb, dataset))) {
                 non.existing.attrs.index <-
                     names(filters) %in% list_attributes(regulondb, dataset)
                 non.existing.attrs <-
                     names(filters)[!non.existing.attrs.index]
                 stop("Attribute(s) ",
-                    non.existing.attrs ,
+                    non.existing.attrs,
                     " do not exist.",
-                    call. = FALSE)
+                    call. = FALSE
+                )
             }
             if (!is.null(interval)) {
                 if (!all(interval %in% names(filters))) {
@@ -85,32 +84,41 @@ build_condition <-
                 }
 
                 condition_intervals <-
-                    existing_intervals(filters, interval,
-                                        operator, partialmatch)
+                    existing_intervals(
+                        filters, interval,
+                        operator, partialmatch
+                    )
                 if ((length(filters) == length(interval))) {
                     condition_intervals <-
-                        existing_intervals(filters, interval,
-                                            operator, partialmatch)
+                        existing_intervals(
+                            filters, interval,
+                            operator, partialmatch
+                        )
                     return(condition_intervals)
-                } else{
+                } else {
                     # non-equal case
                     conditions_nonintervals <-
-                        non_existing_intervals(filters, interval,
-                                                operator, partialmatch)
+                        non_existing_intervals(
+                            filters, interval,
+                            operator, partialmatch
+                        )
                     conditionall <-
                         paste(condition_intervals,
                             conditions_nonintervals,
-                            sep = " AND ")
+                            sep = " AND "
+                        )
                     return(conditionall)
                 }
             } else {
-                #NULL case
+                # NULL case
                 conditions_nonintervals <-
-                    non_existing_intervals(filters, interval,
-                                        operator, partialmatch)
+                    non_existing_intervals(
+                        filters, interval,
+                        operator, partialmatch
+                    )
                 return(conditions_nonintervals)
             }
-        } else{
+        } else {
             stop("The argument filters is not a list", call. = FALSE)
         }
     }

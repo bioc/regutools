@@ -15,8 +15,9 @@
 #' @importFrom IRanges IRanges
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn'))
-#' regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) {
+#'       regulondb_conn <- connect_database()
+#'   }
 #'
 #' ## Build the regulondb object
 #' e_coli_regulondb <-
@@ -31,23 +32,23 @@
 #' get_dna_objects(e_coli_regulondb)
 #'
 #' ## Get genes providing Genomic Ranges
-#' grange <- GenomicRanges::GRanges("chr",
-#'             IRanges::IRanges(5000, 10000)
-#'             )
+#' grange <- GenomicRanges::GRanges(
+#'     "chr",
+#'     IRanges::IRanges(5000, 10000)
+#' )
 #' get_dna_objects(e_coli_regulondb, grange)
 #'
 #' ## Get aditional elements within genomic positions
 #' get_dna_objects(e_coli_regulondb,
-#'                 grange,
-#'                 elements = c("gene", "promoter")
-#'                 )
+#'     grange,
+#'     elements = c("gene", "promoter")
+#' )
 #' @export
 get_dna_objects <-
     function(regulondb,
-            genome = "eschColi_K12",
-            grange = GRanges("chr", IRanges(1, 5000) ),
-            elements = "gene") {
-
+    genome = "eschColi_K12",
+    grange = GRanges("chr", IRanges(1, 5000)),
+    elements = "gene") {
         valid_elements <- c(
             "-10 promoter box",
             "-35 promoter box",
@@ -64,21 +65,27 @@ get_dna_objects <-
             stop(
                 "Element(s) ",
                 paste0('"', paste(non.valid.elements, collapse = ", "), '"'),
-                paste(" are not valid. Please provide any or all of these",
-                "valid elements: "),
+                paste(
+                    " are not valid. Please provide any or all of these",
+                    "valid elements: "
+                ),
                 paste0('"', paste(valid_elements, collapse = ", "), '"'),
                 call. = FALSE
             )
         }
         # search for dna_objects ("-10 promoter box", -35 promoter box", "gene",
-        #"promoter", "Regulatory Interaction","sRNA interaction","terminator")
+        # "promoter", "Regulatory Interaction","sRNA interaction","terminator")
         dna_objects <- regutools::get_dataset(
             regulondb,
             dataset = "DNA_OBJECTS",
-            filters = list(posright = c(grange@ranges@start,
-                                        grange@ranges@start +
-                                            grange@ranges@width),
-                    type = elements),
+            filters = list(
+                posright = c(
+                    grange@ranges@start,
+                    grange@ranges@start +
+                        grange@ranges@width
+                ),
+                type = elements
+            ),
             interval = "posright",
             output_format = "GRanges"
         )

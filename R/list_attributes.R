@@ -11,7 +11,7 @@
 #' @return A character vector with the field names.
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -27,13 +27,13 @@
 #'
 #' ## List the operon attributes
 #' list_attributes(e_coli_regulondb, "OPERON")
-#'
 #' @export
 #' @importFrom DBI dbListFields
 
-list_attributes <- function(regulondb, dataset){
-    if (missing(dataset))
-    stop("Parameter 'dataset' is missing, please specify\n")
+list_attributes <- function(regulondb, dataset) {
+    if (missing(dataset)) {
+          stop("Parameter 'dataset' is missing, please specify\n")
+      }
     stopifnot(validObject(regulondb))
     dbListFields(regulondb, dataset)
 }

@@ -17,8 +17,9 @@
 #' @importFrom IRanges IRanges
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn'))
-#' regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) {
+#'       regulondb_conn <- connect_database()
+#'   }
 #'
 #' ## Build the regulondb object
 #' e_coli_regulondb <-
@@ -33,23 +34,23 @@
 #' plot_dna_objects(e_coli_regulondb)
 #'
 #' ## Plot genes providing Genomic Ranges
-#' grange <- GenomicRanges::GRanges("chr",
-#'             IRanges::IRanges(5000, 10000)
-#'             )
+#' grange <- GenomicRanges::GRanges(
+#'     "chr",
+#'     IRanges::IRanges(5000, 10000)
+#' )
 #' plot_dna_objects(e_coli_regulondb, grange)
 #'
 #' ## Plot aditional elements within genomic positions
 #' plot_dna_objects(e_coli_regulondb,
-#'                  grange,
-#'                  elements = c("gene", "promoter")
-#'                  )
+#'     grange,
+#'     elements = c("gene", "promoter")
+#' )
 #' @export
 plot_dna_objects <-
     function(regulondb,
-            genome = "eschColi_K12",
-            grange = GRanges("chr", IRanges(1, 5000) ),
-            elements = "gene") {
-
+    genome = "eschColi_K12",
+    grange = GRanges("chr", IRanges(1, 5000)),
+    elements = "gene") {
         valid_elements <- c(
             "-10 promoter box",
             "-35 promoter box",
@@ -66,22 +67,28 @@ plot_dna_objects <-
             stop(
                 "Element(s) ",
                 paste0('"', paste(non.valid.elements, collapse = ", "), '"'),
-                paste(" are not valid. Please provide any or all of these",
-                "valid elements: "),
+                paste(
+                    " are not valid. Please provide any or all of these",
+                    "valid elements: "
+                ),
                 paste0('"', paste(valid_elements, collapse = ", "), '"'),
                 call. = FALSE
             )
         }
         # search for dna_objects ("-10 promoter box", -35 promoter box",
-        #"gene", "promoter", "Regulatory Interaction","sRNA interaction",
-        #"terminator")
+        # "gene", "promoter", "Regulatory Interaction","sRNA interaction",
+        # "terminator")
         dna_objects <- regutools::get_dataset(
             regulondb,
             dataset = "DNA_OBJECTS",
-            filters = list(posright = c(grange@ranges@start,
-                                        grange@ranges@start +
-                                            grange@ranges@width),
-                        type = elements),
+            filters = list(
+                posright = c(
+                    grange@ranges@start,
+                    grange@ranges@start +
+                        grange@ranges@width
+                ),
+                type = elements
+            ),
             interval = "posright",
             output_format = "GRanges"
         )
@@ -97,21 +104,24 @@ plot_dna_objects <-
         build_track <- function(x) {
             # select data with type == element
             object_filtered <- dna_objects[dna_objects$type == x]
-            #build track
+            # build track
             Gviz::AnnotationTrack(object_filtered,
-                                genome,
-                                chromosome = "chr",
-                                name = x,
-                                options(ucscChromosomeNames = TRUE),
-                                transcriptAnnotation = "name",
-                                background.panel = "#FFFEDB",
-                                background.title = "brown",
-                                fontsize = 10)
+                genome,
+                chromosome = "chr",
+                name = x,
+                options(ucscChromosomeNames = TRUE),
+                transcriptAnnotation = "name",
+                background.panel = "#FFFEDB",
+                background.title = "brown",
+                fontsize = 10
+            )
         }
 
         list_dna_annotation <- lapply(dna_objects_type, build_track)
 
         # plot
-        Gviz::plotTracks(c(Gviz::GenomeAxisTrack(),
-                        list_dna_annotation))
+        Gviz::plotTracks(c(
+            Gviz::GenomeAxisTrack(),
+            list_dna_annotation
+        ))
     }

@@ -1,16 +1,36 @@
+# regutools 0.99.12
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Documentation website is now available at
+http://comunidadbioinfo.github.io/regutools/. It gets updated with every
+commit on the master branch (bioc-devel) using GitHub Actions and pkgdown.
+
+
 # regutools 0.99.11
+
+BUG FIXES
 
 * Manual adjustment for lines > 80 chr in parameters description.
 
+
 # regutools 0.99.10
+
+BUG FIXES
 
 * Bump Version to run R CMD check
 
+
 # regutools 0.99.9
+
+BUG FIXES
 
 * Add a suggested biocView `Transcription`.
 
+
 # regutools 0.99.8
+
+BUG FIXES
 
 * Change biocViews from AnnotationData to Software 
 
@@ -24,19 +44,27 @@ BUG FIXES
 Details at https://github.com/r-lib/pkgdown/pull/1276 and
 related issues.
 
+
 # regutools 0.99.6
+
+BUG FIXES
 
 * Manual adjust for some lines > 80 characters
 
+
 # regutools 0.99.5
 
+BUG FIXES
+
 * Reindent lines and try line-wrapping for lines > 80 characters
+
 
 # regutools 0.99.4
 
 NEW FEATURES
 
 * Added a `NEWS.md` file to track changes to the package.
+
 
 # regutools 0.99.3
 
@@ -49,6 +77,7 @@ BUG FIXES
 
 * Fix a bug in the function `get_regulatory_network()` related with Cytoscape conection.
 
+
 # regutools 0.99.2
 
 SIGNIFICANT CHANGES
@@ -56,6 +85,7 @@ SIGNIFICANT CHANGES
 * Removed the regutools.Rproj file (you can still have it, but it's not
 version controlled).
 * Bump R depends to 4.0 as required by BiocCheck. We'll see if it breaks.
+
 
 # regutools 0.99.1
 
@@ -66,6 +96,9 @@ http://bioconductor.org/spb_reports/regutools_buildreport_20200302121040.html#ma
 `mode = "wb"` for `utils::download.file()` as in 
 https://github.com/LieberInstitute/spatialLIBD/commit/7ac24dc72cc75e42c9af8382c661517f4a64f08d.
 
+
 # regutools 0.99.0
+
+NEW FEATURES
 
 * Submitted to Bioconductor

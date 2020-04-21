@@ -16,7 +16,8 @@ get_dna_objects(
 
 \item{genome}{A valid UCSC genome name.}
 
-\item{grange}{A \code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object indicating position left and right.}
+\item{grange}{A \code{\link[GenomicRanges:GRanges-class]{GenomicRanges::GRanges-class()}} object indicating position
+left and right.}
 
 \item{elements}{A character vector specifying which annotation elements to
 plot. It can be any from: \code{"-10 promoter box"}, \code{"-35 promoter box"},
@@ -31,8 +32,9 @@ Retrieve genomic elements from regulonDB
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn'))
-regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) {
+      regulondb_conn <- connect_database()
+  }
 
 ## Build the regulondb object
 e_coli_regulondb <-
@@ -47,16 +49,17 @@ e_coli_regulondb <-
 get_dna_objects(e_coli_regulondb)
 
 ## Get genes providing Genomic Ranges
-grange <- GenomicRanges::GRanges("chr",
-            IRanges::IRanges(5000, 10000)
-            )
+grange <- GenomicRanges::GRanges(
+    "chr",
+    IRanges::IRanges(5000, 10000)
+)
 get_dna_objects(e_coli_regulondb, grange)
 
 ## Get aditional elements within genomic positions
 get_dna_objects(e_coli_regulondb,
-                grange,
-                elements = c("gene", "promoter")
-                )
+    grange,
+    elements = c("gene", "promoter")
+)
 }
 \author{
 Joselyn Chavez

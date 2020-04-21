@@ -1,8 +1,9 @@
 context("GRanges_convert")
 test_that("Results from regulondb queries can be converted to GRanges", {
     ## Connect to the RegulonDB database if necessary
-    if (!exists('regulondb_conn'))
-        regulondb_conn <- connect_database()
+    if (!exists("regulondb_conn")) {
+          regulondb_conn <- connect_database()
+      }
 
     ## Build a regulondb object
     regdb <-
@@ -21,10 +22,12 @@ test_that("Results from regulondb queries can be converted to GRanges", {
     expect_s4_class(convert_to_granges(query), "GRanges")
     expect_error(convert_to_granges(query[, c("posleft", "name")]))
     expect_s4_class(convert_to_granges(query[, c("posleft", "posright")]), "GRanges")
-    query <- get_dataset(regulondb = regdb,
-        dataset = "DNA_OBJECTS")
+    query <- get_dataset(
+        regulondb = regdb,
+        dataset = "DNA_OBJECTS"
+    )
     hasNAs <- is.na(query$posleft) | is.na(query$posright)
-    expect_s4_class(convert_to_granges(query[!hasNAs,]), "GRanges")
+    expect_s4_class(convert_to_granges(query[!hasNAs, ]), "GRanges")
     if (sum(hasNAs) > 0) {
         expect_warning(
             convert_to_granges(query),
@@ -55,8 +58,9 @@ test_that("Results from regulondb queries can be converted to GRanges", {
 
 test_that("Results from regulondb queries can be converted to Biostrings", {
     ## Connect to the RegulonDB database if necessary
-    if (!exists('regulondb_conn'))
-        regulondb_conn <- connect_database()
+    if (!exists("regulondb_conn")) {
+          regulondb_conn <- connect_database()
+      }
 
     ## Build a regulondb object
     regdb <-
@@ -80,12 +84,14 @@ test_that("Results from regulondb queries can be converted to Biostrings", {
         filters = list(name = c("araC", "crp", "lacI"))
     )
     expect_s4_class(convert_to_biostrings(query), "DNAStringSet")
-    expect_s4_class(convert_to_biostrings(query, seq_type = "product"),
-        "BStringSet")
+    expect_s4_class(
+        convert_to_biostrings(query, seq_type = "product"),
+        "BStringSet"
+    )
     expect_error(convert_to_biostrings(query, seq_type = "other"))
     query2 <- get_dataset(regdb, dataset = "PROMOTER")
     isNA <- is.na(query2[["promoter_sequence"]])
-    rs <- convert_to_biostrings(query2[!isNA,])
+    rs <- convert_to_biostrings(query2[!isNA, ])
     if (sum(isNA) > 0) {
         expect_warning(
             convert_to_biostrings(query2),
@@ -96,12 +102,15 @@ test_that("Results from regulondb queries can be converted to Biostrings", {
         )
     }
     expect_s4_class(rs, "DNAStringSet")
-    expect_equal(length(suppressWarnings(convert_to_biostrings(query2))),
-        sum(!is.na(query2$promoter_sequence)))
+    expect_equal(
+        length(suppressWarnings(convert_to_biostrings(query2))),
+        sum(!is.na(query2$promoter_sequence))
+    )
     query3 <-
         get_dataset(regdb,
             dataset = "NETWORK",
-            filters = list(regulated_name = "acrD"))
+            filters = list(regulated_name = "acrD")
+        )
     expect_error(convert_to_biostrings(query3))
     expect_error(convert_to_biostrings(data.frame()))
     metaSlots <-

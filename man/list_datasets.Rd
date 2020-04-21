@@ -19,7 +19,7 @@ regulondb class.
 \examples{
 
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -32,7 +32,6 @@ e_coli_regulondb <-
 
 ## List the available datasets
 list_datasets(e_coli_regulondb)
-
 }
 \keyword{data}
 \keyword{database}

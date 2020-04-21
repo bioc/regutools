@@ -27,7 +27,7 @@ RegulonDB has collected, harmonized and centralized data
 Useful links:
 \itemize{
   \item \url{https://github.com/ComunidadBioInfo/regutools}
-  \item Report bugs at \url{https://github.com/ComunidadBioInfo/regutools/issues}
+  \item Report bugs at \url{https://support.bioconductor.org/t/regutools}
 }
 
 }

@@ -10,7 +10,7 @@
 #' @return A [regulondb_result][regutools::regulondb_result-class] object.
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -29,43 +29,48 @@
 #'
 #' ## Use an ID to retrieve the synonyms
 #' get_gene_synonyms(e_coli_regulondb, "ECK120000998", from = "id")
-#'
 #' @export
 
 get_gene_synonyms <-
     function(regulondb,
-            genes,
-            from = "name",
-            to = c("id", "name", "bnumber", "gi")) {
+    genes,
+    from = "name",
+    to = c("id", "name", "bnumber", "gi")) {
         # Function checks
         stopifnot(validObject(regulondb))
 
         if (length(from) > 1) {
             stop("'from' should be only one of name, bnumber or GI.",
-                call. = FALSE)
+                call. = FALSE
+            )
         }
 
-        if(!is( genes, "character") ){
+        if (!is(genes, "character")) {
             stop("'genes' should be a character vector of gene identifiers.",
-                call. = FALSE)
+                call. = FALSE
+            )
         }
 
         if (!all(to %in% c("id", "name", "bnumber", "gi"))) {
             stop(
-                paste("'to' should be a character vector with one or more",
-                "of name, bnumber or GI."),
-                call. = FALSE)
+                paste(
+                    "'to' should be a character vector with one or more",
+                    "of name, bnumber or GI."
+                ),
+                call. = FALSE
+            )
         }
 
         if (!from %in% c("id", "name", "bnumber", "gi")) {
             stop("'from' should be one or more of name, bnumber or GI.",
-                call. = FALSE)
+                call. = FALSE
+            )
         }
 
         gene_filter <- list(genes)
         names(gene_filter) <- from
 
-        #Convert GIs to gene names
+        # Convert GIs to gene names
         gene_synonyms <-
             get_dataset(
                 regulondb,

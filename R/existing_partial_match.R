@@ -23,7 +23,6 @@
 #'     partialmatch = "name",
 #'     operator = "AND"
 #' )
-#'
 #' @export
 existing_partial_match <-
     function(filters, partialmatch, operator) {
@@ -31,13 +30,14 @@ existing_partial_match <-
         existing.partialmatch <- filters[existing.partialmatch.index]
         condition.format.partialmatch <-
             mapply(paste0, filters[existing.partialmatch.index], "%'",
-                SIMPLIFY = FALSE)
+                SIMPLIFY = FALSE
+            )
         condition.format.partialmatch <-
             mapply(
                 paste,
                 names(condition.format.partialmatch),
                 condition.format.partialmatch,
-                sep = " like  '%" ,
+                sep = " like  '%",
                 SIMPLIFY = FALSE
             )
         condition.format.partialmatch <-
@@ -46,6 +46,7 @@ existing_partial_match <-
             })
         condition.partialmatch <-
             paste(unlist(condition.format.partialmatch),
-                collapse = paste0(" ", operator, " "))
+                collapse = paste0(" ", operator, " ")
+            )
         return(condition.partialmatch)
     }

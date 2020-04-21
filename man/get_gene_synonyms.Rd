@@ -29,7 +29,7 @@ get the gene synonyms (name, bnumber of gi).
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -48,7 +48,6 @@ get_gene_synonyms(e_coli_regulondb, "araC", from = "name", to = "id")
 
 ## Use an ID to retrieve the synonyms
 get_gene_synonyms(e_coli_regulondb, "ECK120000998", from = "id")
-
 }
 \author{
 Jesús Emiliano Sotelo Fonseca

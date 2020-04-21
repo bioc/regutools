@@ -2,8 +2,9 @@ context("build_condition")
 
 test_that("existing_partial_match returns an expected value", {
     ## Connect to the RegulonDB database if necessary
-    if (!exists('regulondb_conn'))
-        regulondb_conn <- connect_database()
+    if (!exists("regulondb_conn")) {
+          regulondb_conn <- connect_database()
+      }
 
     ## Build a regulondb object
     regdb <-
@@ -24,12 +25,12 @@ test_that("existing_partial_match returns an expected value", {
         "character"
     )
     # Length 1
-    expect_length(existing_partial_match(
-        filters = list(name = c("ara")),
-        partialmatch = "name",
-        operator = NULL
-    ),
-        1)
-
-
+    expect_length(
+        existing_partial_match(
+            filters = list(name = c("ara")),
+            partialmatch = "name",
+            operator = NULL
+        ),
+        1
+    )
 })

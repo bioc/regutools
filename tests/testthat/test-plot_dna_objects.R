@@ -1,8 +1,9 @@
 context("plot_dna_objects")
 test_that("non-valid genomic elements causes error", {
     ## Connect to the RegulonDB database if necessary
-    if (!exists('regulondb_conn'))
-        regulondb_conn <- connect_database()
+    if (!exists("regulondb_conn")) {
+          regulondb_conn <- connect_database()
+      }
 
     ## Build a regulondb object
     regdb <-
@@ -25,4 +26,3 @@ test_that("non-valid granges causes error", {
         grange = GRanges("chr", IRanges(5000, "a"))
     ))
 })
-

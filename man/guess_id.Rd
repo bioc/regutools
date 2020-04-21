@@ -19,7 +19,7 @@ Given a gene identifier, return the most likely gene_id type.
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -39,7 +39,6 @@ guess_id("ECK120000050", e_coli_regulondb)
 
 ## Guess bnumber
 guess_id("b0064", e_coli_regulondb)
-
 }
 \author{
 Jesús Emiliano Sotelo Fonseca

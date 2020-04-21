@@ -26,7 +26,7 @@ negative (-) or dual (+/-)
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -52,7 +52,6 @@ get_gene_regulators(
     output.type = "GENE",
     format = "table"
 )
-
 }
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,

@@ -2,8 +2,9 @@ context("build_condition")
 
 test_that("existing_partial_match returns an expected value", {
     ## Connect to the RegulonDB database if necessary
-    if (!exists('regulondb_conn'))
-        regulondb_conn <- connect_database()
+    if (!exists("regulondb_conn")) {
+          regulondb_conn <- connect_database()
+      }
 
     ## Build a regulondb object
     regdb <-
@@ -14,12 +15,14 @@ test_that("existing_partial_match returns an expected value", {
             database_version = "prueba"
         )
 
-    #No intervals no partial match
+    # No intervals no partial match
     no_intervals <- build_condition(
         regdb,
         dataset = "GENE",
-        filters = list(name = c("ara"),
-            strand = c("forward")),
+        filters = list(
+            name = c("ara"),
+            strand = c("forward")
+        ),
         operator = "AND",
         interval = NULL,
         partialmatch = NULL
@@ -29,12 +32,14 @@ test_that("existing_partial_match returns an expected value", {
     # Length 1
     expect_length(no_intervals, 1)
 
-    #No intervals but partial match
+    # No intervals but partial match
     no_intervals <- build_condition(
         regdb,
         dataset = "GENE",
-        filters = list(name = c("ara"),
-            strand = c("forward")),
+        filters = list(
+            name = c("ara"),
+            strand = c("forward")
+        ),
         operator = "AND",
         interval = NULL,
         partialmatch = "name"
@@ -43,7 +48,7 @@ test_that("existing_partial_match returns an expected value", {
     expect_type(no_intervals, "character")
     # Length 1
     expect_length(no_intervals, 1)
-    #No intervals only partial match
+    # No intervals only partial match
     no_intervals_pm <- build_condition(
         regdb,
         dataset = "GENE",
@@ -56,5 +61,4 @@ test_that("existing_partial_match returns an expected value", {
     expect_type(no_intervals_pm, "character")
     # Length 1
     expect_length(no_intervals_pm, 1)
-
 })

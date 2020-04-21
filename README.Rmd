@@ -17,10 +17,10 @@ knitr::opts_chunk$set(
 # regutools <img src="man/figures/logo.png" align="right" width="150px"/> 
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/ComunidadBioInfo/regutools.svg?branch=master)](https://travis-ci.org/ComunidadBioInfo/regutools)
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Codecov test coverage](https://codecov.io/gh/ComunidadBioInfo/regutools/branch/master/graphs/badge.svg)](https://codecov.io/gh/ComunidadBioInfo/regutools?branch=master)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/regutools.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/regutools)
+[![Codecov test coverage](https://codecov.io/gh/ComunidadBioInfo/regutools/branch/master/graph/badge.svg)](https://codecov.io/gh/ComunidadBioInfo/regutools?branch=master)
+[![R build status](https://github.com/ComunidadBioInfo/regutools/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/ComunidadBioInfo/regutools/actions)
 <!-- badges: end -->
 
 
@@ -81,20 +81,46 @@ araC_regulation <-
 get_regulatory_summary(e_coli_regulondb, araC_regulation)
 ```
 
-# Citation
+## Documentation
+
+For more information about `regutools` check the vignettes [through Bioconductor](http://bioconductor.org/packages/regutools) or at the [documentation website](http://comunidadbioinfo.github.io/regutools).
+
+## Installation instructions
+
+Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `regutools` using from [Bioconductor](http://bioconductor.org/) the following code:
+
+```{r 'install', eval = FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("regutools")
+```
+
+## Citation
 
 Below is the citation output from using `citation('regutools')` in R. Please 
 run this yourself to check for any updates on how to cite __regutools__.
 
-```{r 'citation'}
-citation('regutools')
+```{r 'citation', eval = requireNamespace('regutools')}
+print(citation('regutools'), bibtex = TRUE)
 ```
 
-# Development tools
+Please note that the `regutools` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
 
-* Testing on Bioc-devel is possible thanks to [R Travis](http://docs.travis-ci.com/user/languages/r/).
-* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh).
-* The [documentation website](http://comunidadbioinfo.github.io/regutools) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')` and `r BiocStyle::Githubpkg('ropenscilabs/travis')`.
+## Code of Conduct
+  
+Please note that the derfinderPlot project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+## Development tools
+
+* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through `r BiocStyle::CRANpkg('usethis')`, `r BiocStyle::CRANpkg('remotes')`, `r BiocStyle::Githubpkg('r-hub/sysreqs')` and `r BiocStyle::CRANpkg('rcmdcheck')` customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and `r BiocStyle::Biocpkg('BiocCheck')`.
+* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and `r BiocStyle::CRANpkg('covr')`.
+* The [documentation website](http://comunidadbioinfo.github.io/regutools) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')`.
+* The code is styled automatically thanks to `r BiocStyle::CRANpkg('styler')`.
+* The documentation is formatted thanks to `r BiocStyle::CRANpkg('devtools')` and `r BiocStyle::CRANpkg('roxygen2')`.
+
+For more details, check the `dev` directory.
+
 
 # RegulonDB
 

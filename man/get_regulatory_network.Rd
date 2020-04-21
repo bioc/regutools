@@ -31,8 +31,9 @@ regulonDB between TF-TF, GENE-GENE or TF-GENE depending on the parameter
 'type'.
 }
 \examples{
+
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -44,8 +45,10 @@ e_coli_regulondb <-
     )
 
 ## Retrieve regulation of 'araC'
-get_regulatory_network(e_coli_regulondb, regulator = "AraC",
-    type = "TF-GENE")
+get_regulatory_network(e_coli_regulondb,
+    regulator = "AraC",
+    type = "TF-GENE"
+)
 
 ## Retrieve all GENE-GENE networks
 get_regulatory_network(e_coli_regulondb, type = "GENE-GENE")
@@ -53,7 +56,7 @@ get_regulatory_network(e_coli_regulondb, type = "GENE-GENE")
 ## Retrieve TF-GENE network of AraC and display in Cytoscape
 ## Note that Cytospace needs to be open for this to work
 cytoscape_present <- try(RCy3::cytoscapePing(), silent = TRUE)
-if(!is(cytoscape_present, 'try-error')) {
+if (!is(cytoscape_present, "try-error")) {
     get_regulatory_network(
         e_coli_regulondb,
         regulator = "AraC",
@@ -61,7 +64,6 @@ if(!is(cytoscape_present, 'try-error')) {
         cytograph = TRUE
     )
 }
-
 }
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,

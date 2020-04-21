@@ -1,7 +1,7 @@
 Package: regutools
 Title: regutools: an R package for data extraction from RegulonDB
-Version: 0.99.11
-Date: 2020-04-13
+Version: 0.99.12
+Date: 2020-04-21
 Authors@R: c(
     person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com",
         role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591")),
@@ -58,9 +58,10 @@ Suggests:
     knitr,
     rmarkdown,
     sessioninfo,
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    covr
 URL: https://github.com/ComunidadBioInfo/regutools
-BugReports: https://github.com/ComunidadBioInfo/regutools/issues
+BugReports: https://support.bioconductor.org/t/regutools
 biocViews: GeneRegulation, GeneExpression, SystemsBiology, 
           Network,NetworkInference,Visualization, Transcription
 Roxygen: list(markdown = TRUE)

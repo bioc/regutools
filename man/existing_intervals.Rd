@@ -39,7 +39,6 @@ existing_intervals(
     operator = "AND",
     partialmatch = c("name", "strand")
 )
-
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,

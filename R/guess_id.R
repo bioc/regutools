@@ -7,7 +7,7 @@
 #' @return A `character(1)` vector with the name column guessed value.
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -27,20 +27,21 @@
 #'
 #' ## Guess bnumber
 #' guess_id("b0064", e_coli_regulondb)
-#'
 #' @export
 
 guess_id <- function(gene, regulondb) {
     # Function checks
     stopifnot(validObject(regulondb))
 
-    if(!is(gene, "character")) {
+    if (!is(gene, "character")) {
         stop("'genes' should be a character vector of gene identifiers.",
-            call. = FALSE)
+            call. = FALSE
+        )
     }
     if (length(gene) > 1) {
         stop("'genes' should be a character vector of length one",
-            call. = FALSE)
+            call. = FALSE
+        )
     }
 
     gene_id_type <- "name"

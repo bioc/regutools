@@ -2,8 +2,9 @@ context("build_condition")
 
 test_that("existing_intervals returns an expected value", {
     ## Connect to the RegulonDB database if necessary
-    if (!exists('regulondb_conn'))
-        regulondb_conn <- connect_database()
+    if (!exists("regulondb_conn")) {
+          regulondb_conn <- connect_database()
+      }
 
     ## Build a regulondb object
     regdb <-
@@ -18,8 +19,7 @@ test_that("existing_intervals returns an expected value", {
         regdb,
         dataset = "GENE",
         filters = list(
-            posright = c("2000", "40000")
-            ,
+            posright = c("2000", "40000"),
             posleft = c("2000", "40000")
         ),
         operator = NULL,
@@ -27,7 +27,7 @@ test_that("existing_intervals returns an expected value", {
         partialmatch = NULL
     )
     expect_match(existing_intervals, ">=")
-    #Having partial match
+    # Having partial match
     existing_intervals_and_pm <-
         build_condition(
             regdb,
@@ -47,7 +47,7 @@ test_that("existing_intervals returns an expected value", {
     expect_length(existing_intervals_and_pm, 1)
 
 
-    #Having more that 2 values for intervales
+    # Having more that 2 values for intervales
     expect_warning(
         build_condition(
             regdb,
@@ -63,7 +63,7 @@ test_that("existing_intervals returns an expected value", {
         "Only the first two values of interval will be considered."
     )
 
-    #Having only one value
+    # Having only one value
     expect_error(
         build_condition(
             regdb,
@@ -75,7 +75,4 @@ test_that("existing_intervals returns an expected value", {
         ),
         "Two values in the interval filter are required. "
     )
-
-
-
 })

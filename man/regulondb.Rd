@@ -12,9 +12,11 @@ regulondb(database_conn, organism, genome_version, database_version)
 \link[RSQLite:SQLiteConnection-class]{SQLiteConnection-class} connection to
 the RegulonDB database made with \code{\link[=connect_database]{connect_database()}}.}
 
-\item{organism}{A character vector with the name of the organism of the database.}
+\item{organism}{A character vector with the name of the organism of the
+database.}
 
-\item{genome_version}{A character vector with the version of the genome build.}
+\item{genome_version}{A character vector with the version of the genome
+build.}
 
 \item{database_version}{A character vector with the version of regulondb
 build.}
@@ -24,13 +26,12 @@ A \link[regutools:regulondb]{regulondb} object.
 }
 \description{
 The build_regulondb function is a constructor function of a
-regulondb
-class.
+regulondb class.
 }
 \examples{
 
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build a regulondb object
 e_coli_regulondb <-
@@ -40,5 +41,4 @@ e_coli_regulondb <-
         database_version = "1",
         genome_version = "1"
     )
-
 }

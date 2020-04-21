@@ -5,17 +5,21 @@
 #' @docType methods
 #' @rdname regulondb-methods
 #' @return A [regulondb][regutools::regulondb] object.
-setMethod("show",
-        signature(object = "regulondb"),
-        function(object) {
-            cat(
-                sprintf(
-                    paste("regulondb object\n  organism: %s\n  genome_build:",
-                    "%s\n  database_version: %s\n  database_conn: %s\n"),
-                    object@organism,
-                    object@genome_version,
-                    object@database_version,
-                    object@dbname
-                )
+setMethod(
+    "show",
+    signature(object = "regulondb"),
+    function(object) {
+        cat(
+            sprintf(
+                paste(
+                    "regulondb object\n  organism: %s\n  genome_build:",
+                    "%s\n  database_version: %s\n  database_conn: %s\n"
+                ),
+                object@organism,
+                object@genome_version,
+                object@database_version,
+                object@dbname
             )
-        })
+        )
+    }
+)

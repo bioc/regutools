@@ -16,7 +16,8 @@ results.
 \item{\code{organism}}{A character string with the name of the organism of the
 database.}
 
-\item{\code{genome_version}}{A character string with the version of the genome build.}
+\item{\code{genome_version}}{A character string with the version of the genome
+build.}
 
 \item{\code{database_version}}{A character string with the version of regulondb
 build.}

@@ -17,27 +17,28 @@
 #' @examples
 #'
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Connect to the database without using AnnotationHub
 #' regulondb_conn_noAH <- connect_database(ah = NULL, overwrite = TRUE)
-#'
 connect_database <-
     function(path = tempdir(),
-            overwrite = FALSE,
-            ah = AnnotationHub::AnnotationHub()) {
+    overwrite = FALSE,
+    ah = AnnotationHub::AnnotationHub()) {
         if (!is.null(ah)) {
             ## Check input
-            stopifnot(methods::is(ah, 'AnnotationHub'))
+            stopifnot(methods::is(ah, "AnnotationHub"))
 
             ## Query AH
             q <-
                 AnnotationHub::query(
                     ah,
                     pattern = c(
-                        paste('RegulonDB SQLite database version v10.6.2_DM',
-                        'for the regutools Bioconductor package'),
-                        'regutools;RegulonDB;v10.6.2_DM'
+                        paste(
+                            "RegulonDB SQLite database version v10.6.2_DM",
+                            "for the regutools Bioconductor package"
+                        ),
+                        "regutools;RegulonDB;v10.6.2_DM"
                     )
                 )
             if (length(q) == 1) {
@@ -51,20 +52,22 @@ connect_database <-
         destfile <-
             file.path(path, "regulondb_sqlite3_v10.6.2_DM.db")
         url <-
-"https://www.dropbox.com/s/eod8vdq4fthvjcr/regulondb_v10.6.2_DM_sqlite3.db?dl=1"
+            "https://www.dropbox.com/s/eod8vdq4fthvjcr/regulondb_v10.6.2_DM_sqlite3.db?dl=1"
         e <- simpleError("Download error")
         if (overwrite) {
             tryCatch(
-                download.file(url = url, destfile, mode = 'wb'),
-                error = function(e)
-                    e
+                download.file(url = url, destfile, mode = "wb"),
+                error = function(e) {
+                      e
+                  }
             )
         } else {
             if (!file.exists(destfile)) {
                 tryCatch(
-                    download.file(url = url, destfile, mode = 'wb'),
-                    error = function(e)
-                        e
+                    download.file(url = url, destfile, mode = "wb"),
+                    error = function(e) {
+                          e
+                      }
                 )
             } else {
                 message(

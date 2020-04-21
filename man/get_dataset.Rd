@@ -48,7 +48,7 @@ datasets can be selected and filtered.
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -65,7 +65,8 @@ get_dataset(e_coli_regulondb, dataset = "GENE")
 ## Get the attributes posright and name from the "GENE" dataset
 get_dataset(e_coli_regulondb,
     dataset = "GENE",
-    attributes = c("posright", "name"))
+    attributes = c("posright", "name")
+)
 
 ## From "GENE" dataset, get the gene name, strand, posright, product name
 ## and id of all genes regulated with name like "ara", strand as "forward"
@@ -83,7 +84,6 @@ get_dataset(
     partialmatch = "name",
     interval = "posright"
 )
-
 }
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,

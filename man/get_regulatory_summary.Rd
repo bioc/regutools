@@ -9,7 +9,8 @@ get_regulatory_summary(regulondb, gene_regulators)
 \arguments{
 \item{regulondb}{A \code{\link[=regulondb]{regulondb()}} object.}
 
-\item{gene_regulators}{Result from \code{\link[=get_gene_regulators]{get_gene_regulators()}} or vector of genes}
+\item{gene_regulators}{Result from \code{\link[=get_gene_regulators]{get_gene_regulators()}} or vector of
+genes}
 }
 \value{
 A data frame with the following columns:
@@ -29,7 +30,7 @@ TFs and their regulated genes
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -54,12 +55,13 @@ get_regulatory_summary(e_coli_regulondb, araC_regulation)
 
 ## Retrieve summary of genes 'araC' and 'modB'
 get_regulatory_summary(e_coli_regulondb,
-    gene_regulators = c("araC", "modB"))
+    gene_regulators = c("araC", "modB")
+)
 
 ## Obtain the summary for 'ECK120000050' and 'modB'
 get_regulatory_summary(e_coli_regulondb,
-    gene_regulators = c("ECK120000050", "modB"))
-
+    gene_regulators = c("ECK120000050", "modB")
+)
 }
 \author{
 Carmina Barberena Jonas, Jesús Emiliano Sotelo Fonseca,

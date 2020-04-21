@@ -11,10 +11,12 @@ get_binding_sites(regulondb, transcription_factor, output_format = "GRanges")
 
 \item{transcription_factor}{name of the transcription factor.}
 
-\item{output_format}{The output object. Can be either a \code{GRanges} (default) or \code{Biostrings}..}
+\item{output_format}{The output object. Can be either a \code{GRanges} (default)
+or \code{Biostrings}.}
 }
 \value{
-Either a GRanges object or a Biostrings object summarizing information
+Either a GRanges object or a Biostrings object summarizing
+information
 about the binding sites of the transcription factors.
 }
 \description{
@@ -23,7 +25,7 @@ transcription factor.
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -36,8 +38,6 @@ e_coli_regulondb <-
 
 ## Get the binding sites for AraC
 get_binding_sites(e_coli_regulondb, transcription_factor = "AraC")
-
-
 }
 \author{
 José Alquicira Hernández, Jacques van Helden, Joselyn Chávez

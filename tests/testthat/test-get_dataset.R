@@ -1,8 +1,9 @@
 context("get_dataset")
 test_that("Function get dataset works as expected", {
     ## Connect to the RegulonDB database if necessary
-    if (!exists('regulondb_conn'))
-        regulondb_conn <- connect_database()
+    if (!exists("regulondb_conn")) {
+          regulondb_conn <- connect_database()
+      }
 
     ## Build a regulondb object
     regdb <-
@@ -28,16 +29,18 @@ test_that("Function get dataset works as expected", {
             output_format = "ss"
         )
     )
-    expect_s4_class(suppressWarnings(
-        get_dataset(
-            regdb,
-            dataset = "GENE",
-            attributes = c("posleft", "posright", "name", "strand"),
-            and = FALSE,
-            output_format = "GRanges"
-        )
-    ),
-        "GRanges")
+    expect_s4_class(
+        suppressWarnings(
+            get_dataset(
+                regdb,
+                dataset = "GENE",
+                attributes = c("posleft", "posright", "name", "strand"),
+                and = FALSE,
+                output_format = "GRanges"
+            )
+        ),
+        "GRanges"
+    )
     expect_s4_class(
         get_dataset(
             regdb,
@@ -49,11 +52,15 @@ test_that("Function get dataset works as expected", {
     )
 
 
-    expect_s4_class(suppressWarnings(
-        get_dataset(regdb, dataset = "OPERON",
-            output_format = "GRanges")
-    ),
-        "GRanges")
+    expect_s4_class(
+        suppressWarnings(
+            get_dataset(regdb,
+                dataset = "OPERON",
+                output_format = "GRanges"
+            )
+        ),
+        "GRanges"
+    )
 
 
     expect_s4_class(
@@ -81,9 +88,11 @@ test_that("Function get dataset works as expected", {
         get_dataset(
             regdb,
             dataset = "PROMOTER",
-            attributes = c("name",
+            attributes = c(
+                "name",
                 "strand",
-                "promoter_sequence"),
+                "promoter_sequence"
+            ),
             output_format = "BStringSet"
         ),
         "Dropped 92 entries where sequence data were NAs"
@@ -108,10 +117,12 @@ test_that("Function get dataset works as expected", {
             regdb,
             dataset = "GENE",
             filters = list(name = c("araC", "crp", "lacI")),
-            attributes = c("posleft",
+            attributes = c(
+                "posleft",
                 "posright",
                 "name",
-                "strand"),
+                "strand"
+            ),
             output_format = "BStringSet"
         )
     )
@@ -130,7 +141,7 @@ test_that("Function get dataset works as expected", {
         attributes = c("posleft", "posright", "name", "strand"),
         filters = list(name = c("thisisnotagene"))
     ))
-    #Errors
+    # Errors
     expect_error(
         get_dataset(
             regdb,
@@ -140,12 +151,14 @@ test_that("Function get dataset works as expected", {
         ),
         "Parameter 'attributes' must be a vector"
     )
-    expect_error(get_dataset(
-        regdb,
-        attributes = c("posleft", "posright", "name", "strand"),
-        filters = list(name = c("thisisnotagene"))
-    ),
-        "Non dataset provided")
+    expect_error(
+        get_dataset(
+            regdb,
+            attributes = c("posleft", "posright", "name", "strand"),
+            filters = list(name = c("thisisnotagene"))
+        ),
+        "Non dataset provided"
+    )
     expect_error(
         get_dataset(
             regdb,
@@ -182,6 +195,4 @@ test_that("Function get dataset works as expected", {
         ),
         "Partialmatch \"posleft\" not defined in 'filters'"
     )
-
-
 })

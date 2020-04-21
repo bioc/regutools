@@ -23,7 +23,8 @@ the attribute and the values correspond to the condition for selection.}
 or partial match in the query}
 }
 \value{
-A \code{character(1)} with the sql logical condition to query the dataset.
+A \code{character(1)} with the sql logical condition to query the dataset
+.
 }
 \description{
 Given a list of filters, this function builds a logical
@@ -33,7 +34,7 @@ The output is used in \code{\link[=get_dataset]{get_dataset()}}.
 \examples{
 
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -57,7 +58,6 @@ build_condition(
     interval = "posright",
     partialmatch = "name"
 )
-
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,

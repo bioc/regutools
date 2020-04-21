@@ -14,9 +14,9 @@
 #' José Alquicira Hernández, Joselyn Chávez
 #' @return A [regulondb_result][regutools::regulondb_result-class] object.
 #' @examples
-
+#'
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -28,8 +28,10 @@
 #'     )
 #'
 #' ## Retrieve regulation of 'araC'
-#' get_regulatory_network(e_coli_regulondb, regulator = "AraC",
-#'     type = "TF-GENE")
+#' get_regulatory_network(e_coli_regulondb,
+#'     regulator = "AraC",
+#'     type = "TF-GENE"
+#' )
 #'
 #' ## Retrieve all GENE-GENE networks
 #' get_regulatory_network(e_coli_regulondb, type = "GENE-GENE")
@@ -37,7 +39,7 @@
 #' ## Retrieve TF-GENE network of AraC and display in Cytoscape
 #' ## Note that Cytospace needs to be open for this to work
 #' cytoscape_present <- try(RCy3::cytoscapePing(), silent = TRUE)
-#' if(!is(cytoscape_present, 'try-error')) {
+#' if (!is(cytoscape_present, "try-error")) {
 #'     get_regulatory_network(
 #'         e_coli_regulondb,
 #'         regulator = "AraC",
@@ -45,29 +47,31 @@
 #'         cytograph = TRUE
 #'     )
 #' }
-#'
 #' @export
 #' @importFrom RCy3 cytoscapePing createNetworkFromDataFrames
 #' setEdgeColorMapping setVisualStyle
 
 get_regulatory_network <-
     function(regulondb,
-            regulator = NULL,
-            type = "TF-GENE",
-            cytograph = FALSE) {
-        #Check type parameter
+    regulator = NULL,
+    type = "TF-GENE",
+    cytograph = FALSE) {
+        # Check type parameter
         if (!type %in% c("GENE-GENE", "TF-GENE", "TF-TF")) {
             stop("Parameter 'type' must be TF-GENE, TF-TF, or GENE-GENE.",
-                call. = FALSE)
+                call. = FALSE
+            )
         }
 
-        #Get Network
+        # Get Network
         if (!is.null(regulator)) {
             network <-
                 as.data.frame(get_dataset(
                     regulondb,
-                    attributes = c("regulator_name", "regulated_name",
-                                "effect"),
+                    attributes = c(
+                        "regulator_name", "regulated_name",
+                        "effect"
+                    ),
                     filters = list(
                         "network_type" = type,
                         "regulator_name" = regulator
@@ -78,22 +82,26 @@ get_regulatory_network <-
             network <-
                 as.data.frame(get_dataset(
                     regulondb,
-                    attributes = c("regulator_name", "regulated_name",
-                                "effect"),
+                    attributes = c(
+                        "regulator_name", "regulated_name",
+                        "effect"
+                    ),
                     filters = list("network_type" = type),
                     dataset = "NETWORK"
                 ))
         }
 
         if (cytograph) {
-            #CytoScape connection
+            # CytoScape connection
             tryCatch(
                 cytoscapePing(),
                 error = function(e) {
                     stop(
-                        paste("To use integration with Cytoscape,",
-                        "please launch Cytoscape before running",
-                        "get_regulatory_network()"),
+                        paste(
+                            "To use integration with Cytoscape,",
+                            "please launch Cytoscape before running",
+                            "get_regulatory_network()"
+                        ),
                         call. = FALSE
                     )
                 }
@@ -101,22 +109,22 @@ get_regulatory_network <-
             colnames(network) <-
                 c("source", "target", "interaction")
             my_new_network <-
-                createNetworkFromDataFrames(edges =  network)
+                createNetworkFromDataFrames(edges = network)
             # set visual parameters
             RCy3::setNodeShapeDefault(new.shape = "ELLIPSE")
             RCy3::setNodeSizeDefault(35)
             RCy3::setNodeColorDefault(new.color = "#ACE7F9")
-            RCy3::setEdgeLabelMapping(table.column = 'interaction')
+            RCy3::setEdgeLabelMapping(table.column = "interaction")
             RCy3::setEdgeColorMapping(
-                table.column = 'interaction',
-                table.column.values = c('activator', 'repressor', 'dual'),
-                colors = c('#339900', '#CC3300', '#0033CC'),
+                table.column = "interaction",
+                table.column.values = c("activator", "repressor", "dual"),
+                colors = c("#339900", "#CC3300", "#0033CC"),
                 mapping.type = "d"
             )
         } else {
             colnames(network) <- c("regulator", "regulated", "effect")
 
-            #Change effect to +, - and +/-
+            # Change effect to +, - and +/-
             network$effect <-
                 sub(
                     pattern = "activator",
@@ -141,5 +149,4 @@ get_regulatory_network <-
 
             return(network)
         }
-
     }

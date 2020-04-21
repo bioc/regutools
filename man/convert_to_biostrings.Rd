@@ -19,7 +19,7 @@ This function converts, when possible, a regulon_result object into a Biostrings
 }
 \examples{
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build the regulon db object
 e_coli_regulondb <-
@@ -32,7 +32,6 @@ e_coli_regulondb <-
 
 ## Obtain all the information from the "GENE" dataset
 convert_to_biostrings(get_dataset(e_coli_regulondb, dataset = "GENE"))
-
 }
 \author{
 Alejandro Reyes

@@ -36,7 +36,6 @@ existing_partial_match(
     partialmatch = "name",
     operator = "AND"
 )
-
 }
 \author{
 Carmina Barberena Jonás, Jesús Emiliano Sotelo Fonseca,

@@ -25,26 +25,26 @@
 #'     operator = "AND",
 #'     partialmatch = c("name", "strand")
 #' )
-#'
 #' @export
 
 
 existing_intervals <-
     function(filters, interval, operator, partialmatch) {
-        existing.interv.index <-  names(filters) %in% interval
+        existing.interv.index <- names(filters) %in% interval
         existing.interv <- filters[existing.interv.index]
 
-        #Check that interval's value is a pair
-        #If they are more than two, then drop the remaining
+        # Check that interval's value is a pair
+        # If they are more than two, then drop the remaining
         existing.interv <- lapply(existing.interv, function(x) {
             if (length(x) > 2) {
-            warning("Only the first two values of interval will be considered.",
-                        call. = FALSE)
+                warning("Only the first two values of interval will be considered.",
+                    call. = FALSE
+                )
                 x[seq_len(2L)]
-
             } else if (length(x) == 1) {
                 stop("Two values in the interval filter are required. ",
-                    call. = FALSE)
+                    call. = FALSE
+                )
             } else {
                 x
             }
@@ -54,7 +54,7 @@ existing_intervals <-
         condition.format.interv <-
             mapply(paste0, filters[existing.interv.index], "", SIMPLIFY = FALSE)
         condition.format.interv <-
-            lapply(condition.format.interv , function(y) {
+            lapply(condition.format.interv, function(y) {
                 paste(c(">=", "<="), y)
             })
         condition.format.interv <-
@@ -62,7 +62,7 @@ existing_intervals <-
                 paste,
                 names(condition.format.interv),
                 condition.format.interv,
-                sep = " " ,
+                sep = " ",
                 SIMPLIFY = FALSE
             )
         condition.format.interv <-
@@ -71,7 +71,8 @@ existing_intervals <-
             })
         condition.interv <-
             paste(unlist(condition.format.interv),
-                collapse = paste0(" ", operator, " "))
+                collapse = paste0(" ", operator, " ")
+            )
         if (!is.null(partialmatch)) {
             condition.partialmatch <-
                 existing_partial_match(filters, partialmatch, operator)

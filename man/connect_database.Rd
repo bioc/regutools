@@ -31,9 +31,8 @@ the RegulonDB SQLite database file into the \code{path} prior to loading it.
 \examples{
 
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Connect to the database without using AnnotationHub
 regulondb_conn_noAH <- connect_database(ah = NULL, overwrite = TRUE)
-
 }

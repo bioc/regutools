@@ -23,7 +23,7 @@
 #' @importFrom GenomicRanges strand mcols "strand<-" "mcols<-"
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -40,7 +40,8 @@
 #' ## Get the attributes posright and name from the "GENE" dataset
 #' get_dataset(e_coli_regulondb,
 #'     dataset = "GENE",
-#'     attributes = c("posright", "name"))
+#'     attributes = c("posright", "name")
+#' )
 #'
 #' ## From "GENE" dataset, get the gene name, strand, posright, product name
 #' ## and id of all genes regulated with name like "ara", strand as "forward"
@@ -58,27 +59,30 @@
 #'     partialmatch = "name",
 #'     interval = "posright"
 #' )
-#'
 #' @export
 #' @importFrom S4Vectors DataFrame
 #' @importFrom Biostrings DNAStringSet BStringSet
 get_dataset <-
     function(regulondb,
-            dataset = NULL,
-            attributes = NULL,
-            filters = NULL,
-            and = TRUE,
-            interval = NULL,
-            partialmatch = NULL,
-            output_format = "regulondb_result") {
+    dataset = NULL,
+    attributes = NULL,
+    filters = NULL,
+    and = TRUE,
+    interval = NULL,
+    partialmatch = NULL,
+    output_format = "regulondb_result") {
         # Check if format specification is valid
-        if (!output_format %in% c("regulondb_result",
-                                "GRanges",
-                                "DNAStringSet",
-                                "BStringSet")) {
+        if (!output_format %in% c(
+            "regulondb_result",
+            "GRanges",
+            "DNAStringSet",
+            "BStringSet"
+        )) {
             stop(
-                paste("Output format must be one of the following:",
-                "regulondb_result, GRanges, DNAStringSet or BStringSet"),
+                paste(
+                    "Output format must be one of the following:",
+                    "regulondb_result, GRanges, DNAStringSet or BStringSet"
+                ),
                 call. = FALSE
             )
         }
@@ -94,7 +98,8 @@ get_dataset <-
         }
         if (!all(dataset %in% list_datasets(regulondb))) {
             stop("Invalid dataset. See valid datasets in list_datasets()",
-                call. = FALSE)
+                call. = FALSE
+            )
         }
 
         # Validate attributes
@@ -121,7 +126,8 @@ get_dataset <-
             stop("Partialmatch ",
                 paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
                 " do not exist.",
-                call. = FALSE)
+                call. = FALSE
+            )
         }
 
         if (!all(partialmatch %in% names(filters))) {
@@ -131,13 +137,14 @@ get_dataset <-
             stop("Partialmatch ",
                 paste0('"', paste(non.existing.attrs, collapse = ", "), '"'),
                 " not defined in 'filters' ",
-                call. = FALSE)
+                call. = FALSE
+            )
         }
 
         # Sets logical operator
         if (and) {
             operator <- "AND"
-        } else{
+        } else {
             operator <- "OR"
         }
 
@@ -145,29 +152,35 @@ get_dataset <-
             query <- paste0("SELECT * FROM ", dataset, ";")
         } else if (is.null(attributes) & !is.null(filters)) {
             cond <-
-                build_condition(regulondb,
-                                dataset,
-                                filters,
-                                operator,
-                                interval,
-                                partialmatch)
+                build_condition(
+                    regulondb,
+                    dataset,
+                    filters,
+                    operator,
+                    interval,
+                    partialmatch
+                )
             query <-
                 paste0("SELECT * FROM ", dataset, " WHERE ", cond, ";")
         } else if (!is.null(attributes) & is.null(filters)) {
             query <-
-                paste0("SELECT ",
+                paste0(
+                    "SELECT ",
                     paste(attributes, collapse = " , "),
                     " FROM ",
                     dataset,
-                    ";")
+                    ";"
+                )
         } else {
             cond <-
-                build_condition(regulondb,
-                                dataset,
-                                filters,
-                                operator,
-                                interval,
-                                partialmatch)
+                build_condition(
+                    regulondb,
+                    dataset,
+                    filters,
+                    operator,
+                    interval,
+                    partialmatch
+                )
             query <-
                 paste(
                     "SELECT ",
@@ -175,13 +188,13 @@ get_dataset <-
                     "FROM ",
                     dataset,
                     " WHERE ",
-                    cond ,
+                    cond,
                     ";"
-                ) #Construct query
+                ) # Construct query
         }
         result <- dbGetQuery(regulondb, query)
 
-        #Check if results exist
+        # Check if results exist
         if (!nrow(result)) {
             warning("Your query returned no results.")
         }
@@ -216,7 +229,7 @@ get_dataset <-
 #' @export
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -229,10 +242,10 @@ get_dataset <-
 #'
 #' ## Obtain all the information from the "GENE" dataset
 #' convert_to_granges(get_dataset(e_coli_regulondb, dataset = "GENE"))
-#'
 convert_to_granges <- function(regulondb_result) {
-    if (!is(regulondb_result, "regulondb_result"))
-        stop("The input is not a 'regulondb_result' object.")
+    if (!is(regulondb_result, "regulondb_result")) {
+          stop("The input is not a 'regulondb_result' object.")
+      }
     dataset <- regulondb_result@dataset
     if (dataset %in% c("GENE", "DNA_OBJECTS")) {
         posLeft <- "posleft"
@@ -240,11 +253,13 @@ convert_to_granges <- function(regulondb_result) {
     } else if (dataset == "OPERON") {
         posLeft <- "regulationposleft"
         posRight <- "regulationposright"
-    } else{
+    } else {
         stop(
             sprintf(
-                paste("Can not coerse 'regulondb_result' from dataset %s",
-                "into a GRanges object\n"),
+                paste(
+                    "Can not coerse 'regulondb_result' from dataset %s",
+                    "into a GRanges object\n"
+                ),
                 dataset
             )
         )
@@ -253,38 +268,44 @@ convert_to_granges <- function(regulondb_result) {
         ### coding of regulondb for missing coordinates ###
         nopos <-
             regulondb_result[[posLeft]] == 9999999999 &
-            regulondb_result[[posRight]] == 0
+                regulondb_result[[posRight]] == 0
         keep <-
             !(is.na(regulondb_result[[posLeft]]) |
                 is.na(regulondb_result[[posRight]]))
         keep <- keep & !nopos
         grdata <- GRanges(
             regulondb_result@organism,
-            IRanges(start = regulondb_result[[posLeft]][keep],
-                    end = regulondb_result[[posRight]][keep])
+            IRanges(
+                start = regulondb_result[[posLeft]][keep],
+                end = regulondb_result[[posRight]][keep]
+            )
         )
         if ("strand" %in% names(regulondb_result)) {
             stnd <-
                 ifelse(regulondb_result$strand[which(keep)] == "forward",
-                        "+", "-")
+                    "+", "-"
+                )
             stnd[which(is.na(stnd))] <- "*"
             strand(grdata) <- stnd
         }
         mcols(grdata) <-
             DataFrame(regulondb_result[keep, !colnames(regulondb_result) %in%
-                                c(posLeft, posRight, "strand"), drop = FALSE])
-        if (sum(!keep) > 0)
-            warning(sprintf(
-                "Dropped %s entries where genomic coordinates were NAs",
-                sum(!keep)
-            ))
+                c(posLeft, posRight, "strand"), drop = FALSE])
+        if (sum(!keep) > 0) {
+              warning(sprintf(
+                  "Dropped %s entries where genomic coordinates were NAs",
+                  sum(!keep)
+              ))
+          }
         grdata
-    } else{
+    } else {
         stop(
             sprintf(
-                paste("Not enough information to convert into a GRanges",
-                "object. Please make sure that the input the following",
-                "columns: \n\t%s"),
+                paste(
+                    "Not enough information to convert into a GRanges",
+                    "object. Please make sure that the input the following",
+                    "columns: \n\t%s"
+                ),
                 paste(c(posLeft, posRight), collapse = "\n\t")
             ),
             call. = FALSE
@@ -312,7 +333,7 @@ convert_to_granges <- function(regulondb_result) {
 #' @export
 #' @examples
 #' ## Connect to the RegulonDB database if necessary
-#' if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+#' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Build the regulon db object
 #' e_coli_regulondb <-
@@ -325,30 +346,33 @@ convert_to_granges <- function(regulondb_result) {
 #'
 #' ## Obtain all the information from the "GENE" dataset
 #' convert_to_biostrings(get_dataset(e_coli_regulondb, dataset = "GENE"))
-#'
 convert_to_biostrings <-
     function(regulondb_result, seq_type = "DNA") {
-        if (!is(regulondb_result, "regulondb_result"))
-            stop("The input is not a 'regulondb_result' object.")
-        if (!seq_type %in% c("DNA", "product"))
-            stop("'seq_type' must be either 'DNA' or 'product'")
+        if (!is(regulondb_result, "regulondb_result")) {
+              stop("The input is not a 'regulondb_result' object.")
+          }
+        if (!seq_type %in% c("DNA", "product")) {
+              stop("'seq_type' must be either 'DNA' or 'product'")
+          }
         dataset <- regulondb_result@dataset
         if (dataset == "GENE") {
             if (seq_type == "DNA") {
                 func <- Biostrings::DNAStringSet
                 col_name <- "dna_sequence"
-            } else{
+            } else {
                 func <- Biostrings::BStringSet
                 col_name <- "product_sequence"
             }
         } else if (dataset == "PROMOTER") {
             func <- Biostrings::DNAStringSet
             col_name <- "promoter_sequence"
-        } else{
+        } else {
             stop(
                 sprintf(
-                    paste("Can not coerse 'regulondb_result' from dataset %s",
-                    "into a Biostrings object\n"),
+                    paste(
+                        "Can not coerse 'regulondb_result' from dataset %s",
+                        "into a Biostrings object\n"
+                    ),
                     dataset
                 )
             )
@@ -356,9 +380,11 @@ convert_to_biostrings <-
         if (!col_name %in% colnames(regulondb_result)) {
             stop(
                 sprintf(
-                    paste("Not enough information to convert to a Biostrings",
-                    "object.\nPlease add the following column to the",
-                    "regulondb_result object: \n\t%s\n"),
+                    paste(
+                        "Not enough information to convert to a Biostrings",
+                        "object.\nPlease add the following column to the",
+                        "regulondb_result object: \n\t%s\n"
+                    ),
                     col_name
                 )
             )
@@ -369,7 +395,7 @@ convert_to_biostrings <-
         rs <- func(seq_character[which(keep)])
         mcols(rs) <-
             regulondb_result[which(keep), !colnames(regulondb_result) %in%
-                            col_name, drop = FALSE]
+                col_name, drop = FALSE]
         if (sum(!keep)) {
             warning(sprintf(
                 "Dropped %s entries where sequence data were NAs",
