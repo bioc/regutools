@@ -1,12 +1,14 @@
 #' Connect to the regulondb database
-#' @description If the file does not exist, this function downloads
-#' the RegulonDB SQLite database file into the `path` prior to loading it.
-#' @param path The directory where the database will be downloaded to.
-#' @param overwrite `logical(1)` specifying whether to overwrite the database
-#' file.
-#' @param ah An `AnnotationtHub` object
+#' @description This function downloads the RegulonDB SQLite database file
+#' prior to making a connection to it. It will cache the database file such
+#' that subsequent calls will run faster. This function requires an active
+#' internet connection.
+#' @param ah An `AnnotationHub` object
 #' [AnnotationHub-class][AnnotationHub::AnnotationHub-class]. Can be `NULL`
 #' if you want to force to use the backup download mechanism.
+#' @param bfc A `BiocFileCache` object
+#' [BiocFileCache-class][BiocFileCache::BiocFileCache-class]. Used when
+#' `ah` is not available.
 #' @return An [SQLiteConnection-class][RSQLite::SQLiteConnection-class]
 #' connection to the RegulonDB database.
 #' @export
@@ -21,11 +23,11 @@
 #' if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 #'
 #' ## Connect to the database without using AnnotationHub
-#' regulondb_conn_noAH <- connect_database(ah = NULL, overwrite = TRUE)
+#' regulondb_conn_noAH <- connect_database(ah = NULL)
 connect_database <-
-    function(path = tempdir(),
-    overwrite = FALSE,
-    ah = AnnotationHub::AnnotationHub()) {
+    function(
+    ah = AnnotationHub::AnnotationHub(),
+    bfc = BiocFileCache::BiocFileCache()) {
         if (!is.null(ah)) {
             ## Check input
             stopifnot(methods::is(ah, "AnnotationHub"))
@@ -50,7 +52,6 @@ connect_database <-
 
 
         ## Otherwise, use the Dropbox version and cache it with BiocFileCache
-        bfc <- BiocFileCache::BiocFileCache()
         url <-
             paste0(
                 "https://www.dropbox.com/s/eod8vdq4fthvjcr/",

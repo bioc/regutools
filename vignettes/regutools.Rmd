@@ -148,7 +148,7 @@ library("regutools")
 library("Biostrings")
 
 ## Connect to the RegulonDB database
-regulondb_conn <- connect_database(overwrite = TRUE)
+regulondb_conn <- connect_database()
 
 ## Build a regulondb object
 e_coli_regulondb <-

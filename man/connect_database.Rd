@@ -5,28 +5,28 @@
 \title{Connect to the regulondb database}
 \usage{
 connect_database(
-  path = tempdir(),
-  overwrite = FALSE,
-  ah = AnnotationHub::AnnotationHub()
+  ah = AnnotationHub::AnnotationHub(),
+  bfc = BiocFileCache::BiocFileCache()
 )
 }
 \arguments{
-\item{path}{The directory where the database will be downloaded to.}
-
-\item{overwrite}{\code{logical(1)} specifying whether to overwrite the database
-file.}
-
-\item{ah}{An \code{AnnotationtHub} object
+\item{ah}{An \code{AnnotationHub} object
 \link[AnnotationHub:AnnotationHub-class]{AnnotationHub-class}. Can be \code{NULL}
 if you want to force to use the backup download mechanism.}
+
+\item{bfc}{A \code{BiocFileCache} object
+\link[BiocFileCache:BiocFileCache-class]{BiocFileCache-class}. Used when
+\code{ah} is not available.}
 }
 \value{
 An \link[RSQLite:SQLiteConnection-class]{SQLiteConnection-class}
 connection to the RegulonDB database.
 }
 \description{
-If the file does not exist, this function downloads
-the RegulonDB SQLite database file into the \code{path} prior to loading it.
+This function downloads the RegulonDB SQLite database file
+prior to making a connection to it. It will cache the database file such
+that subsequent calls will run faster. This function requires an active
+internet connection.
 }
 \examples{
 
@@ -34,5 +34,5 @@ the RegulonDB SQLite database file into the \code{path} prior to loading it.
 if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Connect to the database without using AnnotationHub
-regulondb_conn_noAH <- connect_database(ah = NULL, overwrite = TRUE)
+regulondb_conn_noAH <- connect_database(ah = NULL)
 }

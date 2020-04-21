@@ -1,3 +1,9 @@
+# regutools 0.99.14
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Now `connect_database()` as a `bfc` parameter instead of `path`.
+
 # regutools 0.99.13
 
 SIGNIFICANT USER-VISIBLE CHANGES
