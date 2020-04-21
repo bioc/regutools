@@ -13,6 +13,7 @@
 #' @importFrom utils download.file
 #' @import AnnotationHub
 #' @importFrom AnnotationDbi dbFileConnect
+#' @importFrom BiocFileCache BiocFileCache bfcrpath
 #'
 #' @examples
 #'
@@ -48,36 +49,13 @@ connect_database <-
         }
 
 
-        ## Otherwise, use the Dropbox version
-        destfile <-
-            file.path(path, "regulondb_sqlite3_v10.6.2_DM.db")
+        ## Otherwise, use the Dropbox version and cache it with BiocFileCache
+        bfc <- BiocFileCache::BiocFileCache()
         url <-
-            "https://www.dropbox.com/s/eod8vdq4fthvjcr/regulondb_v10.6.2_DM_sqlite3.db?dl=1"
-        e <- simpleError("Download error")
-        if (overwrite) {
-            tryCatch(
-                download.file(url = url, destfile, mode = "wb"),
-                error = function(e) {
-                      e
-                  }
+            paste0(
+                "https://www.dropbox.com/s/eod8vdq4fthvjcr/",
+                "regulondb_v10.6.2_DM_sqlite3.db?dl=1"
             )
-        } else {
-            if (!file.exists(destfile)) {
-                tryCatch(
-                    download.file(url = url, destfile, mode = "wb"),
-                    error = function(e) {
-                          e
-                      }
-                )
-            } else {
-                message(
-                    paste(
-                        "regulondb_sqlite3_v10.6.2_DM.db already exists in",
-                        "local directory, setoverwrite = TRUE if you want to",
-                        "replace the existing file."
-                    )
-                )
-            }
-        }
+        destfile <- BiocFileCache::bfcrpath(bfc, url)
         AnnotationDbi::dbFileConnect(destfile)
     }

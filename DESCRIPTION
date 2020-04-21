@@ -1,6 +1,6 @@
 Package: regutools
 Title: regutools: an R package for data extraction from RegulonDB
-Version: 0.99.12
+Version: 0.99.13
 Date: 2020-04-21
 Authors@R: c(
     person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com",
@@ -49,7 +49,8 @@ Imports:
     S4Vectors,
     methods,
     stats,
-    utils
+    utils,
+    BiocFileCache
 LazyData: true
 RoxygenNote: 7.1.0
 Suggests: 

@@ -73,6 +73,7 @@ bib <- c(
     R = citation(),
     AnnotationDbi = citation("AnnotationDbi"),
     AnnotationHub = citation("AnnotationHub"),
+    BiocFileCache = citation("BiocFileCache"),
     BiocStyle = citation("BiocStyle"),
     Biostrings = citation("Biostrings"),
     DBI = citation("DBI"),
@@ -443,6 +444,7 @@ The `r Biocpkg('regutools')` package `r citep(bib[['regutools']])` was made poss
 * R `r citep(bib[['R']])`
 * `r Biocpkg('AnnotationDbi')` `r citep(bib[['AnnotationDbi']])`
 * `r Biocpkg('AnnotationHub')` `r citep(bib[['AnnotationHub']])`
+* `r Biocpkg('BiocFileCache')` `r citep(bib[['BiocFileCache']])`
 * `r Biocpkg('BiocStyle')` `r citep(bib[['BiocStyle']])`
 * `r Biocpkg('Biostrings')` `r citep(bib[['Biostrings']])`
 * `r CRANpkg('DBI')` `r citep(bib[['DBI']])`

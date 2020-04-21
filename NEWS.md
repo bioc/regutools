@@ -1,3 +1,12 @@
+# regutools 0.99.13
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Now `connect_database()` uses `BiocFileCache::BiocFileCache()` and
+`BiocFileCache::bfcrpath()` to download the database from Dropbox when it's
+not available from `AnnotationHub::query()` and caches the file so you
+don't have to re-download it multiple times.
+
 # regutools 0.99.12
 
 SIGNIFICANT USER-VISIBLE CHANGES
