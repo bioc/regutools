@@ -126,7 +126,7 @@ print(citation('regutools'), bibtex = TRUE)
 #> for data extraction from RegulonDB_. doi: 10.18129/B9.bioc.regutools
 #> (URL: https://doi.org/10.18129/B9.bioc.regutools),
 #> https://github.com/comunidadbioinfo/regutools - R package version
-#> 0.99.14, <URL: http://www.bioconductor.org/packages/regutools>.
+#> 0.99.15, <URL: http://www.bioconductor.org/packages/regutools>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -135,7 +135,7 @@ print(citation('regutools'), bibtex = TRUE)
 #>     author = {Joselyn Chávez and Carmina Barberena-Jonas and Jesus Emiliano Sotelo-Fonseca and Jose Alquicira-Hernandez and Heladia Salgado and Leonardo Collado-Torres and Alejandro Reyes},
 #>     year = {2020},
 #>     url = {http://www.bioconductor.org/packages/regutools},
-#>     note = {https://github.com/comunidadbioinfo/regutools - R package version 0.99.14},
+#>     note = {https://github.com/comunidadbioinfo/regutools - R package version 0.99.15},
 #>     doi = {10.18129/B9.bioc.regutools},
 #>   }
 #> 
