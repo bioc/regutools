@@ -7,6 +7,6 @@ planning
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-dev
 ^\.github$
 ^codecov\.yml$
+^dev$

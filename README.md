@@ -126,7 +126,7 @@ print(citation('regutools'), bibtex = TRUE)
 #> for data extraction from RegulonDB_. doi: 10.18129/B9.bioc.regutools
 #> (URL: https://doi.org/10.18129/B9.bioc.regutools),
 #> https://github.com/comunidadbioinfo/regutools - R package version
-#> 0.99.15, <URL: http://www.bioconductor.org/packages/regutools>.
+#> 1.1.1, <URL: http://www.bioconductor.org/packages/regutools>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -135,15 +135,16 @@ print(citation('regutools'), bibtex = TRUE)
 #>     author = {Joselyn Chávez and Carmina Barberena-Jonas and Jesus Emiliano Sotelo-Fonseca and Jose Alquicira-Hernandez and Heladia Salgado and Leonardo Collado-Torres and Alejandro Reyes},
 #>     year = {2020},
 #>     url = {http://www.bioconductor.org/packages/regutools},
-#>     note = {https://github.com/comunidadbioinfo/regutools - R package version 0.99.15},
+#>     note = {https://github.com/comunidadbioinfo/regutools - R package version 1.1.1},
 #>     doi = {10.18129/B9.bioc.regutools},
 #>   }
 #> 
 #> Chávez J, Barberena-Jonas C, Sotelo-Fonseca JE, Alquicira-Hernandez J,
 #> Salgado H, Collado-Torres L, Reyes A (2020). "Programmatic access to
 #> bacterial regulatory networks with regutools." _bioRxiv_. doi:
-#> 10.1101/xxxyyy (URL: https://doi.org/10.1101/xxxyyy), <URL:
-#> https://doi.org/10.1101/xxxyyy>.
+#> 10.1101/2020.04.29.068551 (URL:
+#> https://doi.org/10.1101/2020.04.29.068551), <URL:
+#> https://doi.org/10.1101/2020.04.29.068551>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -152,8 +153,8 @@ print(citation('regutools'), bibtex = TRUE)
 #>     author = {Joselyn Chávez and Carmina Barberena-Jonas and Jesus Emiliano Sotelo-Fonseca and Jose Alquicira-Hernandez and Heladia Salgado and Leonardo Collado-Torres and Alejandro Reyes},
 #>     year = {2020},
 #>     journal = {bioRxiv},
-#>     doi = {10.1101/xxxyyy},
-#>     url = {https://doi.org/10.1101/xxxyyy},
+#>     doi = {10.1101/2020.04.29.068551},
+#>     url = {https://doi.org/10.1101/2020.04.29.068551},
 #>   }
 ```
 
