@@ -1,3 +1,12 @@
+# regutools 1.1.1
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The package CITATION file has been updated now that the pre-print on
+`regutools` is available at 
+https://www.biorxiv.org/content/10.1101/2020.04.29.068551v1 with DOI
+ https://doi.org/10.1101/2020.04.29.068551.
+
 # regutools 0.99.14
 
 SIGNIFICANT USER-VISIBLE CHANGES
