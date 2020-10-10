@@ -23,7 +23,7 @@ function retrieves all existent networks in the regulonDB.}
 requires previous instalation and launch of Cytoscape.}
 }
 \value{
-A \link[regutools:regulondb_result-class]{regulondb_result} object.
+A \link[=regulondb_result-class]{regulondb_result} object.
 }
 \description{
 This function retrieves all the regulation networks in

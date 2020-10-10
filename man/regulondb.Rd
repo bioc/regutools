@@ -22,7 +22,7 @@ build.}
 build.}
 }
 \value{
-A \link[regutools:regulondb]{regulondb} object.
+A \link[=regulondb]{regulondb} object.
 }
 \description{
 The build_regulondb function is a constructor function of a

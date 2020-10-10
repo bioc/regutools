@@ -21,7 +21,7 @@ get_gene_synonyms(
 \item{to}{A \code{character()} specifying one or more of: id, name, bnumber of gi}
 }
 \value{
-A \link[regutools:regulondb_result-class]{regulondb_result} object.
+A \link[=regulondb_result-class]{regulondb_result} object.
 }
 \description{
 Given a list of genes (id, name, bnumber or gi),

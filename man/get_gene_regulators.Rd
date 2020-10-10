@@ -16,7 +16,7 @@ get_gene_regulators(regulondb, genes, format = "multirow", output.type = "TF")
 \item{output.type}{How regulators will be represented: "TF"/"GENE"}
 }
 \value{
-A \link[regutools:regulondb_result-class]{regulondb_result} object.
+A \link[=regulondb_result-class]{regulondb_result} object.
 }
 \description{
 Given a list of genes (name, bnumber or GI),
