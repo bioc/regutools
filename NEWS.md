@@ -1,3 +1,15 @@
+# regutools 1.1.3
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The package CITATION file has been updated now that the online paper on
+`regutools` is available at 
+https://academic.oup.com/bioinformatics/advance-article-abstract/doi/10.1093/bioinformatics/btaa575/5861528 with DOI 10.1093/bioinformatics/btaa575 and PMID: 32573705.
+
+DOCUMENTATION UPDATES
+
+* roxygen version update was included and documentation was build under the new roxygen version.
+
 # regutools 1.1.1
 
 SIGNIFICANT USER-VISIBLE CHANGES
