@@ -34,8 +34,8 @@ c(
             as.person("Alejandro Reyes")
         ),
         year = 2020,
-        journal = "bioRxiv",
-        doi = "10.1101/2020.04.29.068551",
-        url = "https://doi.org/10.1101/2020.04.29.068551"
+        journal = "Bioinformatics",
+        doi = "10.1093/bioinformatics/btaa575",
+        url = "https://academic.oup.com/bioinformatics/advance-article-abstract/doi/10.1093/bioinformatics/btaa575/5861528"
     )
 )
