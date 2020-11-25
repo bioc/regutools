@@ -54,7 +54,7 @@ connect_database <-
         ## Otherwise, use the Dropbox version and cache it with BiocFileCache
         url <-
             paste0(
-                "https://www.dropbox.com/s/eod8vdq4fthvjcr/",
+                "https://www.dropbox.com/s/2m6p5s8gjktzmpg/",
                 "regulondb_v10.6.2_DM_sqlite3.db?dl=1"
             )
         destfile <- BiocFileCache::bfcrpath(bfc, url)
