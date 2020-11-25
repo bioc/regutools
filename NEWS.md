@@ -1,4 +1,4 @@
-# regutools 1.1.4
+# regutools 1.3.1
 
 BUG FIXES
 
