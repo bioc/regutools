@@ -1,3 +1,10 @@
+# regutools 1.2.1
+
+BUG FIXES
+
+* Fixed URL for the database. Resolves 
+https://github.com/ComunidadBioInfo/regutools/issues/33.
+
 # regutools 1.1.3
 
 SIGNIFICANT USER-VISIBLE CHANGES
