@@ -1,3 +1,9 @@
+# regutools 1.3.2
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The link provided inside connect_database() has been updated in order to connect with the latest version of regulonDB v10.8.
+
 # regutools 1.3.1
 
 BUG FIXES
