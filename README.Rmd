@@ -6,10 +6,10 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
 )
 ```
 
@@ -36,8 +36,9 @@ For more details, please check the [documentation website](http://comunidadbioin
 You can install the released version of `regutools` from [Bioconductor](http://bioconductor.org/) with:
 
 ```{r 'install release', eval = FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+      install.packages("BiocManager")
+  }
 
 BiocManager::install("regutools")
 
@@ -56,11 +57,11 @@ BiocManager::install("ComunidadBioinfo/regutools")
 This is a basic example which shows you how to use `regutools`. For more details, please check the vignette.
 
 ```{r example}
-library('regutools')
+library("regutools")
 ## basic example code
 
 ## Connect to the RegulonDB database if necessary
-if(!exists('regulondb_conn')) regulondb_conn <- connect_database()
+if (!exists("regulondb_conn")) regulondb_conn <- connect_database()
 
 ## Build a regulondb object
 e_coli_regulondb <-
@@ -93,8 +94,9 @@ For more information about `regutools` check the vignettes [through Bioconductor
 Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `regutools` using from [Bioconductor](http://bioconductor.org/) the following code:
 
 ```{r 'install', eval = FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+      install.packages("BiocManager")
+  }
 
 BiocManager::install("regutools")
 ```
@@ -105,7 +107,7 @@ Below is the citation output from using `citation('regutools')` in R. Please
 run this yourself to check for any updates on how to cite __regutools__.
 
 ```{r 'citation', eval = requireNamespace('regutools')}
-print(citation('regutools'), bibtex = TRUE)
+print(citation("regutools"), bibtex = TRUE)
 ```
 
 Please note that the `regutools` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
@@ -123,6 +125,8 @@ Please note that the derfinderPlot project is released with a [Contributor Code 
 * The documentation is formatted thanks to `r BiocStyle::CRANpkg('devtools')` and `r BiocStyle::CRANpkg('roxygen2')`.
 
 For more details, check the `dev` directory.
+
+This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
 
 
 # RegulonDB

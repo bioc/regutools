@@ -54,8 +54,13 @@ connect_database <-
         ## Otherwise, use the Dropbox version and cache it with BiocFileCache
         url <-
             paste0(
+<<<<<<< HEAD
                 "https://www.dropbox.com/s/2m6p5s8gjktzmpg/",
                 "regulondb_v10.6.2_DM_sqlite3.db?dl=1"
+=======
+                "https://www.dropbox.com/s/ufp6wqcv5211v1w/",
+                "regulondb_v10.8_sqlite.db?dl=1"
+>>>>>>> 796bc64... v1.3.3 -- update to latest biocthis GHA; replace knitcitations with RefManageR
             )
         destfile <- BiocFileCache::bfcrpath(bfc, url)
         AnnotationDbi::dbFileConnect(destfile)
