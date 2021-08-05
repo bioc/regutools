@@ -1,7 +1,7 @@
 Package: regutools
 Title: regutools: an R package for data extraction from RegulonDB
-Version: 1.5.0
-Date: 2020-12-18
+Version: 1.5.1
+Date: 2021-08-05
 Authors@R: c(
     person ("Joselyn", "Chavez", email =  "joselynchavezf@gmail.com",
         role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4974-4591")),
