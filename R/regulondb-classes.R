@@ -116,11 +116,11 @@ regulondb <-
 #' build.
 #' @slot dataset A character string with the name of the table used for the
 #' query in get_dataset().
-#' @importClassesFrom S4Vectors DataFrame
+#' @importClassesFrom S4Vectors DFrame
 #' @export
 setClass(
     "regulondb_result",
-    contains = "DataFrame",
+    contains = "DFrame",
     slots = list(
         organism = "character",
         genome_version = "character",
